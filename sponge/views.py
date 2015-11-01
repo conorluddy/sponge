@@ -20,6 +20,22 @@ def docs():
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/user/add')
+@documentor.doc()
+def user_add():
+    db.insert_user(
+        mail=request.args.get("mail"),
+        first=request.args.get("first"),
+        last=request.args.get("last"),
+        intro=request.args.get("intro"),
+    )
+    return json_response(True)
+
+@app.route('/user')
+@documentor.doc()
+def user():
+    return json_response(db.find_by_id("user", request.args.get("id")))
+
 ### Pizza API ####
 
 # @app.route('/pizza')

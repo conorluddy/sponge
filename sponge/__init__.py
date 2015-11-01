@@ -1,10 +1,8 @@
 import argparse
 from Queue import Queue
 from threading import Thread
-from vendors import dominos
 from database import Database
 from cleaner import Cleaner
-from keeper import Keeper
 from flask.ext.autodoc import Autodoc
 from flask_pymongo import MongoClient
 from flask import Flask
@@ -27,16 +25,7 @@ db_wrapper = Database(db_client[cfg["database"]["name"]])
 
 # Cleaner
 if cfg["cleaner"]["enabled"]:
-    Thread(target=Cleaner(cfg["cleaner"]["frequency"], cfg["cleaner"]["data_expiry_hours"], db_wrapper).run).start()
-
-# Scraper
-if cfg["scraper"]["enabled"]:
-    # Collection
-    pizza_queue = Queue()
-    Thread(target=Collector(cfg["scraper"]["frequency"], cfg["scraper"]["web_driver"], pizza_queue).run).start()
-
-    # Persistence
-    Thread(target=Keeper(db_wrapper, pizza_queue).run).start()
+    Thread(target=Cleaner(cfg["cleaner"]["frequency"], db_wrapper).run).start()
 
 # Web Server
 if cfg["web_server"]["enabled"]:
@@ -45,5 +34,5 @@ if cfg["web_server"]["enabled"]:
     documentor = Autodoc(app)
 
     # Run Server
-    from slice_scanner import views
+    from sponge import views
     Thread(target=app.run, args=(cfg["web_server"]["host"], cfg["web_server"]["port"]) ).start()

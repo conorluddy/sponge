@@ -5,8 +5,8 @@ class User(Document):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, **kwargs):
-        self.id = kwargs["id"]
-        self.name = kwargs["name"]
+        self.first = kwargs["first"]
+        self.last = kwargs["last"]
         self.mail = kwargs["mail"]
         self.intro = kwargs["intro"]
         self.image = kwargs.get("image")
@@ -17,8 +17,8 @@ class User(Document):
 
     def _json(self):
         return {
-            "id": self.id,
-            "name": self.name,
+            "first": self.first,
+            "last": self.last,
             "mail": self.mail,
             "intro": self.intro,
             "image": self.image,

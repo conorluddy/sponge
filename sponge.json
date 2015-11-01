@@ -1,16 +1,19 @@
 {
     "database": {
         "name": "sponge",
-        "host": "52.18.34.44",
+        "host": "localhost",
         "port": 27017
     },
     "logging": {
-        "file": "D:\\sponge.log",
+        "file": "C:\\sponge\\sponge.log",
         "level": 20
     },
     "web_server": {
         "host": "localhost",
         "port": 5001,
         "enabled": true
+    },
+    "cleaner": {
+        "enabled": false
     }
 }

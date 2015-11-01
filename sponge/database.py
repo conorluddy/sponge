@@ -1,6 +1,8 @@
 import json
 import logging
+from bson import ObjectId
 
+from sponge.objects.user import User
 from utils import strip_dict
 
 class Database():
@@ -19,11 +21,12 @@ class Database():
     def reset_database(self):
         self.db.user.drop()
 
-    def insert_user(self, user):
-        self.insert_document(self.db.user, user)
+    def insert_user(self, **kwargs):
+        # TODO - validate user doesnt exist
+        self.insert_document("user", User(**kwargs))
 
     def get_user(self, id):
-        return self.query("user", {"id": id})
+        return self.query("user", {"_id": id})
 
     def insert_document(self, collection_name, document):
         json_document = document.to_dict()
@@ -35,6 +38,9 @@ class Database():
         logging.info("Rem: col=%s qry=%s" % (collection_name, query))
 
         self._get_collection(collection_name).remove(strip_dict(query))
+
+    def find_by_id(self, collection_name, document_id):
+        return self._serialise(self._get_collection(collection_name).find({"_id": ObjectId(document_id)}))
 
     def query(self, collection_name, query, sort_by=None, sort_dir=None, page=None):
         logging.info("Qry: col=%s qry=%s srt=%s:%s pg=%s" % (collection_name, query, sort_by, sort_dir, page ) )
