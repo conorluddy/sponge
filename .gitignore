@@ -1,1 +1,4 @@
 *.pyc
+.cache/v/cache/lastfailed
+.idea/sponge.iml
+.idea/workspace.xml

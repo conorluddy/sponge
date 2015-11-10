@@ -1,0 +1,17 @@
+CATEGORIES = [
+    "Accomodation",
+    "Baby",
+    "Clothing",
+    "Electronics",
+    "Home & Garden",
+    "Media",
+    "Other",
+    "Pets",
+    "Sport",
+    "Space",
+    "Services",
+    "Musical Instruments",
+    "Tools",
+    "Travel & Outdoor",
+    "Vehicles",
+]

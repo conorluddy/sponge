@@ -1,5 +1,5 @@
 from flask import make_response
-from uuid import uuid5, NAMESPACE_DNS
+from uuid import uuid4, uuid5, NAMESPACE_DNS
 from logging.handlers import RotatingFileHandler
 import logging
 import json
@@ -17,6 +17,9 @@ def list_to_title_string(list):
 
 def make_uuid(string):
     return str(uuid5(NAMESPACE_DNS, string))
+
+def random_uuid():
+    return str(uuid4())
 
 def wrapped_execute(func, *args, **kwargs):
     try:

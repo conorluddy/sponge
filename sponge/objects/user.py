@@ -1,10 +1,11 @@
 import abc
-from sponge.objects.document import Document
+from document import Document
 
 class User(Document):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
         self.first = kwargs["first"]
         self.last = kwargs["last"]
         self.mail = kwargs["mail"]

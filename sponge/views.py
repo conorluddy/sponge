@@ -1,8 +1,11 @@
 from flask import request
-from sponge.utils import json_response
-from sponge import app
-from sponge import documentor
-from sponge import db_wrapper as db
+from utils import json_response
+from flask import Flask
+from flask.ext.autodoc import Autodoc
+
+app = Flask(__name__, static_url_path='')
+documentor = Autodoc(app)
+db = None# DB Wrapper Placeholder
 
 @app.route('/docs')
 @documentor.doc()
@@ -34,7 +37,7 @@ def user_add():
 @app.route('/user')
 @documentor.doc()
 def user():
-    return json_response(db.find_by_id("user", request.args.get("id")))
+    return json_response(db.find_one("user", request.args.get("id")))
 
 ### Pizza API ####
 
