@@ -1,8 +1,6 @@
 import json
 import logging
 
-from objects.user import User
-from objects.item import Item
 from utils import strip_dict
 from constants import CATEGORIES
 
@@ -18,7 +16,9 @@ class Database():
         self.create_defaults()
 
     def create_indexes(self):
-        self.db.user.create_index("id")
+        self.db.user.create_index("uuid")
+        self.db.item.create_index("uuid")
+        self.db.category.create_index("uuid")
 
     def create_defaults(self):
         # TODO
@@ -29,45 +29,23 @@ class Database():
         self.db.item.drop()
         self.db.category.drop()
 
-    #### User ####
-
-    def insert_user(self, **kwargs):
-        # TODO - validate user doesnt exist
-        return self.insert("user", User(**kwargs))
-
-    def remove_user(self, user_id):
-        return self.remove("user", user_id)
-
-    def get_user(self, user_id):
-        return self.find_one("user", user_id)
-
-    #### Item ####
-
-    def insert_item(self, **kwargs):
-        return self.insert("item", Item(**kwargs))
-
-    def remove_item(self, item_uuid):
-        return self.remove("item", item_uuid)
-
-    def update_item(self, item_uuid, **kwargs):
-        return self.update("item", item_uuid, Item(**kwargs))
-
-    def get_item(self, item_uuid):
-        return self.find_one("item", item_uuid)
-
-    #### Base Access ####
-
     def insert(self, collection_name, document):
         json_document = document.to_dict()
         logging.info("Ins: col=%s doc=%s" % (collection_name, json_document))
         self._get_collection(collection_name).insert(json_document)
         return json_document["uuid"]
 
-    def update(self, collection_name, document_uuid, document):
+    def update(self, collection_name, document_uuid, update_dict):
+        logging.info("Upd: col=%s uuid=%s upd=%s" % (collection_name, document_uuid, update_dict))
+        self._get_collection(collection_name).update({'uuid': document_uuid}, update_dict)
+        return document_uuid
+
+    def replace(self, collection_name, document_uuid, document):
         json_document = document.to_dict()
-        logging.info("Upd: col=%s doc=%s" % (collection_name, json_document))
-        self._get_collection(collection_name).replace_one({'uuid': document_uuid}, json_document)
-        return json_document["uuid"]
+        json_document["uuid"] = document_uuid
+        logging.info("Rpl: col=%s uuid=%s doc=%s" % (collection_name, document_uuid, json_document))
+        self._get_collection(collection_name).update({'uuid': document_uuid}, json_document)
+        return document_uuid
 
     def remove(self, collection_name, document_uuid):
         logging.info("Rem: col=%s qry=%s" % (collection_name, {"uuid": document_uuid}))
@@ -77,7 +55,7 @@ class Database():
         logging.info("RemAll: col=%s " % collection_name)
         self._get_collection(collection_name).remove({})
 
-    def find_one(self, collection_name, document_uuid):
+    def get(self, collection_name, document_uuid):
         return self._serialise_document(self._get_collection(collection_name).find_one({"uuid": document_uuid}))
 
     def query(self, collection_name, query, sort_by=None, sort_dir=None, page=None):
@@ -113,10 +91,10 @@ class Database():
         }
 
     def max(self, collection_name, key):
-        return self._get_collection(collection_name).find_one(sort=[(key, -1)])[key]
+        return self._get_collection(collection_name).get(sort=[(key, -1)])[key]
 
     def min(self, collection_name, key):
-        return self._get_collection(collection_name).find_one(sort=[(key, 1)])[key]
+        return self._get_collection(collection_name).get(sort=[(key, 1)])[key]
 
     #### Internal ####
 

@@ -1,17 +1,18 @@
 import abc
 from document import Document
+from utils import make_uuid
 
 class User(Document):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, **kwargs):
-        super(User, self).__init__(**kwargs)
         self.first = kwargs["first"]
         self.last = kwargs["last"]
         self.mail = kwargs["mail"]
         self.intro = kwargs["intro"]
         self.image = kwargs.get("image")
         self.rating = None
+        super(User, self).__init__(**kwargs)
 
     def _valid(self):
         return True
@@ -25,3 +26,6 @@ class User(Document):
             "image": self.image,
             "rating": self.rating,
         }
+
+    def _uuid(self):
+        return make_uuid(self.mail + self.first + self.last)
