@@ -1,8 +1,9 @@
 import json
 import logging
 
-from utils import strip_dict
+from utils import strip_dict, make_uuid
 from constants import CATEGORIES
+from objects.category import Category
 
 class Database():
     """
@@ -21,8 +22,11 @@ class Database():
         self.db.category.create_index("uuid")
 
     def create_defaults(self):
-        # TODO
-        pass
+
+        # Insert categories
+        for name, image in CATEGORIES:
+            if not self.get("category", make_uuid(name)):
+                self.insert("category", Category(name=name, image=image))
 
     def reset_database(self):
         self.db.user.drop()

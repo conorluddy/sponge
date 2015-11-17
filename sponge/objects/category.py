@@ -8,7 +8,7 @@ class Category(Document):
     def __init__(self, **kwargs):
         self.name = kwargs["name"]
         self.image = kwargs["image"]
-        self.count = kwargs.get("count")
+        self.count = kwargs.get("count", 0)
         super(Category, self).__init__(**kwargs)
 
     def _json(self):

@@ -6,10 +6,11 @@ class Item(Document):
 
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
+        self.category = kwargs["category"]
         self.title = kwargs["title"]
         self.description = kwargs["description"]
         self.photos = kwargs["photos"]
-        self.user = kwargs["user"]
+        self.lender = kwargs["lender"]
         self.published = kwargs["published"]
         self.day_rate = kwargs["day_rate"]
         self.mon = kwargs["mon"]
@@ -21,8 +22,6 @@ class Item(Document):
         self.sun = kwargs["sun"]
         # TODO - days available, days unavailable
 
-        #### Optional ####
-
         self.attributes = kwargs.get("attributes")
         self.week_rate = kwargs.get("week_rate")
         self.month_rate = kwargs.get("month_rate")
@@ -32,7 +31,7 @@ class Item(Document):
             "title": self.title,
             "description": self.description,
             "photos": self.photos,
-            "user": self.user,
+            "lender": self.lender,
             "published": self.published,
             "day_rate": self.day_rate,
             "week_rate": self.week_rate,

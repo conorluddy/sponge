@@ -11,7 +11,7 @@ class User(Document):
         self.mail = kwargs["mail"]
         self.intro = kwargs["intro"]
         self.image = kwargs.get("image")
-        self.rating = None
+        self.rating = None # Star rating based on user's contract ratings # TODO - update on contract update
         super(User, self).__init__(**kwargs)
 
     def _valid(self):
