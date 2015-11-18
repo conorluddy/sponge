@@ -3,6 +3,7 @@ from uuid import uuid4, uuid5, NAMESPACE_DNS
 from logging.handlers import RotatingFileHandler
 import logging
 import json
+import re
 
 def read_config_file(config_file):
     with open(config_file, "r") as f:
@@ -20,6 +21,11 @@ def make_uuid(string):
 
 def random_uuid():
     return str(uuid4())
+
+def extract_uuid(string):
+    regex = re.compile('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
+    result = regex.findall(string)
+    return result[0] if result else None
 
 def wrapped_execute(func, *args, **kwargs):
     try:
@@ -62,3 +68,7 @@ def float_to_two_places(x):
 
 def capitalise(string):
     return string.title()
+
+if __name__ == "__main__":
+    print extract_uuid('<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">"791996c3-de0b-5632-90bd-abf6b045c5ba"</pre></body></html>')
+    print extract_uuid('<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;"></pre></body></html>')
