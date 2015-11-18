@@ -1,5 +1,4 @@
 import abc
-from utils import random_uuid
 
 class Document():
     __metaclass__ = abc.ABCMeta

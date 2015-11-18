@@ -9,6 +9,7 @@ class User(Document):
         self.first = kwargs["first"]
         self.last = kwargs["last"]
         self.mail = kwargs["mail"]
+        self.password = kwargs["password"]
         self.intro = kwargs["intro"]
         self.image = kwargs.get("image")
         self.rating = None # Star rating based on user's contract ratings # TODO - update on contract update
@@ -22,10 +23,11 @@ class User(Document):
             "first": self.first,
             "last": self.last,
             "mail": self.mail,
+            "password": self.password, # TODO - encrypt when storing
             "intro": self.intro,
             "image": self.image,
             "rating": self.rating,
         }
 
     def _uuid(self):
-        return make_uuid(self.mail + self.first + self.last)
+        return make_uuid(str(self.mail + self.first + self.last))

@@ -35,9 +35,11 @@ class Database():
 
     def insert(self, collection_name, document):
         json_document = document.to_dict()
-        logging.info("Ins: col=%s doc=%s" % (collection_name, json_document))
-        self._get_collection(collection_name).insert(json_document)
-        return json_document["uuid"]
+        if json_document:
+            logging.info("Ins: col=%s doc=%s" % (collection_name, json_document))
+            self._get_collection(collection_name).insert(json_document)
+            return json_document["uuid"]
+        return None
 
     def update(self, collection_name, document_uuid, update_dict):
         logging.info("Upd: col=%s uuid=%s upd=%s" % (collection_name, document_uuid, update_dict))
