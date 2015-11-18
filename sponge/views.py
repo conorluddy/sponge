@@ -1,11 +1,12 @@
-from flask import request
+from flask import request, render_template
 from utils import json_response
+from objects.user import User
 from flask import Flask
 from flask.ext.autodoc import Autodoc
 
 app = Flask(__name__, static_url_path='')
 documentor = Autodoc(app)
-db = None# DB Wrapper Placeholder
+db = None # DB Wrapper Placeholder
 
 @app.route('/docs')
 @documentor.doc()
@@ -18,26 +19,36 @@ def docs():
         author="ianluddy@gmail.com"
     )
 
+#TODO - authenticate api calls
 @app.route('/')
 @documentor.doc()
 def index():
-    return app.send_static_file('index.html')
-
-@app.route('/user/add')
-@documentor.doc()
-def user_add():
-    db.insert_user(
-        mail=request.args.get("mail"),
-        first=request.args.get("first"),
-        last=request.args.get("last"),
-        intro=request.args.get("intro"),
-    )
-    return json_response(True)
+    return render_template('index.html')
 
 @app.route('/user')
 @documentor.doc()
 def user():
-    return json_response(db.find_one("user", request.args.get("id")))
+    return json_response(db.get("user", request.args.get("uuid")))
+
+@app.route('/user/add')
+@documentor.doc()
+def user_add():
+    success = db.insert("user",
+        User(
+            mail=request.args.get("mail"),
+            first=request.args.get("first"),
+            last=request.args.get("last"),
+            password=request.args.get("password"),
+            intro=request.args.get("intro"),
+        )
+    )
+    return json_response(success if success is not None else False)
+
+@app.route('/user/remove')
+@documentor.doc()
+def user_remove():
+    return json_response(db.remove("user", request.args.get("uuid")))
+
 
 ### Pizza API ####
 
