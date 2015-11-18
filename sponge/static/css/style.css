@@ -1190,3 +1190,72 @@ blockquote footer, blockquote small, blockquote .small {
 	filter: grayscale(100%);
 	filter: url(desaturate.svg#greyscale);
 }
+
+/* iluddy */
+
+#main-nav{
+    border-bottom: 1px solid #EBEBEB;
+    height: 50px;
+    margin-bottom: 50px;
+}
+#main-nav div{
+    float: left;
+    border-right: 1px solid #ddd;
+    display: inline-block;
+    height: 100%;
+}
+#main-nav div:last-child{
+    border-right: none;
+}
+#main-nav i{
+    font-size: 1.4em;
+    color: #444;
+    position: relative;
+    top: 15px;
+    left: 15px;
+}
+#search input{
+    width: calc(100% - 52px);
+    float: right;
+    border: none;
+    position: relative;
+    top: 7px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+#search{
+    width: calc(100% - 230px);
+}
+#login{
+    width: 60px;
+}
+#logo{
+    width: 170px;
+    font-size: 38px;
+}
+#logo a{
+    line-height: 48px;
+    height: 50px;
+    width: auto;
+    font-size: 30px;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	font-weight: 300;
+    cursor: pointer;
+	color: #000;
+	-ms-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+#logo a span {
+	font-weight: 700;
+}
+#logo a:hover{
+	background-color: #EBEBEB;
+	color: #000;
+	text-decoration: none;
+	padding: 0px 10px;
+}

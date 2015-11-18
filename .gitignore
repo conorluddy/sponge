@@ -2,3 +2,4 @@
 .cache/v/cache/lastfailed
 .idea/sponge.iml
 .idea/workspace.xml
+tests/integration/ghostdriver.log
