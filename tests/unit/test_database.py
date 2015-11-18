@@ -22,7 +22,7 @@ class TestDatabase(unittest2.TestCase):
         cls.db_wrapper.remove_all("category")
 
     def test_add_user(self):
-        new_user = self._new_user("Test", "Add", "test@add.db", "intro")
+        new_user = self._new_user("Test", "Add", "test@add.db", "password", "intro")
 
         user_uuid = self.db_wrapper.insert("user", User(**new_user))
 
@@ -32,7 +32,7 @@ class TestDatabase(unittest2.TestCase):
         self.assertIsNotNone(db_user)
 
     def test_remove_user(self):
-        new_user = self._new_user("Test", "Remove", "test@remove.db", "intro")
+        new_user = self._new_user("Test", "Remove", "test@remove.db", "password", "intro")
         user_uuid = self.db_wrapper.insert("user", User(**new_user))
 
         self.db_wrapper.remove("user", user_uuid)
@@ -41,9 +41,9 @@ class TestDatabase(unittest2.TestCase):
         self.assertIsNone(db_user)
 
     def test_replace_user(self):
-        new_user = self._new_user("Test", "Replace", "test@replace.db", "intro")
+        new_user = self._new_user("Test", "Replace", "test@replace.db", "password", "intro")
         user_uuid = self.db_wrapper.insert("user", User(**new_user))
-        updated_user = self._new_user("User", "Replaced", "test@replace.db", "intro")
+        updated_user = self._new_user("User", "Replaced", "test@replace.db", "password", "intro")
 
         self.db_wrapper.replace("user", user_uuid, User(**updated_user))
 
@@ -52,7 +52,7 @@ class TestDatabase(unittest2.TestCase):
         self.assertNotEqual(updated_db_user["last"], new_user["last"])
 
     def test_update_user(self):
-        new_user = self._new_user("Test", "Update", "test@update.db", "intro")
+        new_user = self._new_user("Test", "Update", "test@update.db", "password", "intro")
         user_uuid = self.db_wrapper.insert("user", User(**new_user))
 
         self.db_wrapper.update("user", user_uuid, {"$set": {"first": "Updated", "last": "User"}})
@@ -63,10 +63,11 @@ class TestDatabase(unittest2.TestCase):
 
     #### Test Data ####
 
-    def _new_user(self, first, last, mail, intro):
+    def _new_user(self, first, last, mail, password, intro):
         return {
             "first": first,
             "last": last,
             "mail": mail,
+            "password": password,
             "intro": intro,
         }
