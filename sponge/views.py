@@ -1,6 +1,5 @@
 from flask import request, render_template
 from utils import json_response
-from objects.user import User
 from flask import Flask
 from flask.ext.autodoc import Autodoc
 
@@ -85,3 +84,41 @@ def item_add():
 @documentor.doc()
 def item_remove():
     return json_response(db.remove("item", request.args.get("uuid")))
+
+#### Contract ####
+
+@app.route('/contract')
+@documentor.doc()
+def contract():
+    return json_response(db.get("contract", request.args.get("uuid")))
+
+@app.route('/contract/add')
+@documentor.doc()
+def contract_add():
+    return json_response(
+        db.insert_contract(
+            item=request.args.get("item"),
+            borrower=request.args.get("borrower"),
+            lender=request.args.get("lender"),
+            start_date=request.args.get("start_date"),
+            end_date=request.args.get("end_date"),
+            cost=request.args.get("cost"),
+            confirmed=request.args.get("confirmed", False),
+            cancelled=request.args.get("cancelled", False)
+        )
+    )
+
+@app.route('/contract/confirm')
+@documentor.doc()
+def contract_confirm():
+    return json_response(
+        db.confirm_contract(
+            uuid=request.args.get("uuid"),
+            lender=request.args.get("lender")
+        )
+    )
+
+@app.route('/contract/remove')
+@documentor.doc()
+def contract_remove():
+    return json_response(db.remove("contract", request.args.get("uuid")))

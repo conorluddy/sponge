@@ -6,6 +6,7 @@ from constants import CATEGORIES
 from objects.category import Category
 from objects.item import Item
 from objects.user import User
+from objects.contract import Contract
 
 class Database():
     """
@@ -22,6 +23,7 @@ class Database():
         self.db.user.create_index("uuid")
         self.db.item.create_index("uuid")
         self.db.category.create_index("uuid")
+        self.db.contract.create_index("uuid")
 
     def create_defaults(self):
 
@@ -172,3 +174,19 @@ class Database():
 
     def get_item(self, item_uuid):
         return self.get("item", item_uuid)
+
+    #### Contract ####
+
+    def insert_contract(self, **kwargs):
+        return self.insert_or_replace("contract", kwargs.get("uuid"), Contract(**kwargs))
+
+    def remove_contract(self, contract_uuid):
+        return self.remove("contract", contract_uuid)
+
+    def confirm_contract(self, contract_uuid, lender_uuid):
+        # TODO - validate lender uuid
+        # TODO - notify borrower
+        return self.update("contract", contract_uuid, {"$set": {"confirmed": True}})
+
+    def get_contract(self, contract_uuid):
+        return self.get("contract", contract_uuid)

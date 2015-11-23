@@ -1224,13 +1224,13 @@ blockquote footer, blockquote small, blockquote .small {
     box-shadow: none !important;
 }
 #search{
-    width: calc(100% - 230px);
+    width: calc(100% - 280px);
 }
 #login{
     width: 60px;
 }
 #logo{
-    width: 170px;
+    width: 220px;
     font-size: 38px;
 }
 #logo a{
