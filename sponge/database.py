@@ -4,6 +4,8 @@ import logging
 from utils import strip_dict, make_uuid
 from constants import CATEGORIES
 from objects.category import Category
+from objects.item import Item
+from objects.user import User
 
 class Database():
     """
@@ -32,6 +34,11 @@ class Database():
         self.db.user.drop()
         self.db.item.drop()
         self.db.category.drop()
+
+    def insert_or_replace(self, collection_name, uuid, document):
+        if uuid:
+            return self.replace(collection_name, uuid, document)
+        return self.insert(collection_name, document)
 
     def insert(self, collection_name, document):
         json_document = document.to_dict()
@@ -102,8 +109,6 @@ class Database():
     def min(self, collection_name, key):
         return self._get_collection(collection_name).get(sort=[(key, 1)])[key]
 
-    #### Internal ####
-
     @staticmethod
     def _all(arguments):
         if arguments not in [None, []]:
@@ -143,3 +148,27 @@ class Database():
 
     def _get_collection(self, collection_name):
         return getattr(self.db, collection_name)
+
+    #### User ####
+
+    def insert_user(self, **kwargs):
+        # TODO - validate
+        return self.insert_or_replace("user", kwargs.get("uuid"), User(**kwargs))
+
+    def remove_user(self, user_id):
+        # TODO - validate
+        return self.remove("user", user_id)
+
+    def get_user(self, user_id):
+        return self.get("user", user_id)
+
+    #### Item ####
+
+    def insert_item(self, **kwargs):
+        return self.insert_or_replace("item", kwargs.get("uuid"), Item(**kwargs))
+
+    def remove_item(self, item_uuid):
+        return self.remove("item", item_uuid)
+
+    def get_item(self, item_uuid):
+        return self.get("item", item_uuid)

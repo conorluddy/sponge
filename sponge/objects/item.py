@@ -11,7 +11,6 @@ class Item(Document):
         self.description = kwargs["description"]
         self.photos = kwargs["photos"]
         self.lender = kwargs["lender"]
-        self.published = kwargs["published"]
         self.day_rate = kwargs["day_rate"]
         self.mon = kwargs["mon"]
         self.tue = kwargs["tue"]
@@ -23,6 +22,7 @@ class Item(Document):
         # TODO - days available, days unavailable
 
         self.attributes = kwargs.get("attributes")
+        self.published = kwargs.get("published", False)
         self.week_rate = kwargs.get("week_rate")
         self.month_rate = kwargs.get("month_rate")
 

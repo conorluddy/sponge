@@ -4,7 +4,7 @@ class Document():
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, **kwargs):
-        self.uuid = self._uuid() if not "uuid" in kwargs else kwargs["uuid"]
+        self.uuid = self._uuid() if not kwargs.get("uuid") else kwargs["uuid"]
 
     def to_dict(self):
         if self._valid():

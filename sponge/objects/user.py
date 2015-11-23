@@ -30,4 +30,4 @@ class User(Document):
         }
 
     def _uuid(self):
-        return make_uuid(str(self.mail + self.first + self.last))
+        return make_uuid(str(self.mail))
