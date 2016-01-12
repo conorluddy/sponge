@@ -12,7 +12,8 @@ setup(
     install_requires=[
         "flask",
         "flask_autodoc",
-        "flask_pymongo"
+        "flask_pymongo",
+        "crontab"
     ],
     entry_points={
         'console_scripts': [

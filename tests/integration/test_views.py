@@ -3,16 +3,14 @@ from selenium import webdriver
 from sponge.utils import extract_uuid
 
 APP_IP = "localhost"
-APP_PORT = 5000
-# WEB_DRIVER = "C:\\chromedriver.exe"
-WEB_DRIVER = "C:\\phantomjs.exe"
+APP_PORT = 5001
+WEB_DRIVER = "/Users/ian/Documents/Git/sponge/lib/phantomjs"
 
 class TestViews(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # cls.driver = webdriver.Chrome(WEB_DRIVER, service_args=['--ignore-ssl-errors=true'])
-        cls.driver = webdriver.PhantomJS(WEB_DRIVER, service_args=['--ignore-ssl-errors=true'])
+        cls.driver = webdriver.PhantomJS(executable_path=WEB_DRIVER)
 
     @classmethod
     def tearDownClass(cls):

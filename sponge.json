@@ -5,7 +5,7 @@
         "port": 27017
     },
     "logging": {
-        "file": "C:\\sponge\\sponge.log",
+        "file": "/tmp/sponge.log",
         "level": 20
     },
     "web_server": {
