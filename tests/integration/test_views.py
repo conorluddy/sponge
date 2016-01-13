@@ -1,20 +1,9 @@
 import unittest
+from base import SpongeTestCase
 from selenium import webdriver
 from sponge.utils import extract_uuid
 
-APP_IP = "localhost"
-APP_PORT = 5001
-WEB_DRIVER = "/Users/ian/Documents/Git/sponge/lib/phantomjs"
-
-class TestViews(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        cls.driver = webdriver.PhantomJS(executable_path=WEB_DRIVER)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.close()
+class TestViews(SpongeTestCase):
 
     def test_index(self):
         self.driver.get(self._root())
@@ -69,14 +58,6 @@ class TestViews(unittest.TestCase):
         self.assertFalse("original" in self.driver.page_source)
 
         self.driver.get(self._req("user/remove", "uuid=%s" % user_uuid))
-
-    def _root(self):
-        return "http://%s:%s" % (APP_IP, APP_PORT)
-
-    def _req(self, path, params):
-        if params:
-            return "%s/%s?%s" % (self._root(), path, params)
-        return "%s/%s" % (self._root(), path)
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,20 @@
+{
+    "database": {
+        "name": "sponge_test",
+        "host": "localhost",
+        "port": 27017
+    },
+    "logging": {
+        "file": "/tmp/test.log",
+        "level": 20
+    },
+    "web_server": {
+        "host": "localhost",
+        "port": 5002,
+        "enabled": true
+    },
+    "cleaner": {
+        "enabled": false
+    },
+    "executable": "/Users/ian/Documents/Git/sponge/bin/python /Users/ian/Documents/Git/sponge/sponge/app.py -c /Users/ian/Documents/Git/sponge/test.json &"
+}
