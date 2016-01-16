@@ -18,7 +18,7 @@ def docs():
         author="ianluddy@gmail.com"
     )
 
-#TODO - authenticate api calls
+#TODO - authenticate requests
 @app.route('/')
 @documentor.doc()
 def index():
@@ -31,17 +31,17 @@ def index():
 def user():
     return json_response(db.get("user", request.args.get("uuid")))
 
-@app.route('/user/add')
+@app.route('/user/add', methods=['POST'])
 @documentor.doc()
 def user_add():
     return json_response(
         db.insert_user(
-            uuid=request.args.get("uuid"),
-            mail=request.args.get("mail"),
-            first=request.args.get("first"),
-            last=request.args.get("last"),
-            password=request.args.get("password"),
-            intro=request.args.get("intro"),
+            uuid=request.form.get("uuid"),
+            mail=request.form["mail"],
+            first=request.form["first"],
+            last=request.form["last"],
+            password=request.form["password"],
+            intro=request.form["intro"],
         )
     )
 
@@ -57,26 +57,26 @@ def user_remove():
 def item():
     return json_response(db.get("item", request.args.get("uuid")))
 
-@app.route('/item/add')
+@app.route('/item/add', methods=['POST'])
 @documentor.doc()
 def item_add():
     return json_response(
         db.insert_item(
-            title=request.args.get("title"),
-            description=request.args.get("description"),
-            lender=request.args.get("lender"),
-            published=request.args.get("published", False),
-            day_rate=request.args.get("day_rate"),
-            week_rate=request.args.get("week_rate"),
-            month_rate=request.args.get("month_rate"),
-            mon=request.args.get("mon", True),
-            tue=request.args.get("tue", True),
-            wed=request.args.get("wed", True),
-            thu=request.args.get("thu", True),
-            fri=request.args.get("fri", True),
-            sat=request.args.get("sat", True),
-            sun=request.args.get("sun", True),
-            attributes=request.args.get("attributes")
+            title=request.form["title"],
+            description=request.form.get("description"),
+            lender=request.form["lender"],
+            published=request.form.get("published", False),
+            day_rate=request.form["day_rate"],
+            week_rate=request.form.get("week_rate"),
+            month_rate=request.form.get("month_rate"),
+            mon=request.form.get("mon", True),
+            tue=request.form.get("tue", True),
+            wed=request.form.get("wed", True),
+            thu=request.form.get("thu", True),
+            fri=request.form.get("fri", True),
+            sat=request.form.get("sat", True),
+            sun=request.form.get("sun", True),
+            attributes=request.form.get("attributes")
         )
     )
 
@@ -92,17 +92,17 @@ def item_remove():
 def contract():
     return json_response(db.get("contract", request.args.get("uuid")))
 
-@app.route('/contract/add')
+@app.route('/contract/add', methods=['POST'])
 @documentor.doc()
 def contract_add():
     return json_response(
         db.insert_contract(
-            item=request.args.get("item"),
-            borrower=request.args.get("borrower"),
-            lender=request.args.get("lender"),
-            start_date=request.args.get("start_date"),
-            end_date=request.args.get("end_date"),
-            cost=request.args.get("cost"),
+            item=request.form["item"],
+            borrower=request.form["borrower"],
+            lender=request.form["lender"],
+            start_date=request.form["start_date"],
+            end_date=request.form["end_date"],
+            cost=request.form["cost"],
             confirmed=request.args.get("confirmed", False),
             cancelled=request.args.get("cancelled", False)
         )
