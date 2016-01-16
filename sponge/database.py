@@ -1,6 +1,8 @@
 import json
 import logging
 
+from pymongo.errors import OperationFailure
+
 from utils import strip_dict, make_uuid
 from constants import CATEGORIES
 from objects.category import Category
@@ -20,10 +22,19 @@ class Database():
         self.create_defaults()
 
     def create_indexes(self):
-        self.db.user.create_index("uuid")
-        self.db.item.create_index("uuid")
-        self.db.category.create_index("uuid")
-        self.db.contract.create_index("uuid")
+        self.create_index("user", "uuid", unique=True)
+        self.create_index("item", "uuid", unique=True)
+        self.create_index("category", "uuid", unique=True)
+        self.create_index("contract", "uuid", unique=True)
+
+    def create_index(self, collection, field, unique=True):
+        try:
+            getattr(self.db, collection).create_index(field, unique=unique)
+        except OperationFailure, ex:
+            if 'already exists' in str(ex):
+                pass
+            else:
+                raise ex
 
     def create_defaults(self):
 
@@ -36,6 +47,7 @@ class Database():
         self.db.user.drop()
         self.db.item.drop()
         self.db.category.drop()
+        self.db.contract.drop()
 
     def insert_or_replace(self, collection_name, uuid, document):
         if uuid:
