@@ -18,5 +18,5 @@
     "cleaner": {
         "enabled": false
     },
-    "executable": "/Users/ian/Documents/Git/sponge/bin/python /Users/ian/Documents/Git/sponge/sponge/app.py -c /Users/ian/Documents/Git/sponge/test.json &"
+    "executable": "/Users/ian/Documents/Git/sponge/bin/python /Users/ian/Documents/Git/sponge/sponge/app.py -c /Users/ian/Documents/Git/sponge/config/test.json &"
 }

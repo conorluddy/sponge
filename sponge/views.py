@@ -3,7 +3,7 @@ from utils import json_response, monitor
 from flask import Flask
 from flask.ext.autodoc import Autodoc
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path='', template_folder='./templates')
 documentor = Autodoc(app)
 db = None # DB Wrapper Placeholder
 

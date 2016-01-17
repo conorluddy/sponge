@@ -3,6 +3,7 @@ from sponge.database import Database
 from flask_pymongo import MongoClient
 from sponge.utils import read_json_file
 
+CONFIG = "/Users/ian/Documents/Git/sponge/config/test.json"
 CONFIG = "/home/ubuntu/sponge/config/circle.json"
 
 class SpongeTestCase(unittest2.TestCase):
