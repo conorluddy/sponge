@@ -710,6 +710,7 @@ sponge.egg-info/top_level.txt
 .idea/encodings.xml
 .idea/misc.xml
 .idea/modules.xml
+.idea/.name
 lib/python2.7/site-packages/requests/__init__.py
 lib/python2.7/site-packages/requests/adapters.py
 lib/python2.7/site-packages/requests/api.py
