@@ -13,7 +13,9 @@ setup(
         "flask",
         "flask_autodoc",
         "flask_pymongo",
-        "crontab"
+        "crontab",
+        "requests",
+        "unittest2"
     ],
     entry_points={
         'console_scripts': [
