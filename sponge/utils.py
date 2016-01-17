@@ -4,6 +4,13 @@ from logging.handlers import RotatingFileHandler
 import logging
 import json
 import re
+import os
+
+def load_config():
+    return read_json_file(os.environ['SPONGE_CFG'])
+
+def load_test_config():
+    return read_json_file(os.environ['SPONGE_TEST_CFG'])
 
 def read_json_file(config_file):
     with open(config_file, "r") as f:

@@ -19,5 +19,5 @@
     "cleaner": {
         "enabled": false
     },
-    "executable": "python /home/ubuntu/sponge/sponge/app.py -c /home/ubuntu/sponge/config/circle.json &"
+    "executable": "python /home/ubuntu/sponge/sponge/app.py -m test &"
 }

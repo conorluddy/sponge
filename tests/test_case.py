@@ -1,17 +1,14 @@
 import unittest2
 from sponge.database import Database
 from flask_pymongo import MongoClient
-from sponge.utils import read_json_file
-
-CONFIG = "/Users/ian/Documents/Git/sponge/config/test.json"
-CONFIG = "/home/ubuntu/sponge/config/circle.json"
+from sponge.utils import load_test_config
 
 class SpongeTestCase(unittest2.TestCase):
 
     @classmethod
     def setUpClass(cls):
         # Attempt to start app instance if it doesn't exist yet
-        cls.cfg = read_json_file(CONFIG)
+        cls.cfg = load_test_config()
 
         # DB Connection
         db_client = MongoClient(cls.cfg["database"]["host"], cls.cfg["database"]["port"])

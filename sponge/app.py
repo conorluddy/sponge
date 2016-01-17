@@ -1,4 +1,5 @@
 import argparse
+import os
 from threading import Thread
 from database import Database
 from flask_pymongo import MongoClient
@@ -7,12 +8,12 @@ from utils import setup_logger, read_json_file
 def run():
     # Argument parser
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("-c") # Config arg
+    arg_parser.add_argument("-m") # Config arg
     args = arg_parser.parse_known_args()
-    config_path = args[0].c
+    test_mode = hasattr(args[0], 'm') and args[0].m == 'test'
 
     # Config
-    cfg = read_json_file(config_path)
+    cfg = read_json_file(os.environ["SPONGE_CFG"] if not test_mode else os.environ["SPONGE_TEST_CFG"])
 
     # Logging
     setup_logger(cfg["logging"]["file"], cfg["logging"]["level"])

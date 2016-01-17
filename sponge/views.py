@@ -1,9 +1,10 @@
 from flask import request, render_template
-from utils import json_response, monitor
+from utils import json_response, monitor, load_config
 from flask import Flask
 from flask.ext.autodoc import Autodoc
 
-app = Flask(__name__, static_url_path='')
+template_folder = load_config()['web_server']['template_folder']
+app = Flask(__name__, static_url_path='', template_folder=template_folder)
 documentor = Autodoc(app)
 db = None # DB Wrapper Placeholder
 
