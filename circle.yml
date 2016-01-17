@@ -1,3 +1,6 @@
 dependencies:
   pre:
     - touch /home/ubuntu/sponge.log
+machine:
+  environment:
+    SPONGE_TEST_CFG: /home/ubuntu/sponge/config/circle.json
