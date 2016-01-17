@@ -13,7 +13,8 @@
     "web_server": {
         "host": "localhost",
         "port": 5002,
-        "enabled": true
+        "enabled": true,
+        "template_folder": "/Users/ian/Documents/Git/sponge/sponge/templates"
     },
     "cleaner": {
         "enabled": false

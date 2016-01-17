@@ -25,6 +25,7 @@ def run():
     if cfg["web_server"]["enabled"]:
         import views
         views.db = db_wrapper
+        views.app.template_folder = cfg["web_server"]["template_folder"]
         Thread(target=views.app.run, args=(cfg["web_server"]["host"], cfg["web_server"]["port"])).start()
 
 if __name__ == "__main__":

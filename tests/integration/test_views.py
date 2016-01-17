@@ -55,7 +55,7 @@ class TestViews(SpongeIntegrationTestCase):
         self.assertTrue("replaced" in resp.content)
 
         self.assertIsNotNone(self.db.get("user", user_uuid))
-        self.assertEqual(self.db.get("user", user_uuid)["name"], "replaced_user!")
+        self.assertEqual(self.db.get("user", user_uuid)["name"], "replaced_user")
 
     #### Items ####
 
