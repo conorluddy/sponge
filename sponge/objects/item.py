@@ -28,6 +28,7 @@ class Item(Document):
 
     def _json(self):
         return {
+            "uuid": self.uuid,
             "title": self.title,
             "description": self.description,
             "category": self.category,
