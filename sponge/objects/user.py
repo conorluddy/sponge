@@ -1,6 +1,6 @@
 import abc
 from document import Document
-from utils import make_uuid
+from sponge.utils import make_uuid
 
 class User(Document):
     __metaclass__ = abc.ABCMeta

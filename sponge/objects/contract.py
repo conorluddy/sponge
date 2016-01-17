@@ -1,5 +1,5 @@
 import abc
-from sponge.objects.document import Document
+from document import Document
 from sponge.utils import make_uuid
 
 class Contract(Document):
