@@ -4,23 +4,23 @@ from document import Document
 class Item(Document):
     __metaclass__ = abc.ABCMeta
 
+    required = ['category', 'title', 'description', 'lender']
+
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
-        self.category = kwargs["category"] # todo - allow for multiple categories
-        self.title = kwargs["title"]
-        self.description = kwargs["description"]
-        self.photos = kwargs["photos"]
-        self.lender = kwargs["lender"]
-        self.day_rate = kwargs["day_rate"]
-        self.mon = kwargs["mon"]
-        self.tue = kwargs["tue"]
-        self.wed = kwargs["wed"]
-        self.thu = kwargs["thu"]
-        self.fri = kwargs["fri"]
-        self.sat = kwargs["sat"]
-        self.sun = kwargs["sun"]
-        # TODO - days available, days unavailable
-
+        self.category = kwargs.get("category")
+        self.title = kwargs.get("title")
+        self.description = kwargs.get("description")
+        self.photos = kwargs.get("photos")
+        self.lender = kwargs.get("lender")
+        self.day_rate = kwargs.get("day_rate")
+        self.mon = kwargs.get('mon', True)
+        self.tue = kwargs.get('tue', True)
+        self.wed = kwargs.get('wed', True)
+        self.thu = kwargs.get('thu', True)
+        self.fri = kwargs.get('fri', True)
+        self.sat = kwargs.get('sat', True)
+        self.sun = kwargs.get('sun', True)
         self.attributes = kwargs.get("attributes")
         self.published = kwargs.get("published", False)
         self.week_rate = kwargs.get("week_rate")

@@ -69,11 +69,12 @@ def item():
 def item_add():
     return json_response(
         db.insert_item(
-            title=request.form["title"],
+            title=request.form.get("title"),
             description=request.form.get("description"),
-            lender=request.form["lender"],
+            category=request.form.get("category"),
+            lender=request.form.get("lender"),
             published=request.form.get("published", False),
-            day_rate=request.form["day_rate"],
+            day_rate=request.form.get("day_rate"),
             week_rate=request.form.get("week_rate"),
             month_rate=request.form.get("month_rate"),
             mon=request.form.get("mon", True),

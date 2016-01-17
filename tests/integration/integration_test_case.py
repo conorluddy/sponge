@@ -42,4 +42,4 @@ class SpongeIntegrationTestCase(SpongeTestCase):
 
     @classmethod
     def _stop_app(cls):
-        os.popen("kill $(ps aux | grep 'test.json' | awk '{print $2}')")
+        os.popen("kill $(ps aux | grep 'sponge/app.py -m test' | awk '{print $2}')")

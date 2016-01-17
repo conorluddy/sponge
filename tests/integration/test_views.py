@@ -18,6 +18,16 @@ class TestViews(SpongeIntegrationTestCase):
         self.assertIsUUID(user_uuid)
         self.assertIsNotNone(self.db.get("user", user_uuid))
 
+    def test_add_invalid_user(self):
+        invalid_user = self.new_user(mail="testaddinvalid@sponge.ie")
+        del invalid_user['name']
+        resp = requests.post(self.req("user/add"), data=invalid_user)
+        user_uuid = extract_uuid(resp.text)
+
+        self.assertEqual(resp.status_code, 400)
+        self.assertIsNone(user_uuid)
+        self.assertIsNone(self.db.get("user", user_uuid))
+
     def test_remove_user(self):
         resp = requests.post(self.req("user/add"), data=self.new_user(mail="testremove@sponge.ie"))
         user_uuid = extract_uuid(resp.text)
@@ -59,14 +69,13 @@ class TestViews(SpongeIntegrationTestCase):
 
     #### Items ####
 
-    # def test_add_item(self):
-    #     resp = requests.post(self.req("item/add"), data=self.new_user(mail="testadd@sponge.ie"))
-    #     print resp.text
-    #     user_uuid = extract_uuid(resp.text)
-    #
-    #     self.assertEqual(resp.status_code, 200)
-    #     self.assertIsUUID(user_uuid)
-    #     self.assertIsNotNone(self.db.get("user", user_uuid))
+    def test_add_item(self):
+        resp = requests.post(self.req("item/add"), data=self.new_item(lender='80a1d849-ee2b-5a2d-b58f-f92e8d9c5a7e'))
+        user_uuid = extract_uuid(resp.text)
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertIsUUID(user_uuid)
+        self.assertIsNotNone(self.db.get("item", user_uuid))
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import logging
 
 from pymongo.errors import OperationFailure
 
+from sponge.objects.document import InvalidDocumentException
 from utils import strip_dict, make_uuid, read_json_file
 from constants import CATEGORIES
 from objects.category import Category
@@ -68,12 +69,13 @@ class Database:
         return self.insert(collection_name, document)
 
     def insert(self, collection_name, document):
-        json_document = document.to_dict()
-        if json_document:
+        try:
+            json_document = document.to_dict()
             logging.info("Ins: col=%s doc=%s" % (collection_name, json_document))
             self._get_collection(collection_name).insert(json_document)
             return json_document["uuid"]
-        return None
+        except InvalidDocumentException, ex:
+            logging.error(ex)
 
     def update(self, collection_name, document_uuid, update_dict):
         logging.info("Upd: col=%s uuid=%s upd=%s" % (collection_name, document_uuid, update_dict))
@@ -81,11 +83,14 @@ class Database:
         return document_uuid
 
     def replace(self, collection_name, document_uuid, document):
-        json_document = document.to_dict()
-        json_document["uuid"] = document_uuid
-        logging.info("Rpl: col=%s uuid=%s doc=%s" % (collection_name, document_uuid, json_document))
-        self._get_collection(collection_name).update({'uuid': document_uuid}, json_document)
-        return document_uuid
+        try:
+            json_document = document.to_dict()
+            json_document["uuid"] = document_uuid
+            logging.info("Rpl: col=%s uuid=%s doc=%s" % (collection_name, document_uuid, json_document))
+            self._get_collection(collection_name).update({'uuid': document_uuid}, json_document)
+            return document_uuid
+        except InvalidDocumentException, ex:
+            logging.error(ex)
 
     def remove(self, collection_name, document_uuid):
         logging.info("Rem: col=%s qry=%s" % (collection_name, {"uuid": document_uuid}))

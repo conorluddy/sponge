@@ -45,31 +45,25 @@ class SpongeTestCase(unittest2.TestCase):
             user[key] = value
         return user
 
-    # def new_item(self, **kwargs):
-    #     item = {
-    #         "category": "Clothing",
-    #         "title": "Shoes",
-    #         "description": "Nice Shoes",
-    #         "photos": [],
-    #         "lender": "86220d1c-787f-5872-96f8-4194b4887984"
-    #     }
-    #
-    #     self.category = kwargs["category"]
-    #     self.title = kwargs["title"]
-    #     self.description = kwargs["description"]
-    #     self.photos = kwargs["photos"]
-    #     self.lender = kwargs["lender"]
-    #     self.day_rate = kwargs["day_rate"]
-    #     self.mon = kwargs["mon"]
-    #     self.tue = kwargs["tue"]
-    #     self.wed = kwargs["wed"]
-    #     self.thu = kwargs["thu"]
-    #     self.fri = kwargs["fri"]
-    #     self.sat = kwargs["sat"]
-    #     self.sun = kwargs["sun"]
-    #     # TODO - days available, days unavailable
-    #
-    #     self.attributes = kwargs.get("attributes")
-    #     self.published = kwargs.get("published", False)
-    #     self.week_rate = kwargs.get("week_rate")
-    #     self.month_rate = kwargs.get("month_rate")
+    def new_item(self, **kwargs):
+        item = {
+            "category": "Clothing",
+            "title": "Shoes",
+            "description": "Nice Shoes",
+            "photos": [],
+            "day_rate": 10,
+            "week_rate": 40,
+            "month_rate": 130,
+            "published": True,
+            "attributes": {},
+            "mon": True,
+            "tue": True,
+            "wed": True,
+            "thu": True,
+            "fri": True,
+            "sat": True,
+            "sun": True,
+        }
+        for key, value in kwargs.iteritems():
+            item[key] = value
+        return item

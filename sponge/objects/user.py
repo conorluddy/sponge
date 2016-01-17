@@ -5,11 +5,13 @@ from sponge.utils import make_uuid
 class User(Document):
     __metaclass__ = abc.ABCMeta
 
+    required = ['name', 'mail', 'password']
+
     def __init__(self, **kwargs):
-        self.name = kwargs["name"]
-        self.mail = kwargs["mail"]
-        self.password = kwargs["password"]
-        self.intro = kwargs["intro"]
+        self.name = kwargs.get("name")
+        self.mail = kwargs.get("mail")
+        self.password = kwargs.get("password")
+        self.intro = kwargs.get("intro")
         self.image = kwargs.get("image")
         self.rating = None # Star rating based on user's contract ratings # TODO - update on contract update
         super(User, self).__init__(**kwargs)
