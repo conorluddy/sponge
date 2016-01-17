@@ -5,7 +5,7 @@ import logging
 import json
 import re
 
-def read_config_file(config_file):
+def read_json_file(config_file):
     with open(config_file, "r") as f:
         cfg_json = json.loads(f.read())
     return cfg_json
@@ -68,6 +68,12 @@ def float_to_two_places(x):
 
 def capitalise(string):
     return string.title()
+
+def monitor(fn):
+    def wrapped(*v, **k):
+        # logging.info("Mon: %s %s" % (fn.__name__, str(v)))
+        return fn(*v, **k)
+    return wrapped
 
 if __name__ == "__main__":
     print extract_uuid('<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">"791996c3-de0b-5632-90bd-abf6b045c5ba"</pre></body></html>')

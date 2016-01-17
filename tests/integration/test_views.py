@@ -1,63 +1,74 @@
 import unittest
+import requests
 from base import SpongeTestCase
-from selenium import webdriver
 from sponge.utils import extract_uuid
+
 
 class TestViews(SpongeTestCase):
 
     def test_index(self):
-        self.driver.get(self._root())
-        self.assertIn("Sponge", self.driver.title)
+        self.assertEqual(requests.get(self.root()).status_code, 200)
+
+    #### User ####
 
     def test_add_user(self):
-        self.driver.get(self._req("user/add", "first=add&last=user&mail=test@add.com&intro=hello&password=password"))
-        user_uuid = extract_uuid(self.driver.page_source)
+        resp = requests.post(self.req("user/add"), data=self.new_user(mail="testadd@sponge.ie"))
+        user_uuid = extract_uuid(resp.text)
 
-        self.driver.get(self._req("user", "uuid=%s" % user_uuid))
-        self.assertIsNotNone(user_uuid)
-        self.assertTrue(user_uuid in self.driver.page_source)
-        self.assertTrue("add" in self.driver.page_source)
-        self.assertTrue("user" in self.driver.page_source)
-
-        self.driver.get(self._req("user/remove", "uuid=%s" % user_uuid))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIsUUID(user_uuid)
+        self.assertIsNotNone(self.db.get("user", user_uuid))
 
     def test_remove_user(self):
-        self.driver.get(self._req("user/add", "first=remove&last=user&mail=test@remove.com&intro=hello&password=password"))
-        user_uuid = extract_uuid(self.driver.page_source)
+        resp = requests.post(self.req("user/add"), data=self.new_user(mail="testremove@sponge.ie"))
+        user_uuid = extract_uuid(resp.text)
 
-        self.driver.get(self._req("user/remove", "uuid=%s" % user_uuid))
+        self.assertIsNotNone(self.db.get("user", user_uuid))
 
-        self.driver.get(self._req("user", "uuid=%s" % user_uuid))
-        self.assertIsNotNone(user_uuid)
-        self.assertFalse(user_uuid in self.driver.page_source)
-        self.assertFalse("add" in self.driver.page_source)
-        self.assertFalse("user" in self.driver.page_source)
+        resp = requests.get(self.req("user/remove", "uuid=%s" % user_uuid))
+        self.assertEqual(resp.status_code, 200)
+
+        self.assertIsNone(self.db.get("user", user_uuid))
 
     def test_get_user(self):
-        self.driver.get(self._req("user/add", "first=get&last=user&mail=test@get.com&intro=hello&password=password"))
-        user_uuid = extract_uuid(self.driver.page_source)
+        resp = requests.post(self.req("user/add"), data=self.new_user(mail="testget@sponge.ie"))
+        user_uuid = extract_uuid(resp.text)
 
-        self.driver.get(self._req("user", "uuid=%s" % user_uuid))
-        self.assertIsNotNone(user_uuid)
-        self.assertTrue(user_uuid in self.driver.page_source)
-        self.assertTrue("get" in self.driver.page_source)
-        self.assertTrue("user" in self.driver.page_source)
-
-        self.driver.get(self._req("user/remove", "uuid=%s" % user_uuid))
+        resp = requests.get(self.req("user", "uuid=%s" % user_uuid))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(user_uuid in resp.content)
 
     def test_replace_user(self):
-        self.driver.get(self._req("user/add", "first=original&last=user&mail=test@replace.com&intro=hello&password=password"))
-        user_uuid = extract_uuid(self.driver.page_source)
+        resp = requests.post(self.req("user/add"), data=self.new_user(mail="testreplace@sponge.ie"))
+        user_uuid = extract_uuid(resp.text)
 
-        self.driver.get(self._req("user/add", "uuid=%s&first=replaced&last=user&mail=test@replace.com&intro=hello&password=password" % user_uuid))
+        resp = requests.get(self.req("user", "uuid=%s" % user_uuid))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(user_uuid in resp.content)
 
-        self.driver.get(self._req("user", "uuid=%s" % user_uuid))
-        self.assertIsNotNone(user_uuid)
-        self.assertTrue(user_uuid in self.driver.page_source)
-        self.assertTrue("replaced" in self.driver.page_source)
-        self.assertFalse("original" in self.driver.page_source)
+        resp = requests.post(self.req("user/add"),
+                             data=self.new_user(uuid=user_uuid, mail="testreplace@sponge.ie", name="replaced_user"))
+        self.assertEqual(resp.status_code, 200)
 
-        self.driver.get(self._req("user/remove", "uuid=%s" % user_uuid))
+        resp = requests.get(self.req("user", "uuid=%s" % user_uuid))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(user_uuid in resp.content)
+        self.assertTrue("replaced" in resp.content)
+
+        self.assertIsNotNone(self.db.get("user", user_uuid))
+        self.assertEqual(self.db.get("user", user_uuid)["name"], "replaced_user")
+
+    #### Items ####
+
+    # def test_add_item(self):
+    #     resp = requests.post(self.req("item/add"), data=self.new_user(mail="testadd@sponge.ie"))
+    #     print resp.text
+    #     user_uuid = extract_uuid(resp.text)
+    #
+    #     self.assertEqual(resp.status_code, 200)
+    #     self.assertIsUUID(user_uuid)
+    #     self.assertIsNotNone(self.db.get("user", user_uuid))
+
 
 if __name__ == "__main__":
     unittest.main()

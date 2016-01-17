@@ -1,0 +1,157 @@
+{
+  "user": [
+    {
+      "name": "Brody Long",
+      "mail": "elit.pretium.et@liberoestcongue.edu",
+      "password": "password",
+      "intro": "orci luctus et ultrices posuere cubilia Curae; Phasellus ornare. Fusce",
+      "uuid": "b6bb9ef4-08dc-54bb-8878-d308b720408b"
+    },
+    {
+      "name": "Colt Floyd",
+      "mail": "nulla.Integer@risus.edu",
+      "password": "password",
+      "intro": "dis parturient montes, nascetur ridiculus mus. Donec dignissim magna a",
+      "uuid": "80a1d849-ee2b-5a2d-b58f-f92e8d9c5a7e"
+    },
+    {
+      "name": "Kevin Nolan",
+      "mail": "ut.aliquam@lacusQuisqueimperdiet.com",
+      "password": "password",
+      "intro": "dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis. Nullam",
+      "uuid": "7c88d529-358a-5c7d-8b10-25c6a15739c4"
+    },
+    {
+      "name": "Lyle Cain",
+      "mail": "pharetra.felis@nequeMorbiquis.net",
+      "password": "password",
+      "intro": "volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer",
+      "uuid": "a64151d9-2a1d-5a11-a226-883e0acafd04"
+    },
+    {
+      "name": "Jelani Norman",
+      "mail": "vehicula.risus.Nulla@auctorquis.edu",
+      "password": "password",
+      "intro": "feugiat nec, diam. Duis mi enim, condimentum eget, volutpat ornare,",
+      "uuid": "89656ca7-6cef-5de8-bbde-ab99c3614f9e"
+    }
+  ],
+  "item": [
+    {
+      "uuid": "e0e7b175-4d56-49d3-812d-a62bfd313594",
+      "title": "Shoes",
+      "description": "Lovely Shoes",
+      "category": "Clothing",
+      "photos": [],
+      "lender": "80a1d849-ee2b-5a2d-b58f-f92e8d9c5a7e",
+      "published": false,
+      "day_rate": 10,
+      "week_rate": 40,
+      "month_rate": null,
+      "mon": true,
+      "tue": true,
+      "wed": true,
+      "thu": true,
+      "fri": true,
+      "sat": true,
+      "sun": true,
+      "attributes": {
+        "make": "gucci",
+        "size": 7
+      }
+    },
+    {
+      "uuid": "a13a4227-8644-410f-b7e9-5933def6e8be",
+      "title": "Garage Space",
+      "description": "Space in my Garage",
+      "category": "Space",
+      "photos": [],
+      "lender": "89656ca7-6cef-5de8-bbde-ab99c3614f9e",
+      "published": true,
+      "day_rate": 10,
+      "week_rate": 40,
+      "month_rate": 120,
+      "mon": true,
+      "tue": true,
+      "wed": true,
+      "thu": true,
+      "fri": true,
+      "sat": true,
+      "sun": true,
+      "attributes": {
+        "size": "30 square feet"
+      }
+    },
+    {
+      "uuid": "1913c5d4-62a4-4adf-a59e-21d45a896ed6",
+      "title": "Lovely Bicycle",
+      "description": "10 speed mountain bike.",
+      "category": "Vehicles",
+      "photos": [],
+      "lender": "a64151d9-2a1d-5a11-a226-883e0acafd04",
+      "published": true,
+      "day_rate": 10,
+      "week_rate": 40,
+      "month_rate": 120,
+      "mon": true,
+      "tue": true,
+      "wed": true,
+      "thu": true,
+      "fri": true,
+      "sat": true,
+      "sun": true,
+      "attributes": {
+        "frame_size": "20 inch",
+        "colour": "black"
+      }
+    },
+    {
+      "uuid": "0f5a9b36-da2f-41d7-b83a-775bca3450b9",
+      "title": "Drill",
+      "description": "100Watt Hammer Drill",
+      "category": "Tools",
+      "photos": [],
+      "lender": "b6bb9ef4-08dc-54bb-8878-d308b720408b",
+      "published": true,
+      "day_rate": 12,
+      "week_rate": 55,
+      "month_rate": 180,
+      "mon": true,
+      "tue": true,
+      "wed": true,
+      "thu": true,
+      "fri": true,
+      "sat": true,
+      "sun": true,
+      "attributes": {
+        "make": "DeWalt",
+        "wattage": "100"
+      }
+    },
+    {
+      "uuid": "126ee724-db42-4346-b5c4-044c4a11f75a",
+      "title": "Marshall Amp",
+      "description": "200Watt Marshall Stack",
+      "category": "Musical Instruments",
+      "photos": [],
+      "lender": "7c88d529-358a-5c7d-8b10-25c6a15739c4",
+      "published": true,
+      "day_rate": 18,
+      "week_rate": 70,
+      "month_rate": 220,
+      "mon": true,
+      "tue": true,
+      "wed": true,
+      "thu": true,
+      "fri": true,
+      "sat": true,
+      "sun": true,
+      "attributes": {
+        "make": "Marshall",
+        "wattage": "200"
+      }
+    }
+  ],
+  "contract": [
+  ]
+}

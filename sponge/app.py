@@ -3,7 +3,7 @@ from threading import Thread
 from database import Database
 from cleaner import Cleaner
 from flask_pymongo import MongoClient
-from utils import setup_logger, read_config_file
+from utils import setup_logger, read_json_file
 
 def run():
     # Argument parser
@@ -13,14 +13,14 @@ def run():
     config_path = args[0].c
 
     # Config
-    cfg = read_config_file(config_path)
+    cfg = read_json_file(config_path)
 
     # Logging
     setup_logger(cfg["logging"]["file"], cfg["logging"]["level"])
 
     # DB
     db_client = MongoClient(cfg["database"]["host"], cfg["database"]["port"])
-    db_wrapper = Database(db_client[cfg["database"]["name"]])
+    db_wrapper = Database(db_client[cfg["database"]["name"]], cfg)
 
     # Cleaner
     if cfg["cleaner"]["enabled"]:

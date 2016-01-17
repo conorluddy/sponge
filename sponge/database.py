@@ -3,23 +3,27 @@ import logging
 
 from pymongo.errors import OperationFailure
 
-from utils import strip_dict, make_uuid
+from utils import strip_dict, make_uuid, read_json_file
 from constants import CATEGORIES
 from objects.category import Category
 from objects.item import Item
 from objects.user import User
 from objects.contract import Contract
 
-class Database():
+class Database:
     """
     Wrapper for the database layer
     """
     PAGE_SIZE = 15
 
-    def __init__(self, db):
+    def __init__(self, db, cfg):
         self.db = db
+        self.cfg = cfg
         self.create_indexes()
         self.create_defaults()
+        if cfg["database"]["add_test_data"]:
+            self.reset_database()
+            self.add_test_data()
 
     def create_indexes(self):
         self.create_index("user", "uuid", unique=True)
@@ -48,6 +52,15 @@ class Database():
         self.db.item.drop()
         self.db.category.drop()
         self.db.contract.drop()
+
+    def add_test_data(self):
+        test_data = read_json_file(self.cfg["database"]["test_data"])
+        for user in test_data["user"]:
+            del user["uuid"]
+            self.insert_user(**user)
+        for item in test_data["item"]:
+            del item["uuid"]
+            self.insert_item(**item)
 
     def insert_or_replace(self, collection_name, uuid, document):
         if uuid:

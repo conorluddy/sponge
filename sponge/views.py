@@ -1,5 +1,5 @@
 from flask import request, render_template
-from utils import json_response
+from utils import json_response, monitor
 from flask import Flask
 from flask.ext.autodoc import Autodoc
 
@@ -7,6 +7,7 @@ app = Flask(__name__, static_url_path='')
 documentor = Autodoc(app)
 db = None # DB Wrapper Placeholder
 
+@monitor
 @app.route('/docs')
 @documentor.doc()
 def docs():
@@ -19,6 +20,7 @@ def docs():
     )
 
 #TODO - authenticate requests
+@monitor
 @app.route('/')
 @documentor.doc()
 def index():
@@ -26,11 +28,13 @@ def index():
 
 #### User ####
 
+@monitor
 @app.route('/user')
 @documentor.doc()
 def user():
     return json_response(db.get("user", request.args.get("uuid")))
 
+@monitor
 @app.route('/user/add', methods=['POST'])
 @documentor.doc()
 def user_add():
@@ -38,13 +42,13 @@ def user_add():
         db.insert_user(
             uuid=request.form.get("uuid"),
             mail=request.form["mail"],
-            first=request.form["first"],
-            last=request.form["last"],
+            name=request.form["name"],
             password=request.form["password"],
             intro=request.form["intro"],
         )
     )
 
+@monitor
 @app.route('/user/remove')
 @documentor.doc()
 def user_remove():
@@ -52,11 +56,13 @@ def user_remove():
 
 #### Item ####
 
+@monitor
 @app.route('/item')
 @documentor.doc()
 def item():
     return json_response(db.get("item", request.args.get("uuid")))
 
+@monitor
 @app.route('/item/add', methods=['POST'])
 @documentor.doc()
 def item_add():
@@ -80,6 +86,7 @@ def item_add():
         )
     )
 
+@monitor
 @app.route('/item/remove')
 @documentor.doc()
 def item_remove():
@@ -87,11 +94,13 @@ def item_remove():
 
 #### Contract ####
 
+@monitor
 @app.route('/contract')
 @documentor.doc()
 def contract():
     return json_response(db.get("contract", request.args.get("uuid")))
 
+@monitor
 @app.route('/contract/add', methods=['POST'])
 @documentor.doc()
 def contract_add():
@@ -108,6 +117,7 @@ def contract_add():
         )
     )
 
+@monitor
 @app.route('/contract/confirm')
 @documentor.doc()
 def contract_confirm():
@@ -118,6 +128,7 @@ def contract_confirm():
         )
     )
 
+@monitor
 @app.route('/contract/remove')
 @documentor.doc()
 def contract_remove():

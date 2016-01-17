@@ -1,4 +1,5 @@
 import abc
+from uuid import uuid4
 
 class Document():
     __metaclass__ = abc.ABCMeta
@@ -13,14 +14,12 @@ class Document():
             return json_document
         return None
 
-    @abc.abstractmethod
     def _valid(self):
-        pass
+        return True
+
+    def _uuid(self):
+        return str(uuid4())
 
     @abc.abstractmethod
     def _json(self):
-        pass
-
-    @abc.abstractmethod
-    def _uuid(self):
         pass

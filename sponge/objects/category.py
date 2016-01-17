@@ -21,6 +21,3 @@ class Category(Document):
 
     def _uuid(self):
         return make_uuid(self.name)
-
-    def _valid(self):
-        return True

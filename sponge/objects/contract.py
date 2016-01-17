@@ -40,6 +40,3 @@ class Contract(Document):
 
     def _uuid(self):
         return make_uuid(self.item + self.borrower + self.lender)
-
-    def _valid(self):
-        return True

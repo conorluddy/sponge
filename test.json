@@ -2,7 +2,9 @@
     "database": {
         "name": "sponge_test",
         "host": "localhost",
-        "port": 27017
+        "port": 27017,
+        "test_data": "/Users/ian/Documents/Git/sponge/tests/data.json",
+        "add_test_data": true
     },
     "logging": {
         "file": "/tmp/test.log",

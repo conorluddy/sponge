@@ -6,7 +6,7 @@ class Item(Document):
 
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
-        self.category = kwargs["category"]
+        self.category = kwargs["category"] # todo - allow for multiple categories
         self.title = kwargs["title"]
         self.description = kwargs["description"]
         self.photos = kwargs["photos"]
@@ -30,6 +30,7 @@ class Item(Document):
         return {
             "title": self.title,
             "description": self.description,
+            "category": self.category,
             "photos": self.photos,
             "lender": self.lender,
             "published": self.published,
