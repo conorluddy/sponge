@@ -14,7 +14,7 @@
         "host": "localhost",
         "port": 5002,
         "enabled": true,
-        "template_folder": "/Users/ian/Documents/Git/sponge/sponge/templates"
+        "template_folder": "/home/ubuntu/sponge/sponge/templates"
     },
     "cleaner": {
         "enabled": false
