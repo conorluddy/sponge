@@ -1,0 +1,22 @@
+{
+    "database": {
+        "name": "circle_test",
+        "host": "localhost",
+        "port": 27017,
+        "test_data": "/home/ubuntu/sponge/tests/data.json",
+        "add_test_data": true
+    },
+    "logging": {
+        "file": "home/ubuntu/sponge/sponge.log",
+        "level": 20
+    },
+    "web_server": {
+        "host": "localhost",
+        "port": 5002,
+        "enabled": true
+    },
+    "cleaner": {
+        "enabled": false
+    },
+    "executable": "python /home/ubuntu/sponge/sponge/app.py -c /home/ubuntu/sponge/config/circle.json &"
+}
