@@ -43,7 +43,7 @@ class TestDatabase(SpongeUnitTestCase):
         self.db.update("user", user_uuid, {"$set": {"name": "updated"}})
 
         updated_db_user = self.db.get("user", user_uuid)
-        self.assertEqual(updated_db_user["name"], "updated")
+        self.assertEqual(updated_db_user["name"], "updated!")
 
     #### Test Data ####
 
