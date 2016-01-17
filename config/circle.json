@@ -7,7 +7,7 @@
         "add_test_data": true
     },
     "logging": {
-        "file": "home/ubuntu/sponge.log",
+        "file": "/home/ubuntu/sponge.log",
         "level": 20
     },
     "web_server": {
