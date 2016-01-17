@@ -1,16 +1,11 @@
-import requests
-import unittest
+import unittest2
 from sponge.database import Database
-from time import sleep
-import sys
-import os
 from flask_pymongo import MongoClient
 from sponge.utils import read_json_file
 
-WEB_DRIVER = "/Users/ian/Documents/Git/sponge/lib/phantomjs"
 CONFIG = "/Users/ian/Documents/Git/sponge/test.json"
 
-class SpongeTestCase(unittest.TestCase):
+class SpongeTestCase(unittest2.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -20,44 +15,6 @@ class SpongeTestCase(unittest.TestCase):
         # DB Connection
         db_client = MongoClient(cls.cfg["database"]["host"], cls.cfg["database"]["port"])
         cls.db = Database(db_client[cls.cfg["database"]["name"]], cls.cfg)
-
-        # Start App if not running
-        cls._start_app()
-        cls._wait_for_app()
-
-    @classmethod
-    def tearDownClass(cls):
-        # Kill app
-        cls._stop_app()
-
-    @classmethod
-    def _start_app(cls):
-        if not cls._ping_app():
-            os.popen(cls.cfg["executable"])
-
-    @classmethod
-    def _wait_for_app(cls):
-        sleep(2)
-        timeout = 5
-        while timeout > 0 and not cls._ping_app():
-            sleep(1)
-            timeout -= 1
-        if timeout == 0:
-            sys.exit('App not running!')
-
-    @classmethod
-    def _ping_app(cls):
-        try:
-            return requests.get(cls.req('')).status_code == 200
-        except Exception as ex:
-            print str(ex)
-            return False
-
-    @classmethod
-    def _stop_app(cls):
-        os.popen("kill $(ps aux | grep 'test.json' | awk '{print $2}')")
-
-    #### Utils ####
 
     def assertIsUUID(self, string):
         self.assertIsNotNone(string)

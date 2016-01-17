@@ -1,10 +1,9 @@
 import unittest
 import requests
-from base import SpongeTestCase
+from integration_test_case import SpongeIntegrationTestCase
 from sponge.utils import extract_uuid
 
-
-class TestViews(SpongeTestCase):
+class TestViews(SpongeIntegrationTestCase):
 
     def test_index(self):
         self.assertEqual(requests.get(self.root()).status_code, 200)

@@ -1,7 +1,6 @@
 import argparse
 from threading import Thread
 from database import Database
-from cleaner import Cleaner
 from flask_pymongo import MongoClient
 from utils import setup_logger, read_json_file
 
@@ -21,10 +20,6 @@ def run():
     # DB
     db_client = MongoClient(cfg["database"]["host"], cfg["database"]["port"])
     db_wrapper = Database(db_client[cfg["database"]["name"]], cfg)
-
-    # Cleaner
-    if cfg["cleaner"]["enabled"]:
-        Thread(target=Cleaner(cfg["cleaner"]["frequency"], db_wrapper).run).start()
 
     # Web Server
     if cfg["web_server"]["enabled"]:

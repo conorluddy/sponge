@@ -1,65 +1,49 @@
-import unittest2
-from flask_pymongo import MongoClient
-from sponge.database import Database
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
 from sponge.objects.user import User
+from unit_test_case import SpongeUnitTestCase
 
-class TestDatabase(unittest2.TestCase):
-
-    db_name = "sponge"
-    db_host = "localhost"
-    db_port = 27017
-    db_wrapper = None
-    db_client = None
-
-    @classmethod
-    def setUpClass(cls):
-        cls.db_client = MongoClient(cls.db_host, cls.db_port)
-        cls.db_wrapper = Database(cls.db_client[cls.db_name])
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.db_wrapper.remove_all("user")
-        cls.db_wrapper.remove_all("category")
+class TestDatabase(SpongeUnitTestCase):
 
     def test_add_user(self):
-        new_user = self._new_user("Test", "Add", "test@add.db", "password", "intro")
+        new_user = self.new_user(mail="testadd@unit.com")
 
-        user_uuid = self.db_wrapper.insert("user", User(**new_user))
+        user_uuid = self.db.insert("user", User(**new_user))
 
-        db_user = self.db_wrapper.get("user", user_uuid)
+        db_user = self.db.get("user", user_uuid)
         self.assertEqual(db_user["uuid"], user_uuid)
         self.assertIsNotNone(user_uuid)
         self.assertIsNotNone(db_user)
 
     def test_remove_user(self):
-        new_user = self._new_user("Test", "Remove", "test@remove.db", "password", "intro")
-        user_uuid = self.db_wrapper.insert("user", User(**new_user))
+        new_user = self.new_user(mail="testremove@unit.com")
+        user_uuid = self.db.insert("user", User(**new_user))
 
-        self.db_wrapper.remove("user", user_uuid)
+        self.db.remove("user", user_uuid)
 
-        db_user = self.db_wrapper.get("user", user_uuid)
+        db_user = self.db.get("user", user_uuid)
         self.assertIsNone(db_user)
 
     def test_replace_user(self):
-        new_user = self._new_user("Test", "Replace", "test@replace.db", "password", "intro")
-        user_uuid = self.db_wrapper.insert("user", User(**new_user))
-        updated_user = self._new_user("User", "Replaced", "test@replace.db", "password", "intro")
+        new_user = self.new_user(name="newuser", mail="testreplace@unit.com")
+        user_uuid = self.db.insert("user", User(**new_user))
+        updated_user = self.new_user(name="replaced", mail="testreplace@unit.com")
 
-        self.db_wrapper.replace("user", user_uuid, User(**updated_user))
+        self.db.replace("user", user_uuid, User(**updated_user))
 
-        updated_db_user = self.db_wrapper.get("user", user_uuid)
-        self.assertNotEqual(updated_db_user["first"], new_user["first"])
-        self.assertNotEqual(updated_db_user["last"], new_user["last"])
+        updated_db_user = self.db.get("user", user_uuid)
+        self.assertNotEqual(updated_db_user["name"], "newuser")
+        self.assertEqual(updated_db_user["name"], "replaced")
 
     def test_update_user(self):
-        new_user = self._new_user("Test", "Update", "test@update.db", "password", "intro")
-        user_uuid = self.db_wrapper.insert("user", User(**new_user))
+        new_user = self.new_user(mail="testupdate@unit.com")
+        user_uuid = self.db.insert("user", User(**new_user))
 
-        self.db_wrapper.update("user", user_uuid, {"$set": {"first": "Updated", "last": "User"}})
+        self.db.update("user", user_uuid, {"$set": {"name": "updated"}})
 
-        updated_db_user = self.db_wrapper.get("user", user_uuid)
-        self.assertEqual(updated_db_user["first"], "Updated")
-        self.assertEqual(updated_db_user["last"], "User")
+        updated_db_user = self.db.get("user", user_uuid)
+        self.assertEqual(updated_db_user["name"], "updated")
 
     #### Test Data ####
 
