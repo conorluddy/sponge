@@ -3,7 +3,7 @@ import logging
 
 from pymongo.errors import OperationFailure
 
-from sponge.objects.document import InvalidDocumentException
+from objects.document import InvalidDocumentException
 from utils import strip_dict, make_uuid, read_json_file
 from constants import CATEGORIES
 from objects.category import Category
