@@ -19,5 +19,5 @@
     "cleaner": {
         "enabled": false
     },
-    "executable": "/Users/ian/sponge/bin/python /Users/ian/sponge/sponge/app.py -m test &"
+    "executable": "/Users/ian/sponge/env/bin/python /Users/ian/sponge/sponge/app.py -m test &"
 }
