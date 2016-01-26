@@ -3,7 +3,7 @@
         "name": "sponge",
         "host": "localhost",
         "port": 27017,
-        "test_data": "/Users/ian/Documents/Git/sponge/tests/data.json",
+        "test_data": "/Users/ian/sponge/tests/data.json",
         "add_test_data": true
     },
     "logging": {
@@ -14,7 +14,7 @@
         "host": "localhost",
         "port": 5001,
         "enabled": true,
-        "template_folder": "/Users/ian/Documents/Git/sponge/sponge/templates"
+        "template_folder": "/Users/ian/sponge/sponge/templates"
     },
     "cleaner": {
         "enabled": false
