@@ -10,6 +10,15 @@ angular.module('angularFlaskServices', ['ngResource'])
 			}
 		});
 	})
+	.factory('Item', function($resource) {
+		return $resource('/api/item/:itemId', {}, {
+			query: {
+				method: 'GET',
+				params: { itemId: '' },
+				isArray: true
+			}
+		});
+	})
 ;
 
 

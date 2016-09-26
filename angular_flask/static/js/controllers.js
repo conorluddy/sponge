@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-function IndexController($scope) {
-	
+function IndexController($scope, Item) {
+	var itemsQuery = Item.get({}, function(items) {
+		$scope.items = items.objects;
+	});
 }
 
 function AboutController($scope) {
