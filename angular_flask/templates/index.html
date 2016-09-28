@@ -25,9 +25,12 @@
 				</button>
 				<a class="brand" href="/">Sponge</a>
 				<div class="nav-collapse collapse">
-					<ul class="nav pull-left">
+					<ul class="nav pull-right">
 						<li class="">
-							<a href="/">Home</a>
+							<a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign Up</a>
+						</li>
+						<li class="">
+							<a href="#">Log in</a>
 						</li>
 					</ul>
 				</div>
@@ -36,10 +39,26 @@
 	</div>
 	<div class="container page">
 		<div id="content" class="container main" ng-view></div>
-		<hr>
-		<footer id="footer" class="footer">
-
-		</footer>
+		<footer id="footer" class="footer">		</footer>
 	</div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+          </div>
+          <div class="modal-body pull-right">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>

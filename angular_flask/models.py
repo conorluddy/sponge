@@ -84,15 +84,16 @@ class User(db.Model):
     first = db.Column(db.String(80))
     last = db.Column(db.String(80))
     email = db.Column(db.String(80))
-    password = db.Column(db.String(80))
-    intro = db.Column(db.Text)
+    password = db.Column(db.String(80)) # TODO - encrypt
+    intro = db.Column(db.Text, nullable=True)
 
     def __init__(self, **kwargs):
         self.first = kwargs["first"]
         self.last = kwargs["last"]
         self.email = kwargs["email"]
         self.password = kwargs["password"]
-        self.intro = kwargs["intro"]
+
+        self.intro = kwargs.get("intro")
 
 # models for which we want to create API endpoints
 app.config['API_MODELS'] = {
