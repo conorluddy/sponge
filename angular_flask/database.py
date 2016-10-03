@@ -16,32 +16,28 @@ def session_scope():
 
 class DatabaseModelWrapper:
 
+    model = None
+
     def get(self, id):
-        raise NotImplementedError
+        with session_scope() as session:
+            item = session.query(self.model).filter(self.model.id == id).one()
+        return item
 
-    def post(self, model):
-        raise NotImplementedError
+    def post(self, input):
+        with session_scope() as session:
+            session.add(input)
 
-    def patch(self, model):
-        raise NotImplementedError
+    def patch(self, input):
+        with session_scope() as session:
+            db_item = session.query(self.model).filter(self.model.id == input['id']).one()
+            for key, value in input.iteritems():
+                if not key.startswith("_"):
+                    setattr(db_item, key, value)
 
     def delete(self, id):
-        raise NotImplementedError
+        with session_scope() as session:
+            session.query(self.model).filter(self.model.id == id).delete()
 
 class Item(DatabaseModelWrapper):
 
-    def get(self, id):
-        with session_scope() as session:
-            item = session.query(ItemModel).filter(ItemModel.id == id).first()
-        return item
-
-    def post(self, item):
-        with session_scope() as session:
-            session.add(item)
-
-    def patch(self, item):
-        pass
-
-    def delete(self, id):
-        with session_scope() as session:
-            session.query(ItemModel).filter(ItemModel.id == id).delete()
+    model = ItemModel

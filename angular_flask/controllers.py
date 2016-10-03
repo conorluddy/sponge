@@ -36,11 +36,11 @@ def auth(permissions=None):
     return actualDecorator
 """
 
-def parse_args(string_args=None, int_args=None, json_args=None, bool_args=None):
+def parse_args(get_request=False, string_args=None, int_args=None, json_args=None, bool_args=None):
     def actualDecorator(test_func):
         @wraps(test_func)
         def wrapper(*args, **kwargs):
-            input = json.loads(request.data)
+            input = request.args if get_request else json.loads(request.data)
             output = {}
             for key in string_args or []:
                 output[key] = input.get(key)
@@ -102,11 +102,23 @@ def item_post(item):
     item_service.post(item)
     return "Added", 200
 
+@app.route('/item', methods=['GET'])
+@parse_args(get_request=True, int_args=['id'])
+def item_get(item):
+    print item
+    print item_service.get(item['id'])
+
 @app.route('/item', methods=['DELETE'])
 @parse_args(int_args=['id'])
 def item_delete(input):
     item_service.delete(input['id'])
     return "Deleted", 200
+
+@app.route('/item', methods=['PATCH'])
+@parse_args(string_args=['title', 'description'], bool_args=['published'], int_args=['id', 'day_rate', 'lender', 'category'])
+def item_patch(item):
+    item_service.patch(item)
+    return "Updated", 200
 
 # special file handlers and error handlers
 @app.route('/favicon.ico')
