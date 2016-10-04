@@ -22,8 +22,18 @@
     "category":[
         {
             "id":0,
-            "title":"Vehicles",
-            "count":1
+            "name":"Vehicles",
+            "count":123
+        },
+        {
+            "id":1,
+            "name":"Clothes",
+            "count":33
+        },
+        {
+            "id":2,
+            "name":"Electronics",
+            "count":90
         }
     ]
 }

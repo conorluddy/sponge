@@ -1,6 +1,7 @@
 from angular_flask.core import api_manager
 from contextlib import contextmanager
 from models import Item as ItemModel
+from models import Category as CategoryModel
 
 @contextmanager
 def session_scope():
@@ -21,11 +22,16 @@ class DatabaseModelWrapper:
     def get(self, id):
         with session_scope() as session:
             item = session.query(self.model).filter(self.model.id == id).one()
-        return item
+            return self._map_to_json(item)
+
+    def get_all(self):
+        with session_scope() as session:
+            items = session.query(self.model).all()
+            return {"results": [self._map_to_json(item) for item in items]}
 
     def post(self, input):
         with session_scope() as session:
-            session.add(input)
+            session.add(self._map_from_json(input))
 
     def patch(self, input):
         with session_scope() as session:
@@ -38,6 +44,16 @@ class DatabaseModelWrapper:
         with session_scope() as session:
             session.query(self.model).filter(self.model.id == id).delete()
 
+    def _map_from_json(self, json_input):
+        return self.model(**json_input)
+
+    def _map_to_json(self, model):
+        return dict(model)
+
 class Item(DatabaseModelWrapper):
 
     model = ItemModel
+
+class Category(DatabaseModelWrapper):
+
+    model = CategoryModel

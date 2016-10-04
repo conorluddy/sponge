@@ -32,12 +32,12 @@ def main():
 
     if args.command == 'create_db':
         create_db()
-
         print "DB created!"
-    elif args.command == 'delete_db':
-        drop_db()
 
+    elif args.command == 'drop_db':
+        drop_db()
         print "DB deleted!"
+
     elif args.command == 'seed_db' and args.seedfile:
         with open(args.seedfile, 'r') as f:
             seed_data = json.loads(f.read())

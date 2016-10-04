@@ -44,6 +44,14 @@ class Item(db.Model):
         self.sat = kwargs.get("sat")
         self.sun = kwargs.get("sun")
 
+    def __iter__(self):
+        yield 'category', self.category
+        yield 'title', self.title
+        yield 'description', self.description
+        yield 'lender', self.lender
+        yield 'day_rate', self.day_rate
+
+
 class Contract(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -75,8 +83,12 @@ class Category(db.Model):
     count = db.Column(db.Integer, nullable=False, default=0)
 
     def __init__(self, **kwargs):
-        self.id = kwargs["id"]
         self.name = kwargs["name"]
+
+    def __iter__(self):
+        yield 'id', self.id
+        yield 'name', self.name
+        yield 'count', self.count
 
 class User(db.Model):
 

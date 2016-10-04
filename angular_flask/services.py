@@ -1,21 +1,18 @@
 from database import Item as ItemWrapper
-from models import Item as ItemModel
+from database import Category as CategoryWrapper
 
 class Service:
 
     model_wrapper = None
 
-    def _map(self, input):
-        raise NotImplementedError
-
-    def _unmap(self, model):
-        raise NotImplementedError
-
     def get(self, id):
-        return self._unmap(self.model_wrapper.get(id))
+        return self.model_wrapper.get(id)
+
+    def get_all(self):
+        return self.model_wrapper.get_all()
 
     def post(self, model):
-        self.model_wrapper.post(self._map(model))
+        self.model_wrapper.post(model)
 
     def patch(self, model):
         self.model_wrapper.patch(model)
@@ -27,12 +24,6 @@ class ItemService(Service):
 
     model_wrapper = ItemWrapper()
 
-    def _map(self, json_input):
-        return ItemModel(**json_input)
+class CategoryService(Service):
 
-    def _unmap(self, model):
-        return model.__dict__
-
-
-
-
+    model_wrapper = CategoryWrapper()

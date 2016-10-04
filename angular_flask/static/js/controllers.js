@@ -3,7 +3,7 @@
 /* Controllers */
 
 function IndexController($scope, Item) {
-	var itemsQuery = Item.get({}, function(items) {
+	var homeQuery = Home.get({}, function(items) {
 		$scope.items = items.objects;
 	});
 }
