@@ -12,6 +12,12 @@ function AboutController($scope) {
 	
 }
 
+function SearchController($scope, $routeParams, Search) {
+	var searchQuery = Search.get({ search: $routeParams.search }, function(result) {
+		$scope.results = result.results;
+	});
+}
+
 function PostListController($scope, Post) {
 	var postsQuery = Post.get({}, function(posts) {
 		$scope.posts = posts.objects;

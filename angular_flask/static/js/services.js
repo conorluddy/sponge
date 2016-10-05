@@ -28,6 +28,15 @@ angular.module('angularFlaskServices', ['ngResource'])
 			}
 		});
 	})
+	.factory('Search', function($resource) {
+		return $resource('/api/item/', {}, {
+			query: {
+				method: 'GET',
+				params: { searchTerm: '' },
+				isArray: true
+			}
+		});
+	})
 ;
 
 

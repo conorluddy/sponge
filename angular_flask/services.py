@@ -5,11 +5,13 @@ class Service:
 
     model_wrapper = None
 
-    def get(self, id):
-        return self.model_wrapper.get(id)
-
-    def get_all(self):
-        return self.model_wrapper.get_all()
+    def get(self, id=None, search=None):
+        if search is not None:
+            return self.model_wrapper.search(search)
+        elif id is not None:
+            return self.model_wrapper.get_with_id(id)
+        else:
+            return self.model_wrapper.get_all()
 
     def post(self, model):
         self.model_wrapper.post(model)

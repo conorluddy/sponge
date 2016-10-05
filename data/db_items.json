@@ -21,19 +21,49 @@
     ],
     "category":[
         {
-            "id":0,
-            "name":"Vehicles",
-            "count":123
+            "name":"Appliances"
         },
         {
-            "id":1,
-            "name":"Clothes",
-            "count":33
+            "name":"Clothes"
         },
         {
-            "id":2,
-            "name":"Electronics",
-            "count":90
+            "name":"Electronics"
+        },
+        {
+            "name":"Tools"
+        },
+        {
+            "name":"Pets"
+        },
+        {
+            "name":"Accomodation"
+        },
+        {
+            "name":"Vehicles"
+        },
+        {
+            "name":"Sports"
+        },
+        {
+            "name":"Travel & Outdoor"
+        },
+        {
+            "name":"Home & Garden"
+        },
+        {
+            "name":"Space"
+        },
+        {
+            "name":"Services"
+        },
+        {
+            "name":"Musical Instruments"
+        },
+        {
+            "name":"Fun"
+        },
+        {
+            "name":"Baby"
         }
     ]
 }

@@ -19,15 +19,13 @@ class DatabaseModelWrapper:
 
     model = None
 
-    def get(self, id):
+    def get_with_id(self, id):
         with session_scope() as session:
-            item = session.query(self.model).filter(self.model.id == id).one()
-            return self._map_to_json(item)
+            return self._map_to_json(session.query(self.model).filter(self.model.id == id).one())
 
     def get_all(self):
         with session_scope() as session:
-            items = session.query(self.model).all()
-            return {"results": [self._map_to_json(item) for item in items]}
+            return self._map_multiple_to_json(session.query(self.model).all())
 
     def post(self, input):
         with session_scope() as session:
@@ -47,12 +45,20 @@ class DatabaseModelWrapper:
     def _map_from_json(self, json_input):
         return self.model(**json_input)
 
-    def _map_to_json(self, model):
-        return dict(model)
+    def _map_to_json(self, item):
+        return dict(item)
+
+    def _map_multiple_to_json(self, items):
+        return {"results": [self._map_to_json(item) for item in items]}
 
 class Item(DatabaseModelWrapper):
 
     model = ItemModel
+
+    def search(self, term):
+        with session_scope() as session:
+            return self._map_multiple_to_json(
+                session.query(self.model).filter(self.model.description.like('%' + term + '%')).all())
 
 class Category(DatabaseModelWrapper):
 

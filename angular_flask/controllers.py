@@ -45,6 +45,7 @@ session = api_manager.session
 @app.route('/')
 @app.route('/about')
 @app.route('/blog')
+@app.route('/search')
 def basic_pages(**kwargs):
     return make_response(open('angular_flask/templates/index.html').read())
 
@@ -69,13 +70,13 @@ def item_patch(item):
     return "Updated", 200
 
 @app.route('/api/item', methods=['GET'])
-@parse_args(get_request=True, int_args=['id'])
-def item_get(item):
-    return flask.jsonify(**item_service.get(item['id']))
+@parse_args(get_request=True, int_args=['id'], string_args=['search'])
+def item_get(input):
+    return flask.jsonify(**item_service.get(id=input.get('id'), search=input.get('search')))
 
 @app.route('/api/category', methods=['GET'])
 def category_get():
-    return flask.jsonify(**category_service.get_all())
+    return flask.jsonify(**category_service.get())
 
 @app.route('/api/category', methods=['POST'])
 @parse_args(string_args=['name'], int_args=['count'])
