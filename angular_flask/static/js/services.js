@@ -19,8 +19,8 @@ angular.module('angularFlaskServices', ['ngResource'])
 			}
 		});
 	})
-	.factory('Home', function($resource) {
-		return $resource('api/home', {}, {
+	.factory('Category', function($resource) {
+		return $resource('api/category', {}, {
 			query: {
 				method: 'GET',
 				params: { },

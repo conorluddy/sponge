@@ -39,6 +39,8 @@ def main():
         print "DB deleted!"
 
     elif args.command == 'seed_db' and args.seedfile:
+        drop_db()
+        create_db()
         with open(args.seedfile, 'r') as f:
             seed_data = json.loads(f.read())
 

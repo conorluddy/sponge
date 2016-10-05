@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from angular_flask.core import db
 from angular_flask import app
 
@@ -106,19 +104,3 @@ class User(db.Model):
         self.password = kwargs["password"]
 
         self.intro = kwargs.get("intro")
-
-# models for which we want to create API endpoints
-app.config['API_MODELS'] = {
-    'item': Item,
-    'user': User,
-    'category': Category,
-    'contract': Contract,
-}
-
-# models for which we want to create CRUD-style URL endpoints,
-# and pass the routing onto our AngularJS application
-app.config['CRUD_URL_MODELS'] = {
-    'item': Item,
-    'user': User,
-    'contract': Contract,
-}

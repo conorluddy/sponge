@@ -8,7 +8,6 @@ from flask import render_template, send_from_directory
 from flask import request
 
 from services import ItemService, CategoryService
-# routing for API endpoints, generated from the models designated as API_MODELS
 from angular_flask.core import api_manager
 from angular_flask.models import *
 
@@ -40,11 +39,6 @@ item_service = ItemService()
 category_service = CategoryService()
 
 session = api_manager.session
-
-# routing for CRUD-style endpoints
-# passes routing onto the angular frontend if the requested resource exists
-
-crud_url_models = app.config['CRUD_URL_MODELS']
 
 ### Pages ###
 
@@ -81,7 +75,6 @@ def item_get(item):
 
 @app.route('/api/category', methods=['GET'])
 def category_get():
-    print category_service.get_all()
     return flask.jsonify(**category_service.get_all())
 
 @app.route('/api/category', methods=['POST'])

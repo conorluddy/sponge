@@ -2,9 +2,9 @@
 
 /* Controllers */
 
-function IndexController($scope, Item) {
-	var homeQuery = Home.get({}, function(items) {
-		$scope.items = items.objects;
+function IndexController($scope, Category) {
+	var categoryQuery = Category.get({}, function(categories) {
+		$scope.categories = categories.results;
 	});
 }
 

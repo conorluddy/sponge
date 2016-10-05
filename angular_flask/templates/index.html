@@ -18,30 +18,24 @@
 	<script src="/static/lib/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="header" class="header navbar navbar-static-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				</button>
-				<a class="brand" href="/">Sponge</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav pull-right">
-						<li class="">
-							<a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign Up</a>
-						</li>
-						<li class="">
-							<a href="#">Log in</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <a href="/" class="navbar-brand">Sponge</a>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#sign-in-modal">Log In</a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
 	<div class="container page">
 		<div id="content" class="container main" ng-view></div>
 		<footer id="footer" class="footer">		</footer>
 	</div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
