@@ -1,17 +1,15 @@
 {
     "item":[
         {
-            "id":0,
             "title":"Bicycle",
-            "category":0,
+            "category":7,
             "description":"My Bike",
-            "lender":0,
+            "lender":1,
             "day_rate":5.00
         }
     ],
     "user":[
         {
-            "id":0,
             "first":"Ian",
             "last":"Luddy",
             "email":"ianluddy@gmail.com",

@@ -70,9 +70,9 @@ def item_patch(item):
     return "Updated", 200
 
 @app.route('/api/item', methods=['GET'])
-@parse_args(get_request=True, int_args=['id'], string_args=['search'])
+@parse_args(get_request=True, int_args=['id', 'category'], string_args=['search'])
 def item_get(input):
-    return flask.jsonify(**item_service.get(id=input.get('id'), search=input.get('search')))
+    return flask.jsonify(**item_service.get(id=input.get('id'), search=input.get('search'), category=input.get('category')))
 
 @app.route('/api/category', methods=['GET'])
 def category_get():

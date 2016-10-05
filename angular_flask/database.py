@@ -19,7 +19,7 @@ class DatabaseModelWrapper:
 
     model = None
 
-    def get_with_id(self, id):
+    def get_by_id(self, id):
         with session_scope() as session:
             return self._map_to_json(session.query(self.model).filter(self.model.id == id).one())
 
@@ -59,6 +59,11 @@ class Item(DatabaseModelWrapper):
         with session_scope() as session:
             return self._map_multiple_to_json(
                 session.query(self.model).filter(self.model.description.like('%' + term + '%')).all())
+
+    def get_by_category(self, categoryId):
+        with session_scope() as session:
+            return self._map_multiple_to_json(
+                session.query(self.model).filter(self.model.category == categoryId).all())
 
 class Category(DatabaseModelWrapper):
 
