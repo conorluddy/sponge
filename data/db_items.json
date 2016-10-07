@@ -37,13 +37,16 @@
             "name":"Electronics"
         },
         {
-            "name":"Tools"
+            "name":"Tools",
+            "image":"static/img/categories/tools.jpg"
         },
         {
-            "name":"Pets"
+            "name":"Pets",
+            "image":"static/img/categories/pets.jpg"
         },
         {
-            "name":"Accomodation"
+            "name":"Accomodation",
+            "image":"static/img/categories/accomodation.jpg"
         },
         {
             "name":"Vehicles"
@@ -52,7 +55,8 @@
             "name":"Sports"
         },
         {
-            "name":"Travel & Outdoor"
+            "name":"Travel & Outdoor",
+            "image":"static/img/categories/outdoor.jpg"
         },
         {
             "name":"Home & Garden"

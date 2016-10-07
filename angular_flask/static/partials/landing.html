@@ -1,3 +1,9 @@
-<div class="col-sm-3" ng-repeat="category in categories | orderBy: 'id':true ">
-	<a href="/search?category={{category.id}}">{{ category.name }}</a>
+<div id="landing">
+    <span class="category col-md-4 col-sm-6 col-xs-12" ng-repeat="category in categories | orderBy: 'id':true " >
+        <a href="/search?category={{category.id}}">
+            <div class="category-image">
+                <h3>{{ category.name }}</h3>
+            </div>
+        </a>
+    </span>
 </div>

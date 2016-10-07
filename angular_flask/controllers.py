@@ -94,7 +94,7 @@ def category_get():
 
 @app.route('/api/category', methods=['POST'])
 @parse_args(
-    string_args=['name'],
+    string_args=['name', 'image'],
     int_args=['count']
 )
 def category_post(category):
