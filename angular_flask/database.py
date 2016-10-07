@@ -46,7 +46,7 @@ class DatabaseModelWrapper:
         return self.model(**json_input)
 
     def _map_to_json(self, item):
-        return dict(item)
+        return item.to_dict()
 
     def _map_multiple_to_json(self, items):
         return {"results": [self._map_to_json(item) for item in items]}

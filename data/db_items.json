@@ -5,7 +5,16 @@
             "category":7,
             "description":"My Bike",
             "lender":1,
-            "day_rate":5.00
+            "day_rate":5.00,
+            "address": "123 Fake St."
+        },
+        {
+            "title":"BBQ",
+            "category":10,
+            "description":"My BBQ",
+            "lender":1,
+            "day_rate":5.00,
+            "address": "123 Fake St."
         }
     ],
     "user":[

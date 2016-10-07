@@ -10,16 +10,12 @@ def create_sample_db_entry(api_endpoint, payload):
     r = requests.post(
         url, data=json.dumps(payload),
         headers={'Content-Type': 'application/json'})
-    print r.text
-
 
 def create_db():
     db.create_all()
 
-
 def drop_db():
     db.drop_all()
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -48,7 +44,6 @@ def main():
             items = seed_data[item_class]
             print items
             for item in items:
-                print item
                 create_sample_db_entry('api/' + item_class, item)
 
         print "\nSample data added to database!"

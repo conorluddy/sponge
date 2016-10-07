@@ -11,6 +11,8 @@ from services import ItemService, CategoryService
 from angular_flask.core import api_manager
 from angular_flask.models import *
 
+session = api_manager.session
+
 def parse_args(get_request=False, string_args=None, int_args=None, json_args=None, bool_args=None):
     def actualDecorator(test_func):
         @wraps(test_func)
@@ -34,11 +36,10 @@ def parse_args(get_request=False, string_args=None, int_args=None, json_args=Non
         return wrapper
     return actualDecorator
 
+### Services ###
 
 item_service = ItemService()
 category_service = CategoryService()
-
-session = api_manager.session
 
 ### Pages ###
 
@@ -52,25 +53,38 @@ def basic_pages(**kwargs):
 ### API ###
 
 @app.route('/api/item', methods=['POST'])
-@parse_args(string_args=['title', 'description'], int_args=['day_rate', 'lender', 'category'])
+@parse_args(
+    string_args=['title', 'description', 'address'],
+    int_args=['day_rate', 'lender', 'category']
+)
 def item_post(item):
     item_service.post(item)
     return "Added", 200
 
 @app.route('/api/item', methods=['DELETE'])
-@parse_args(int_args=['id'])
+@parse_args(
+    int_args=['id']
+)
 def item_delete(input):
     item_service.delete(input['id'])
     return "Deleted", 200
 
 @app.route('/api/item', methods=['PATCH'])
-@parse_args(string_args=['title', 'description'], bool_args=['published'], int_args=['id', 'day_rate', 'lender', 'category'])
+@parse_args(
+    string_args=['title', 'description', 'address'],
+    bool_args=['published'],
+    int_args=['id', 'day_rate', 'lender', 'category']
+)
 def item_patch(item):
     item_service.patch(item)
     return "Updated", 200
 
 @app.route('/api/item', methods=['GET'])
-@parse_args(get_request=True, int_args=['id', 'category'], string_args=['search'])
+@parse_args(
+    get_request=True,
+    int_args=['id', 'category'],
+    string_args=['search']
+)
 def item_get(input):
     return flask.jsonify(**item_service.get(id=input.get('id'), search=input.get('search'), category=input.get('category')))
 
@@ -79,7 +93,10 @@ def category_get():
     return flask.jsonify(**category_service.get())
 
 @app.route('/api/category', methods=['POST'])
-@parse_args(string_args=['name'], int_args=['count'])
+@parse_args(
+    string_args=['name'],
+    int_args=['count']
+)
 def category_post(category):
     category_service.post(category)
     return "Added", 200

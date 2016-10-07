@@ -4,13 +4,25 @@ from angular_flask import app
 # TODO - use UUIDS
 # TODO - add indexes
 
-class Item(db.Model):
+class BaseModel:
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.iteritems():
+            setattr(self, key, value)
+
+    def to_dict(self):
+        output = self.__dict__
+        del output['_sa_instance_state']
+        return output
+
+class Item(db.Model, BaseModel):
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=False)
-    category = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    lender = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    category = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    description = db.Column(db.String, nullable=False)
+    address = db.Column(db.String, nullable=False)
+    lender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     day_rate = db.Column(db.Float, nullable=False)
     published = db.Column(db.Boolean, default=False, nullable=False)
     week_rate = db.Column(db.Float)
@@ -23,39 +35,17 @@ class Item(db.Model):
     sat = db.Column(db.Boolean, default=True, nullable=False)
     sun = db.Column(db.Boolean, default=True, nullable=False)
 
-    def __init__(self, **kwargs):
-        super(Item, self).__init__(**kwargs)
-        self.category = kwargs["category"]
-        self.title = kwargs["title"]
-        self.description = kwargs["description"]
-        self.lender = kwargs["lender"]
-        self.day_rate = kwargs["day_rate"]
+class ItemPhoto(db.Model, BaseModel):
 
-        self.week_rate = kwargs.get("week_rate")
-        self.month_rate = kwargs.get("month_rate")
-        self.published = kwargs.get("published")
-        self.mon = kwargs.get("mon")
-        self.tue = kwargs.get("tue")
-        self.wed = kwargs.get("wed")
-        self.thu = kwargs.get("thu")
-        self.fri = kwargs.get("fri")
-        self.sat = kwargs.get("sat")
-        self.sun = kwargs.get("sun")
+    item = db.Column(db.Integer, db.ForeignKey('item.id'), primary_key=True)
+    photo = db.Column(db.String, nullable=False)
 
-    def __iter__(self):
-        yield 'category', self.category
-        yield 'title', self.title
-        yield 'description', self.description
-        yield 'lender', self.lender
-        yield 'day_rate', self.day_rate
-
-
-class Contract(db.Model):
+class Contract(db.Model, BaseModel):
 
     id = db.Column(db.Integer, primary_key=True)
-    item = db.Column(db.Integer, nullable=False)
-    borrower = db.Column(db.Integer, nullable=False)
-    lender = db.Column(db.Integer, nullable=False)
+    item = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    borrower = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    lender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     start = db.Column(db.DateTime, nullable=False)
     end = db.Column(db.DateTime, nullable=False)
     cost = db.Column(db.Float, nullable=False)
@@ -63,44 +53,38 @@ class Contract(db.Model):
     cancelled = db.Column(db.Boolean, nullable=False, default=False)
     payment_sent = db.Column(db.Boolean, nullable=False, default=False)
     payment_received = db.Column(db.Boolean, nullable=False, default=False)
-    conversation = db.Column(db.String)
 
-    def __init__(self, **kwargs):
-        self.item = kwargs["item"]
-        self.borrower = kwargs["borrower"]
-        self.lender = kwargs["lender"]
-        self.start_date = kwargs["start_date"]
-        self.end_date = kwargs["end_date"]
-        self.cost = kwargs["cost"]
-        super(Contract, self).__init__(**kwargs)
+class ContractMessage(db.Model, BaseModel):
 
-class Category(db.Model):
+    stamp = db.Column(db.Integer, nullable=False, primary_key=True)
+    contract = db.Column(db.Integer, db.ForeignKey('contract.id'), nullable=False, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
+    message = db.Column(db.String, nullable=False)
+
+class ContractFeedback(db.Model, BaseModel):
+
+    stamp = db.Column(db.Integer, nullable=False, primary_key=True)
+    contract = db.Column(db.Integer, db.ForeignKey('contract.id'), nullable=False, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
+    message = db.Column(db.String, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+
+class Category(db.Model, BaseModel):
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String, nullable=False)
     count = db.Column(db.Integer, nullable=False, default=0)
+    image = db.Column(db.String, nullable=False, default="todo") # TODO
 
-    def __init__(self, **kwargs):
-        self.name = kwargs["name"]
-
-    def __iter__(self):
-        yield 'id', self.id
-        yield 'name', self.name
-        yield 'count', self.count
-
-class User(db.Model):
+class User(db.Model, BaseModel):
 
     id = db.Column(db.Integer, primary_key=True)
-    first = db.Column(db.String(80))
-    last = db.Column(db.String(80))
-    email = db.Column(db.String(80))
-    password = db.Column(db.String(80)) # TODO - encrypt
-    intro = db.Column(db.Text, nullable=True)
-
-    def __init__(self, **kwargs):
-        self.first = kwargs["first"]
-        self.last = kwargs["last"]
-        self.email = kwargs["email"]
-        self.password = kwargs["password"]
-
-        self.intro = kwargs.get("intro")
+    first = db.Column(db.String, nullable=False)
+    last = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    photo = db.Column(db.String)
+    phone = db.Column(db.String)
+    email_verified = db.Column(db.Boolean, nullable=False, default=False)
+    phone_verified = db.Column(db.Boolean, nullable=False, default=False)
+    password = db.Column(db.String, nullable=False) # TODO - encrypt
+    intro = db.Column(db.String)
