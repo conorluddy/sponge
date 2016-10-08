@@ -59,14 +59,18 @@ class SearchDatabaseModelWrapper(DatabaseModelWrapper):
     def search(self, query, page):
         with session_scope() as session:
             query = session.query(self.model).filter(query)
-            page_count = (query.count() / self.page_size) + 1
+            query_count = query.count()
             page_query = query.limit(self.page_size).offset(page * self.page_size)
-            return self._map_results_to_json(page_query.all(), page, page_count)
-
-    def _map_results_to_json(self, results, page, count):
-        output = self._map_multiple_to_json(results)
-        output.update({'count': count, 'page': page})
-        return output
+            start = (self.page_size * page) + 1
+            output = self._map_multiple_to_json(page_query.all())
+            output.update({
+                'page_count': (query_count / self.page_size) + 1,
+                'page': page + 1,
+                'query_count': query.count(),
+                'start': start,
+                'end': start + self.page_size if start + self.page_size < query_count else query_count
+            })
+            return output
 
 class ItemWrapper(SearchDatabaseModelWrapper):
 

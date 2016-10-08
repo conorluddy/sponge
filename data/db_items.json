@@ -6,7 +6,8 @@
             "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac nisi vitae odio efficitur molestie in id nisi. Nam lectus metus, blandit id pharetra nec, maximus eu erat. Fusce sit amet ante venenatis, pulvinar ligula et, malesuada risus. Sed euismod, tellus vel commodo dictum, libero orci bibendum lorem, sit amet molestie nisi libero vitae libero. Pellentesque at nisi ac purus tincidunt vehicula. Etiam eget gravida velit. Maecenas sed scelerisque leo, non pharetra purus. Curabitur sit amet neque quis nulla consectetur congue. In hac habitasse platea dictumst. Ut quis eleifend nibh. Suspendisse at nunc ut nisi tincidunt pretium vitae sit amet eros.",
             "lender":1,
             "day_rate":5.00,
-            "address": "123 Fake St."
+            "address": "123 Fake St.",
+            "image":"static/img/items/bike1.jpg"
         },
         {
             "title":"Bicycle2",
@@ -14,7 +15,8 @@
             "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac nisi vitae odio efficitur molestie in id nisi. Nam lectus metus, blandit id pharetra nec, maximus eu erat. Fusce sit amet ante venenatis, pulvinar ligula et, malesuada risus. Sed euismod, tellus vel commodo dictum, libero orci bibendum lorem, sit amet molestie nisi libero vitae libero. Pellentesque at nisi ac purus tincidunt vehicula. Etiam eget gravida velit. Maecenas sed scelerisque leo, non pharetra purus. Curabitur sit amet neque quis nulla consectetur congue. In hac habitasse platea dictumst. Ut quis eleifend nibh. Suspendisse at nunc ut nisi tincidunt pretium vitae sit amet eros.",
             "lender":1,
             "day_rate":5.00,
-            "address": "123 Fake St."
+            "address": "123 Fake St.",
+            "image":"static/img/items/bike2.jpg"
         },
         {
             "title":"Bicycle3",
@@ -22,7 +24,8 @@
             "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac nisi vitae odio efficitur molestie in id nisi. Nam lectus metus, blandit id pharetra nec, maximus eu erat. Fusce sit amet ante venenatis, pulvinar ligula et, malesuada risus. Sed euismod, tellus vel commodo dictum, libero orci bibendum lorem, sit amet molestie nisi libero vitae libero. Pellentesque at nisi ac purus tincidunt vehicula. Etiam eget gravida velit. Maecenas sed scelerisque leo, non pharetra purus. Curabitur sit amet neque quis nulla consectetur congue. In hac habitasse platea dictumst. Ut quis eleifend nibh. Suspendisse at nunc ut nisi tincidunt pretium vitae sit amet eros.",
             "lender":1,
             "day_rate":5.00,
-            "address": "123 Fake St."
+            "address": "123 Fake St.",
+            "image":"static/img/items/bike3.jpg"
         },
         {
             "title":"Bicycle4",
@@ -30,7 +33,8 @@
             "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac nisi vitae odio efficitur molestie in id nisi. Nam lectus metus, blandit id pharetra nec, maximus eu erat. Fusce sit amet ante venenatis, pulvinar ligula et, malesuada risus. Sed euismod, tellus vel commodo dictum, libero orci bibendum lorem, sit amet molestie nisi libero vitae libero. Pellentesque at nisi ac purus tincidunt vehicula. Etiam eget gravida velit. Maecenas sed scelerisque leo, non pharetra purus. Curabitur sit amet neque quis nulla consectetur congue. In hac habitasse platea dictumst. Ut quis eleifend nibh. Suspendisse at nunc ut nisi tincidunt pretium vitae sit amet eros.",
             "lender":1,
             "day_rate":5.00,
-            "address": "123 Fake St."
+            "address": "123 Fake St.",
+            "image":"static/img/items/bike4.jpg"
         },
         {
             "title":"Bicycle5",
@@ -38,7 +42,8 @@
             "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac nisi vitae odio efficitur molestie in id nisi. Nam lectus metus, blandit id pharetra nec, maximus eu erat. Fusce sit amet ante venenatis, pulvinar ligula et, malesuada risus. Sed euismod, tellus vel commodo dictum, libero orci bibendum lorem, sit amet molestie nisi libero vitae libero. Pellentesque at nisi ac purus tincidunt vehicula. Etiam eget gravida velit. Maecenas sed scelerisque leo, non pharetra purus. Curabitur sit amet neque quis nulla consectetur congue. In hac habitasse platea dictumst. Ut quis eleifend nibh. Suspendisse at nunc ut nisi tincidunt pretium vitae sit amet eros.",
             "lender":1,
             "day_rate":5.00,
-            "address": "123 Fake St."
+            "address": "123 Fake St.",
+            "image":"static/img/items/bike1.jpg"
         },
         {
             "title":"BBQ",

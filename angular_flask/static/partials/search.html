@@ -1,8 +1,15 @@
 <div id="search">
-    <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results | orderBy: 'id':true ">
-        <div class="result">
+
+    <div ng-show="results.start">
+        Showing {{ results.start }} to {{ results.end }} of {{ results.query_count }}
+    </div>
+
+    <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results.results | orderBy: 'id':true ">
+        <div class="result" style="background-image: url({{ result.image }})">
             <h3>{{ result.title }}</h3>
+            <h3>€{{ result.day_rate }} per day</h3>
             <div></div>
         </div>
     </div>
+
 </div>

@@ -22,6 +22,7 @@ class Item(db.Model, BaseModel):
     category = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
     lender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     day_rate = db.Column(db.Float, nullable=False)
     published = db.Column(db.Boolean, default=False, nullable=False)
@@ -38,7 +39,7 @@ class Item(db.Model, BaseModel):
 class ItemPhoto(db.Model, BaseModel):
 
     item = db.Column(db.Integer, db.ForeignKey('item.id'), primary_key=True)
-    photo = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
 
 class Contract(db.Model, BaseModel):
 

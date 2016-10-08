@@ -20,6 +20,6 @@ function SearchController($scope, $routeParams, Search) {
 		args.page = $routeParams.page;
 
 	Search.get(args, function(result) {
-		$scope.results = result.results;
+		$scope.results = result;
 	});
 }

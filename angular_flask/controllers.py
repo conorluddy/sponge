@@ -54,7 +54,7 @@ def basic_pages(**kwargs):
 
 @app.route('/api/item', methods=['POST'])
 @parse_args(
-    string_args=['title', 'description', 'address'],
+    string_args=['title', 'description', 'address', 'image'],
     int_args=['day_rate', 'lender', 'category']
 )
 def item_post(item):
@@ -71,7 +71,7 @@ def item_delete(input):
 
 @app.route('/api/item', methods=['PATCH'])
 @parse_args(
-    string_args=['title', 'description', 'address'],
+    string_args=['title', 'description', 'address', 'image'],
     bool_args=['published'],
     int_args=['id', 'day_rate', 'lender', 'category']
 )
