@@ -1,6 +1,6 @@
 <div id="landing">
     <span class="animated fadeIn category col-md-4 col-sm-6 col-xs-12" ng-repeat="category in categories | orderBy: 'id':true " >
-        <a href="/search?category={{category.id}}">
+        <a href="/search?category={{category.id}}&page=0">
             <div class="category-image">
                 <h3>{{ category.name }}</h3>
             </div>
