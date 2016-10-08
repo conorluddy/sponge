@@ -74,3 +74,14 @@
 	position: relative;
 	top: 140px;
 }
+
+#search .result-wrapper{
+	height: 300px;
+	padding: 5px;
+}
+#search .result{
+	height: 100%;
+	background-color: #f8f8f8;
+	overflow: hidden;
+	padding: 5px;
+}

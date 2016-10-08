@@ -1,3 +1,8 @@
-<div class="col-sm-3" ng-repeat="result in results | orderBy: 'id':true ">
-	{{ result.title }}
+<div id="search">
+    <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results | orderBy: 'id':true ">
+        <div class="result">
+            <h3>{{ result.title }}</h3>
+            <div></div>
+        </div>
+    </div>
 </div>

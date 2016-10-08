@@ -1,7 +1,7 @@
-from database import Item as ItemWrapper
-from database import Category as CategoryWrapper
+from database import ItemWrapper
+from database import CategoryWrapper
 
-class Service:
+class Service(object):
 
     model_wrapper = None
 
@@ -19,16 +19,21 @@ class Service:
     def delete(self, id):
         self.model_wrapper.delete(id)
 
-class ItemService(object, Service):
+class SearchService(Service):
+
+    def get(self, id=None, search=None, page=None):
+        if search:
+            return self.model_wrapper.search(search, page)
+        return super(SearchService, self).get(id=id)
+
+class ItemService(SearchService):
 
     model_wrapper = ItemWrapper()
 
-    def get(self, id=None, search=None, category=None):
-        if search:
-            return self.model_wrapper.search(search)
-        elif category:
-            return self.model_wrapper.get_by_category(category)
-        return super(ItemService, self).get(id=id)
+    def get(self, id=None, search=None, page=None, category=None):
+        if category:
+            return self.model_wrapper.get_by_category(category, page)
+        return super(ItemService, self).get(id=id, search=search, page=page)
 
 class CategoryService(Service):
 

@@ -1,3 +1,5 @@
+from sqlalchemy import or_
+
 from angular_flask.core import api_manager
 from contextlib import contextmanager
 from models import Item as ItemModel
@@ -15,9 +17,10 @@ def session_scope():
     finally:
         session.close()
 
-class DatabaseModelWrapper:
+class DatabaseModelWrapper(object):
 
     model = None
+    page_size = 10
 
     def get_by_id(self, id):
         with session_scope() as session:
@@ -51,20 +54,32 @@ class DatabaseModelWrapper:
     def _map_multiple_to_json(self, items):
         return {"results": [self._map_to_json(item) for item in items]}
 
-class Item(DatabaseModelWrapper):
+class SearchDatabaseModelWrapper(DatabaseModelWrapper):
+
+    def search(self, query, page):
+        with session_scope() as session:
+            query = session.query(self.model).filter(query)
+            page_count = (query.count() / self.page_size) + 1
+            page_query = query.limit(self.page_size).offset(page * self.page_size)
+            return self._map_results_to_json(page_query.all(), page, page_count)
+
+    def _map_results_to_json(self, results, page, count):
+        output = self._map_multiple_to_json(results)
+        output.update({'count': count, 'page': page})
+        return output
+
+class ItemWrapper(SearchDatabaseModelWrapper):
 
     model = ItemModel
 
-    def search(self, term):
-        with session_scope() as session:
-            return self._map_multiple_to_json(
-                session.query(self.model).filter(self.model.description.like('%' + term + '%')).all())
+    def search(self, term, page):
+        query = or_(self.model.description.like('%' + term + '%'), self.model.title.like('%' + term + '%'))
+        return super(ItemWrapper, self).search(query, page)
 
-    def get_by_category(self, categoryId):
-        with session_scope() as session:
-            return self._map_multiple_to_json(
-                session.query(self.model).filter(self.model.category == categoryId).all())
+    def get_by_category(self, categoryId, page):
+        query = self.model.category == categoryId
+        return super(ItemWrapper, self).search(query, page)
 
-class Category(DatabaseModelWrapper):
+class CategoryWrapper(DatabaseModelWrapper):
 
     model = CategoryModel

@@ -82,11 +82,16 @@ def item_patch(item):
 @app.route('/api/item', methods=['GET'])
 @parse_args(
     get_request=True,
-    int_args=['id', 'category'],
+    int_args=['id', 'category', 'page'],
     string_args=['search']
 )
 def item_get(input):
-    return flask.jsonify(**item_service.get(id=input.get('id'), search=input.get('search'), category=input.get('category')))
+    return flask.jsonify(**item_service.get(
+        id=input.get('id'),
+        search=input.get('search'),
+        category=input.get('category'),
+        page=input.get('page')
+    ))
 
 @app.route('/api/category', methods=['GET'])
 def category_get():

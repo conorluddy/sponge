@@ -16,6 +16,8 @@ function SearchController($scope, $routeParams, Search) {
 		args.search = $routeParams.search;
 	if( $routeParams.category )
 		args.category = $routeParams.category;
+	if( $routeParams.page )
+		args.page = $routeParams.page;
 
 	Search.get(args, function(result) {
 		$scope.results = result.results;
