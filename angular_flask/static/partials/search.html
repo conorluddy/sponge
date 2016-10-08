@@ -1,6 +1,10 @@
 <div id="search">
 
-    <div ng-show="results.start">
+    <div ng-hide="results.end">
+        No Results
+    </div>
+
+    <div ng-show="results.end">
         Showing {{ results.start }} to {{ results.end }} of {{ results.query_count }}
     </div>
 
