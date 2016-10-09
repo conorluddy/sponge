@@ -4,16 +4,19 @@
         No Results
     </div>
 
-    <div ng-show="results.end">
-        Showing {{ results.start }} to {{ results.end }} of {{ results.query_count }}
+    <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results.results | orderBy: 'id':true ">
+        <div class="result" style="background-image: url({{ result.image }})"></div>
+        <div class="pull-left">{{ result.title }}</div>
+        <div class="pull-right">€{{ result.day_rate }} per day</div>
     </div>
 
-    <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results.results | orderBy: 'id':true ">
-        <div class="result" style="background-image: url({{ result.image }})">
-            <h3>{{ result.title }}</h3>
-            <h3>€{{ result.day_rate }} per day</h3>
-            <div></div>
-        </div>
+    <div style="clear: both;" ng-show="results.end">
+        {{ results.start }} to {{ results.end }} of {{ results.query_count }} Results
+    </div>
+
+    <div>
+        <a ng-hide="!prev_url" href="{{ prev_url }}">Prev</a>
+        <a ng-hide="!next_url" href="{{ next_url }}">Next</a>
     </div>
 
 </div>

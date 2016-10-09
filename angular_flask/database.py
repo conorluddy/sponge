@@ -20,7 +20,7 @@ def session_scope():
 class DatabaseModelWrapper(object):
 
     model = None
-    page_size = 10
+    page_size = 2
 
     def get_by_id(self, id):
         with session_scope() as session:
@@ -62,13 +62,14 @@ class SearchDatabaseModelWrapper(DatabaseModelWrapper):
             query_count = query.count()
             page_query = query.limit(self.page_size).offset(page * self.page_size)
             start = (self.page_size * page) + 1
+            end = (start - 1) + self.page_size
             output = self._map_multiple_to_json(page_query.all())
             output.update({
-                'page_count': (query_count / self.page_size) + 1,
-                'page': page + 1,
+                'page_count': (query_count / self.page_size),
+                'page': page,
                 'query_count': query.count(),
                 'start': start,
-                'end': start + self.page_size if start + self.page_size < query_count else query_count
+                'end': end if end < query_count else query_count
             })
             return output
 
