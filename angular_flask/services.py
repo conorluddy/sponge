@@ -1,5 +1,4 @@
-from database import ItemWrapper
-from database import CategoryWrapper
+from database import *
 
 class Service(object):
 
@@ -36,5 +35,7 @@ class ItemService(SearchService):
         return super(ItemService, self).get(id=id, search=search, page=page)
 
 class CategoryService(Service):
-
     model_wrapper = CategoryWrapper()
+
+class CountyService(Service):
+    model_wrapper = CountyWrapper()

@@ -2,8 +2,7 @@ from sqlalchemy import or_
 
 from angular_flask.core import api_manager
 from contextlib import contextmanager
-from models import Item as ItemModel
-from models import Category as CategoryModel
+from models import Item, County, Category
 
 @contextmanager
 def session_scope():
@@ -75,7 +74,7 @@ class SearchDatabaseModelWrapper(DatabaseModelWrapper):
 
 class ItemWrapper(SearchDatabaseModelWrapper):
 
-    model = ItemModel
+    model = Item
 
     def search(self, term, page):
         query = or_(self.model.description.like('%' + term + '%'), self.model.title.like('%' + term + '%'))
@@ -86,5 +85,7 @@ class ItemWrapper(SearchDatabaseModelWrapper):
         return super(ItemWrapper, self).search(query, page)
 
 class CategoryWrapper(DatabaseModelWrapper):
+    model = Category
 
-    model = CategoryModel
+class CountyWrapper(DatabaseModelWrapper):
+    model = County

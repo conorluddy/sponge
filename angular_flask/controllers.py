@@ -7,7 +7,7 @@ from flask import make_response
 from flask import render_template, send_from_directory
 from flask import request
 
-from services import ItemService, CategoryService
+from services import CategoryService, CountyService, ItemService
 from angular_flask.core import api_manager
 from angular_flask.models import *
 
@@ -40,6 +40,7 @@ def parse_args(get_request=False, string_args=None, int_args=None, json_args=Non
 
 item_service = ItemService()
 category_service = CategoryService()
+county_service = CountyService()
 
 ### Pages ###
 
@@ -55,7 +56,7 @@ def basic_pages(**kwargs):
 @app.route('/api/item', methods=['POST'])
 @parse_args(
     string_args=['title', 'description', 'address', 'image'],
-    int_args=['day_rate', 'lender', 'category']
+    int_args=['day_rate', 'lender', 'category', 'county_id']
 )
 def item_post(item):
     item_service.post(item)
@@ -104,6 +105,18 @@ def category_get():
 )
 def category_post(category):
     category_service.post(category)
+    return "Added", 200
+
+@app.route('/api/county', methods=['GET'])
+def county_get():
+    return flask.jsonify(**county_service.get())
+
+@app.route('/api/county', methods=['POST'])
+@parse_args(
+    string_args=['name']
+)
+def county_post(county):
+    county_service.post(county)
     return "Added", 200
 
 ### Other ###

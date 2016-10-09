@@ -35,6 +35,19 @@ class Item(db.Model, BaseModel):
     fri = db.Column(db.Boolean, default=True, nullable=False)
     sat = db.Column(db.Boolean, default=True, nullable=False)
     sun = db.Column(db.Boolean, default=True, nullable=False)
+    county_id = db.Column(db.Integer, db.ForeignKey('county.id'), nullable=False)
+    county = db.relationship('County')
+
+    def to_dict(self):
+        county = self.county.name
+        output = super(Item, self).to_dict()
+        output['county'] = county
+        return output
+
+class County(db.Model, BaseModel):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
 
 class ItemPhoto(db.Model, BaseModel):
 
