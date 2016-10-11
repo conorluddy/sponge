@@ -42,6 +42,8 @@ item_service = ItemService()
 category_service = CategoryService()
 county_service = CountyService()
 
+counties = county_service.get()['results']
+
 ### Pages ###
 
 @app.route('/')
@@ -49,7 +51,7 @@ county_service = CountyService()
 @app.route('/blog')
 @app.route('/search')
 def basic_pages(**kwargs):
-    return make_response(open('angular_flask/templates/index.html').read())
+    return render_template('index.html', **{'counties': counties})
 
 ### API ###
 

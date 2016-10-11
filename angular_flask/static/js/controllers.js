@@ -31,3 +31,26 @@ function SearchController($scope, $routeParams, $location, Search) {
 function setQueryStringPage(queryString, page){
 	return queryString.split("page")[0] + "page=" + page.toString();
 }
+
+app.controller('NavController', ['$scope', '$window', '$cookieStore',
+    function($scope, $window, $cookieStore) {
+    $scope.search_term = $cookieStore.get('sponge_search');
+    $scope.selected_county = $cookieStore.get('sponge_county') || 'Anywhere';
+    $scope.selected_county_id = $cookieStore.get('sponge_county_id') || 0;
+
+    $scope.setCountyId = function(county_id){
+        $scope.selected_county_id = county_id;
+        $cookieStore.put('sponge_county_id', county_id);
+    };
+
+    $scope.setCounty = function(county){
+        $scope.selected_county = county;
+        $cookieStore.put('sponge_county', county);
+    };
+
+    $scope.search = function(){
+        $cookieStore.put('sponge_search', $scope.search_term);
+        $window.location.href =
+            "/search?search=" + $scope.search_term + "&county=" + $scope.selected_county_id + "&page=0";
+    }
+}]);
