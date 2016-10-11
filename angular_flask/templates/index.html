@@ -22,7 +22,7 @@
     <script src="/static/lib/other/pace.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top" ng-controller="NavController">
+    <nav id="navbar" class="navbar navbar-default navbar-static-top" ng-controller="NavController">
         <div class="container">
             <a href="/" class="navbar-brand">Sponge</a>
             <form class="navbar-form navbar-left" role="search">
@@ -33,7 +33,7 @@
                                 aria-haspopup="true" aria-expanded="false" county_id="{{ selected_county_id }}">
                             <span ng-bind="selected_county">Anywhere</span> <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-right" style="max-height: 250px; overflow: auto;">
+                        <ul class="dropdown-menu-select dropdown-menu dropdown-menu-right" style="max-height: 250px; overflow: auto;">
                             <li><div ng-click="setCountyId(0); setCounty('Anywhere')"> Anywhere </div></li>
                             {% for county in counties %}
                                 <li><div ng-click="setCountyId('{{ county.id }}'); setCounty('{{ county.name }}')">{{ county.name }}</div></li>

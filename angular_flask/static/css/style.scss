@@ -61,10 +61,22 @@
 	border-top: 1px solid #e7e7e7;
 }
 
+#navbar {
+	.dropdown-menu-select{
+		li{
+			text-indent: 15px;
+			cursor: pointer;
+		}
+		li:hover{
+			opacity: 0.7;
+		}
+	}
+}
+
 #landing {
 	.category{
 		text-align: center;
-		
+
 		a{
 			font-size: 1.4em;
 			color: #777 !important;
