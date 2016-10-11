@@ -18,6 +18,8 @@ function SearchController($scope, $routeParams, $location, Search) {
 		args.category = $routeParams.category;
 	if( $routeParams.page )
 		args.page = $routeParams.page;
+	if( $routeParams.county )
+		args.county = $routeParams.county;
 
 	Search.get(args, function(result) {
 		$scope.results = result;

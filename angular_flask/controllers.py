@@ -3,7 +3,6 @@ import os
 from functools import wraps
 
 import flask
-from flask import make_response
 from flask import render_template, send_from_directory
 from flask import request
 
@@ -85,7 +84,7 @@ def item_patch(item):
 @app.route('/api/item', methods=['GET'])
 @parse_args(
     get_request=True,
-    int_args=['id', 'category', 'page'],
+    int_args=['id', 'category', 'page', 'county'],
     string_args=['search']
 )
 def item_get(input):
@@ -93,7 +92,8 @@ def item_get(input):
         id=input.get('id'),
         search=input.get('search'),
         category=input.get('category'),
-        page=input.get('page')
+        page=input.get('page'),
+        county=input.get('county'),
     ))
 
 @app.route('/api/category', methods=['GET'])

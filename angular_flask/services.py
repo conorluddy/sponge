@@ -29,9 +29,11 @@ class ItemService(SearchService):
 
     model_wrapper = ItemWrapper()
 
-    def get(self, id=None, search=None, page=None, category=None):
+    def get(self, id=None, search=None, page=None, category=None, county=None):
         if category:
             return self.model_wrapper.get_by_category(category, page)
+        if search:
+            return self.model_wrapper.search(search, page, county)
         return super(ItemService, self).get(id=id, search=search, page=page)
 
 class CategoryService(Service):

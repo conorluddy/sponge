@@ -1,3 +1,5 @@
+from operator import and_
+
 from sqlalchemy import or_
 
 from angular_flask.core import api_manager
@@ -76,8 +78,13 @@ class ItemWrapper(SearchDatabaseModelWrapper):
 
     model = Item
 
-    def search(self, term, page):
-        query = or_(self.model.description.like('%' + term + '%'), self.model.title.like('%' + term + '%'))
+    def search(self, term, page, county):
+        query = or_(
+            self.model.description.like('%' + term + '%'),
+            self.model.title.like('%' + term + '%')
+        )
+        if county:
+            query = and_(query, self.model.county_id == county)
         return super(ItemWrapper, self).search(query, page)
 
     def get_by_category(self, categoryId, page):
