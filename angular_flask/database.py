@@ -79,6 +79,7 @@ class ItemWrapper(SearchDatabaseModelWrapper):
     model = Item
 
     def search(self, term, page, county):
+        # TODO - make searching fast, use elasticsearch or something similar
         query = or_(
             self.model.description.like('%' + term + '%'),
             self.model.title.like('%' + term + '%')
