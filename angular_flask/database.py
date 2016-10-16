@@ -21,7 +21,7 @@ def session_scope():
 class DatabaseModelWrapper(object):
 
     model = None
-    page_size = 2
+    page_size = 10
 
     def get_by_id(self, id):
         with session_scope() as session:
