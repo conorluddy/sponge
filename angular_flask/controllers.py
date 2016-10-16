@@ -52,6 +52,7 @@ counties = county_service.get()['results']
 @app.route('/about')
 @app.route('/blog')
 @app.route('/search')
+@app.route('/item')
 def basic_pages(**kwargs):
     return render_template('index.html', **{'counties': counties})
 

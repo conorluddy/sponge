@@ -5,10 +5,12 @@
     </div>
 
     <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results.results | orderBy: 'id':true ">
-        <div class="result" style="background-image: url({{ result.image }})"></div>
-        <span>{{ result.title }}</span>
-        <span ng-show="result.dist_string" class="">({{ result.dist_string }})</span>
-        <span>€{{ result.day_rate }} per day</span>
+        <a href="/item?id={{ result.id }}">
+            <div class="result" style="background-image: url({{ result.image }})"></div>
+            <span>{{ result.title }}</span>
+            <span ng-show="result.dist_string" class="">({{ result.dist_string }})</span>
+            <span>€{{ result.day_rate }} per day</span>
+        </a>
     </div>
 
     <div style="clear: both;" ng-show="results.end">

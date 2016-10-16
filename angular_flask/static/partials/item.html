@@ -1,0 +1,21 @@
+<div id="item">
+
+    <div>
+        <h3>{{ result.title }}</h3>
+        <h5>{{ result.county }}</h5>
+    </div>
+
+    <div class="col-lg-6">
+        <img src="{{ result.image }}"></img>
+    </div>
+
+    <div class="col-lg-6">
+        <h5>Description</h5>
+        {{ result.description }}
+        <h5>Rate</h5>
+        <div>€{{ result.day_rate }} per Day</div>
+        <div ng-show="result.week_rate">€{{ result.week_rate }} per Week</div>
+        <div ng-show="result.month_rate">€{{ result.month_rate }} per Month</div>
+    </div>
+
+</div>

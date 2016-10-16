@@ -14,7 +14,7 @@ angular.module('angularFlaskServices', ['ngResource'])
 		return $resource('/api/item/', {}, {
 			query: {
 				method: 'GET',
-				params: { itemId: '' },
+				params: { id: '' },
 				isArray: true
 			}
 		});

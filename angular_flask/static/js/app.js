@@ -16,6 +16,10 @@ var app = angular.module('AngularFlask', ['ngCookies', 'angularFlaskServices'])
 			templateUrl: 'static/partials/search.html',
 			controller: SearchController
 		})
+		.when('/item', {
+			templateUrl: 'static/partials/item.html',
+			controller: ItemController
+		})
 		.otherwise({
 			redirectTo: '/'
 		});

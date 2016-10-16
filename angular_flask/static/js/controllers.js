@@ -30,6 +30,13 @@ function SearchController($scope, $routeParams, $location, Search) {
 	});
 }
 
+function ItemController($scope, $routeParams, Item) {
+	var args = {id: $routeParams.id};
+	Item.get(args, function(result) {
+		$scope.result = result;
+	});
+}
+
 function setQueryStringPage(queryString, page){
 	return queryString.split("page")[0] + "page=" + page.toString();
 }
