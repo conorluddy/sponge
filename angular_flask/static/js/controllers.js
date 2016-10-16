@@ -34,8 +34,8 @@ function setQueryStringPage(queryString, page){
 	return queryString.split("page")[0] + "page=" + page.toString();
 }
 
-app.controller('NavController', ['$scope', '$window', '$cookieStore',
-    function($scope, $window, $cookieStore) {
+app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http',
+    function($scope, $window, $cookieStore, $http) {
     $scope.search_term = $cookieStore.get('sponge_search');
     $scope.selected_county = $cookieStore.get('sponge_county') || 'Anywhere';
     $scope.selected_county_id = $cookieStore.get('sponge_county_id') || 0;
@@ -54,7 +54,17 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore',
         $cookieStore.put('sponge_search', $scope.search_term);
         $window.location.href =
             "/search?search=" + $scope.search_term + "&county=" + $scope.selected_county_id + "&page=0";
-    }
+    };
+
+	function getLocation(){
+		var geoUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwik5FlbOZ7EW6CHaGMiyNsfIEtZ5b_eI";
+		$http.post(geoUrl, {headers: {'Content-Type': 'application/json'}})
+		.then(function (response) {
+			$cookieStore.put('sponge_lat', response.data.location.lat);
+			$cookieStore.put('sponge_lng', response.data.location.lng);
+		});
+	}
+	getLocation();
 }]);
 
 app.controller('LoginController', ['$scope', '$window',

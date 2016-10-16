@@ -106,7 +106,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.33862980000001,
+            "lng": -6.277866999999999
         },
         {
             "title":"Bicycle2",
@@ -116,7 +118,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike2.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle3",
@@ -126,7 +130,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike3.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle4",
@@ -136,7 +142,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike4.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle5",
@@ -146,7 +154,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"BBQ",
@@ -156,7 +166,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle1",
@@ -166,7 +178,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle2",
@@ -176,7 +190,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike2.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle3",
@@ -186,7 +202,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike3.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle4",
@@ -196,7 +214,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike4.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle5",
@@ -206,7 +226,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"BBQ",
@@ -216,7 +238,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle1",
@@ -226,7 +250,9 @@
             "day_rate":5.00,
             "address": "123 Fake St.",
             "image":"static/img/items/bike1.jpg",
-            "county_id": 10
+            "county_id": 10,
+            "lat": 53.43862980000001,
+            "lng": -6.287866999999999
         },
         {
             "title":"Bicycle2",

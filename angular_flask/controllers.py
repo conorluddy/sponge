@@ -12,17 +12,20 @@ from angular_flask.models import *
 
 session = api_manager.session
 
-def parse_args(get_request=False, string_args=None, int_args=None, json_args=None, bool_args=None):
+def parse_args(method='post', string_args=None, int_args=None, float_args=None, json_args=None, bool_args=None):
     def actualDecorator(test_func):
         @wraps(test_func)
         def wrapper(*args, **kwargs):
-            input = request.args if get_request else json.loads(request.data)
+            input = request.args if method == 'get' else json.loads(request.data)
             output = {}
             for key in string_args or []:
                 output[key] = input.get(key)
 
             for key in int_args or []:
                 output[key] = int(input.get(key, 0))
+
+            for key in float_args or []:
+                output[key] = float(input.get(key, 0))
 
             for key in json_args or []:
                 input_json = input.get(key)
@@ -57,7 +60,8 @@ def basic_pages(**kwargs):
 @app.route('/api/item', methods=['POST'])
 @parse_args(
     string_args=['title', 'description', 'address', 'image'],
-    int_args=['day_rate', 'lender', 'category', 'county_id']
+    int_args=['day_rate', 'lender', 'category', 'county_id'],
+    float_args=['lat', 'lng']
 )
 def item_post(item):
     item_service.post(item)
@@ -83,7 +87,7 @@ def item_patch(item):
 
 @app.route('/api/item', methods=['GET'])
 @parse_args(
-    get_request=True,
+    method='get',
     int_args=['id', 'category', 'page', 'county'],
     string_args=['search']
 )
@@ -94,6 +98,8 @@ def item_get(input):
         category=input.get('category'),
         page=input.get('page'),
         county=input.get('county'),
+        lat=float(request.cookies.get('sponge_lat', 0.0)),
+        lng=float(request.cookies.get('sponge_lng', 0.0))
     ))
 
 @app.route('/api/category', methods=['GET'])

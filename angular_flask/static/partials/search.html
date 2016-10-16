@@ -6,8 +6,9 @@
 
     <div class="animated fadeIn result-wrapper col-sm-6 col-lg-4" ng-repeat="result in results.results | orderBy: 'id':true ">
         <div class="result" style="background-image: url({{ result.image }})"></div>
-        <div class="pull-left">{{ result.title }}</div>
-        <div class="pull-right">€{{ result.day_rate }} per day</div>
+        <span>{{ result.title }}</span>
+        <span ng-show="result.dist_string" class="">({{ result.dist_string }})</span>
+        <span>€{{ result.day_rate }} per day</span>
     </div>
 
     <div style="clear: both;" ng-show="results.end">

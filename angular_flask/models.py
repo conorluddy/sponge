@@ -37,6 +37,8 @@ class Item(db.Model, BaseModel):
     sun = db.Column(db.Boolean, default=True, nullable=False)
     county_id = db.Column(db.Integer, db.ForeignKey('county.id'), nullable=False)
     county = db.relationship('County')
+    lat = db.Column(db.Float, nullable=True)
+    lng = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
         county = self.county.name

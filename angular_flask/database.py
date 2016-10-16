@@ -1,7 +1,5 @@
 from operator import and_
-
 from sqlalchemy import or_
-
 from angular_flask.core import api_manager
 from contextlib import contextmanager
 from models import Item, County, Category
@@ -78,18 +76,23 @@ class ItemWrapper(SearchDatabaseModelWrapper):
 
     model = Item
 
-    def search(self, term, page, county):
+    def search(self, searchTerm, page, county, category, lat, lng):
         # TODO - make searching fast, use elasticsearch or something similar
-        query = or_(
-            self.model.description.like('%' + term + '%'),
-            self.model.title.like('%' + term + '%')
-        )
+        query = None
+
+        if searchTerm:
+            query = or_(
+                self.model.description.like('%' + searchTerm + '%'),
+                self.model.title.like('%' + searchTerm + '%')
+            )
+
+        if category:
+            categoryQuery = self.model.category == category
+            query = and_(query, categoryQuery) if query else categoryQuery
+
         if county:
             query = and_(query, self.model.county_id == county)
-        return super(ItemWrapper, self).search(query, page)
 
-    def get_by_category(self, categoryId, page):
-        query = self.model.category == categoryId
         return super(ItemWrapper, self).search(query, page)
 
 class CategoryWrapper(DatabaseModelWrapper):
