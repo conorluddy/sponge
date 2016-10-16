@@ -1,82 +1,106 @@
 <!doctype html>
 <html lang="en" ng-app="AngularFlask">
 <head>
-	<meta charset="utf-8">
-	<title>Sponge</title>
+    <meta charset="utf-8">
+    <title>Sponge</title>
 
-	<link rel="stylesheet" href="/static/css/bootstrap.css">
-	<link rel="stylesheet" href="/static/css/style.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/style.min.css">
     <link rel="stylesheet" href="/static/css/animate.css">
     <link rel="stylesheet" href="/static/css/pace.css">
 
-	<script src="/static/lib/angular/angular.js"></script>
-	<script src="/static/lib/angular/angular-resource.js"></script>
+    <script src="/static/lib/angular/angular.js"></script>
+    <script src="/static/lib/angular/angular-resource.js"></script>
     <script src="/static/lib/angular/angular-cookies.js"></script>
 
-	<script src="/static/js/app.js"></script>
-	<script src="/static/js/controllers.js"></script>
- 	<script src="/static/js/services.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/controllers.js"></script>
+    <script src="/static/js/services.js"></script>
 
-	<script src="/static/lib/jquery/jquery.min.js"></script>
-	<script src="/static/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/static/lib/jquery/jquery.min.js"></script>
+    <script src="/static/lib/bootstrap/bootstrap.min.js"></script>
     <script src="/static/lib/other/pace.min.js"></script>
 </head>
 <body>
-    <nav id="navbar" class="navbar navbar-default navbar-static-top" ng-controller="NavController">
-        <div class="container">
-            <a href="/" class="navbar-brand">Sponge</a>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" ng-model="search_term" placeholder="Bicycle, Drill...">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" county_id="{{ selected_county_id }}">
-                            <span ng-bind="selected_county">Anywhere</span> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu-select dropdown-menu dropdown-menu-right" style="max-height: 250px; overflow: auto;">
-                            <li><div ng-click="setCountyId(0); setCounty('Anywhere')"> Anywhere </div></li>
-                            {% for county in counties %}
-                                <li><div ng-click="setCountyId('{{ county.id }}'); setCounty('{{ county.name }}')">{{ county.name }}</div></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+<nav id="navbar" class="navbar navbar-default navbar-static-top" ng-controller="NavController">
+    <div class="container">
+        <a href="/" class="navbar-brand">Sponge</a>
+        <form class="navbar-form navbar-left" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="search_term" placeholder="Bicycle, Drill...">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" county_id="{{ selected_county_id }}">
+                        <span ng-bind="selected_county">Anywhere</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu-select dropdown-menu dropdown-menu-right"
+                        style="max-height: 250px; overflow: auto;">
+                        <li>
+                            <div ng-click="setCountyId(0); setCounty('Anywhere')"> Anywhere</div>
+                        </li>
+                        {% for county in counties %}
+                            <li>
+                                <div ng-click="setCountyId('{{ county.id }}'); setCounty('{{ county.name }}')">{{ county.name }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
-            </form>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
+        </form>
 
-            <ul class="nav navbar-nav pull-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#sign-in-modal">Log In</a>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign Up</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-	<div class="container page">
-		<div id="content" class="container main" ng-view></div>
-	</div>
-
-    <footer id="footer" class="footer"></footer>
-
-    <!-- Modal -->
-    <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
-          </div>
-          <div class="modal-body pull-right">
-            <button type="button" class="btn btn-success" data-dismiss="modal">Register</button>
-          </div>
-        </div>
-      </div>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+            </li>
+            <li>
+                <a href="#" data-toggle="modal" data-target="#signInModal">Sign Up</a>
+            </li>
+        </ul>
     </div>
+</nav>
+
+<div class="container page">
+    <div id="content" class="container main" ng-view></div>
+</div>
+
+<footer id="footer" class="footer"></footer>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" ng-controller="LoginController">
+    <div class="form-modal modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form-group">
+                <input ng-model="email" class="form-control" placeholder="email">
+                <input ng-model="password" class="form-control" placeholder="password">
+                <button type="button" ng-click="login()" class="btn btn-block btn-success" data-dismiss="modal">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" ng-controller="SignupController">
+    <div class="form-modal modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form-group">
+                <input ng-model="first" class="form-control" placeholder="first name">
+                <input ng-model="last" class="form-control" placeholder="second name">
+                <input ng-model="email" class="form-control" placeholder="email">
+                <input ng-model="password" class="form-control" placeholder="password">
+                <button type="button" ng-click="signup()" class="btn btn-block btn-success" data-dismiss="modal">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
