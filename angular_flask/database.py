@@ -1,8 +1,10 @@
 from operator import and_
 from sqlalchemy import or_
+from sqlalchemy.orm.exc import NoResultFound
+
 from angular_flask.core import api_manager
 from contextlib import contextmanager
-from models import Item, County, Category
+from models import Item, County, Category, User
 
 @contextmanager
 def session_scope():
@@ -21,9 +23,12 @@ class DatabaseModelWrapper(object):
     model = None
     page_size = 10
 
-    def get_by_id(self, id):
+    def get_one(self, value, field="id"):
         with session_scope() as session:
-            return self._map_to_json(session.query(self.model).filter(self.model.id == id).one())
+            try:
+                return self._map_to_json(session.query(self.model).filter(getattr(self.model, field) == value).one())
+            except NoResultFound:
+                return None
 
     def get_all(self):
         with session_scope() as session:
@@ -100,3 +105,6 @@ class CategoryWrapper(DatabaseModelWrapper):
 
 class CountyWrapper(DatabaseModelWrapper):
     model = County
+
+class UserWrapper(DatabaseModelWrapper):
+    model = User

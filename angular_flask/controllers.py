@@ -4,9 +4,9 @@ from functools import wraps
 
 import flask
 from flask import render_template, send_from_directory
-from flask import request
+from flask import request, jsonify
 
-from services import CategoryService, CountyService, ItemService
+from services import CategoryService, CountyService, ItemService, UserService, ApiException
 from angular_flask.core import api_manager
 from angular_flask.models import *
 
@@ -38,9 +38,16 @@ def parse_args(method='post', string_args=None, int_args=None, float_args=None, 
         return wrapper
     return actualDecorator
 
+@app.errorhandler(ApiException)
+def handle_api_exception(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
 ### Services ###
 
 item_service = ItemService()
+user_service = UserService()
 category_service = CategoryService()
 county_service = CountyService()
 
@@ -54,7 +61,7 @@ counties = county_service.get()['results']
 @app.route('/search')
 @app.route('/item')
 def basic_pages(**kwargs):
-    return render_template('index.html', **{'counties': counties})
+    return render_template('index.html', **{'counties': counties, 'session': user_service.get_session()})
 
 ### API ###
 
@@ -99,8 +106,8 @@ def item_get(input):
         category=input.get('category'),
         page=input.get('page'),
         county=input.get('county'),
-        lat=float(request.cookies.get('sponge_lat', 0.0)),
-        lng=float(request.cookies.get('sponge_lng', 0.0))
+        lat=float(request.cookies.get('lat', 0.0)),
+        lng=float(request.cookies.get('lng', 0.0))
     ))
 
 @app.route('/api/category', methods=['GET'])
@@ -126,6 +133,39 @@ def county_get():
 )
 def county_post(county):
     county_service.post(county)
+    return "Added", 200
+
+@app.route('/api/user/register', methods=['POST'])
+@parse_args(
+    string_args=['first', 'last', 'email', 'password']
+)
+def user_register(input):
+    user_service.register(input)
+    return "Registered", 200
+
+@app.route('/api/user/session', methods=['GET'])
+def user_session():
+    return flask.jsonify(**user_service.get_session())
+
+@app.route('/api/user/logout', methods=['GET'])
+def user_logout():
+    user_service.logout()
+    return "Logged Out", 200
+
+@app.route('/api/user/login', methods=['POST'])
+@parse_args(
+    string_args=['email', 'password']
+)
+def user_login(input):
+    user_service.login(input)
+    return "Logged In", 200
+
+@app.route('/api/user', methods=['POST'])
+@parse_args(
+    string_args=['first', 'last', 'email', 'password', 'photo', 'phone', 'intro'],
+)
+def user_post(input):
+    user_service.post(input)
     return "Added", 200
 
 ### Other ###

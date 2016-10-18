@@ -63,6 +63,17 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http',
             "/search?search=" + $scope.search_term + "&county=" + $scope.selected_county_id + "&page=0";
     };
 
+	$scope.logout = function(){
+		$http({
+			method: 'GET',
+  			url: 'api/user/logout'
+		}).then(function success() {
+			// TODO - logout without refresh
+			location.reload();
+	  	});
+	};
+
+	/*
 	function getLocation(){
 		var geoUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwik5FlbOZ7EW6CHaGMiyNsfIEtZ5b_eI";
 		$http.post(geoUrl, {headers: {'Content-Type': 'application/json'}})
@@ -72,18 +83,47 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http',
 		});
 	}
 	getLocation();
+	*/
 }]);
 
-app.controller('LoginController', ['$scope', '$window',
-    function($scope, $window) {
+app.controller('LoginController', ['$scope', '$http',
+    function($scope, $http) {
     $scope.login = function(){
-		// Todo
+		$http({
+  			method: 'POST',
+  			url: 'api/user/login',
+			data: {
+				email: $scope.email,
+				password: $scope.password
+			}
+		}).then(function success() {
+			// TODO - log in without reloading the page
+			$scope.error = null;
+			location.reload();
+	  	}, function error(response) {
+			$scope.error = response.data.message;
+  		});
     }
 }]);
 
-app.controller('SignupController', ['$scope', '$window',
-    function($scope, $window) {
+app.controller('SignupController', ['$scope', '$http', '$window',
+    function($scope, $http) {
     $scope.signup = function(){
-		// Todo
+		$http({
+  			method: 'POST',
+  			url: 'api/user/register',
+			data: {
+				first: $scope.first,
+				last: $scope.last,
+				email: $scope.email,
+				password: $scope.password
+			}
+		}).then(function success() {
+			// TODO - log in without reloading the page
+			$scope.error = null;
+			location.reload();
+	  	}, function error(response) {
+			$scope.error = response.data.message;
+  		});
     }
 }]);

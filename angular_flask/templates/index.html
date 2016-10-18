@@ -50,12 +50,26 @@
         </form>
 
         <ul class="nav navbar-nav pull-right">
-            <li>
-                <a href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
-            </li>
-            <li>
-                <a href="#" data-toggle="modal" data-target="#signInModal">Sign Up</a>
-            </li>
+            {% if 'user_id' not in session %}
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#signInModal">Sign Up</a>
+                </li>
+            {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{ session['user_first'] }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/borrowing">Borrowing</a></li>
+                        <li><a href="/lending">Lending</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" ng-click="logout()">Log Out</a></li>
+                    </ul>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
@@ -75,9 +89,10 @@
                 </button>
             </div>
             <div class="modal-body form-group">
+                <div ng-show="error" ng-bind="error"></div>
                 <input ng-model="email" class="form-control" placeholder="email">
                 <input ng-model="password" class="form-control" placeholder="password">
-                <button type="button" ng-click="login()" class="btn btn-block btn-success" data-dismiss="modal">Login</button>
+                <button type="button" ng-click="login()" class="btn btn-block btn-success">Login</button>
             </div>
         </div>
     </div>
@@ -92,11 +107,12 @@
                 </button>
             </div>
             <div class="modal-body form-group">
+                <div ng-show="error" ng-bind="error"></div>
                 <input ng-model="first" class="form-control" placeholder="first name">
                 <input ng-model="last" class="form-control" placeholder="second name">
                 <input ng-model="email" class="form-control" placeholder="email">
                 <input ng-model="password" class="form-control" placeholder="password">
-                <button type="button" ng-click="signup()" class="btn btn-block btn-success" data-dismiss="modal">Sign Up</button>
+                <button type="button" ng-click="signup()" class="btn btn-block btn-success">Sign Up</button>
             </div>
         </div>
     </div>
