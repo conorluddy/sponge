@@ -56,11 +56,12 @@ counties = county_service.get()['results']
 ### Pages ###
 
 @app.route('/')
-@app.route('/about')
-@app.route('/blog')
 @app.route('/search')
 @app.route('/item')
-def basic_pages(**kwargs):
+@app.route('/profile')
+@app.route('/borrowing')
+@app.route('/lending')
+def basic_pages():
     return render_template('index.html', **{'counties': counties, 'session': user_service.get_session()})
 
 ### API ###

@@ -75,6 +75,31 @@
 			opacity: 0.7;
 		}
 	}
+	margin-bottom: 0px;
+}
+
+#subnav {
+		height: 30px;
+		background-color: #ddd;
+		width: 100%;
+
+		div.container{
+				div{
+						display: inline-block;
+						padding: 5px 8px 0px 8px;
+						cursor: pointer;
+						a{
+								text-decoration: none;
+								color: #000;
+						}
+				}
+				div.active{
+						font-weight: bold;
+				}
+				div:hover{
+						opacity: 0.7;
+				}
+		}
 }
 
 #landing {

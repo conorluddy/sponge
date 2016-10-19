@@ -1,15 +1,6 @@
 'use strict';
 
 angular.module('angularFlaskServices', ['ngResource'])
-	.factory('Post', function($resource) {
-		return $resource('/api/post/:postId', {}, {
-			query: {
-				method: 'GET',
-				params: { postId: '' },
-				isArray: true
-			}
-		});
-	})
 	.factory('Item', function($resource) {
 		return $resource('/api/item/', {}, {
 			query: {
@@ -30,6 +21,15 @@ angular.module('angularFlaskServices', ['ngResource'])
 	})
 	.factory('Search', function($resource) {
 		return $resource('/api/item/', {}, {
+			query: {
+				method: 'GET',
+				params: { search: '' },
+				isArray: true
+			}
+		});
+	})
+	.factory('User', function($resource) {
+		return $resource('/api/user/', {}, {
 			query: {
 				method: 'GET',
 				params: { search: '' },

@@ -3,14 +3,25 @@
 /* Controllers */
 
 function IndexController($scope, Category) {
+	$scope.$parent.show_subnav = false;
 	Category.get({}, function(categories) {
 		$scope.categories = categories.results;
 	});
 }
 
-function AboutController($scope) {}
+function ProfileController($scope) {
+	$scope.$parent.show_subnav = true;
+}
+function BorrowingController($scope) {
+	$scope.$parent.show_subnav = true;
+}
+function LendingController($scope) {
+	$scope.$parent.show_subnav = true;
+}
 
 function SearchController($scope, $routeParams, $location, Search) {
+	$scope.$parent.show_subnav = false;
+
 	var args = {};
 	if( $routeParams.search )
 		args.search = $routeParams.search;
@@ -31,6 +42,7 @@ function SearchController($scope, $routeParams, $location, Search) {
 }
 
 function ItemController($scope, $routeParams, Item) {
+	$scope.$parent.show_subnav = false;
 	var args = {id: $routeParams.id};
 	Item.get(args, function(result) {
 		$scope.result = result;
@@ -41,8 +53,8 @@ function setQueryStringPage(queryString, page){
 	return queryString.split("page")[0] + "page=" + page.toString();
 }
 
-app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http',
-    function($scope, $window, $cookieStore, $http) {
+app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '$rootScope',
+    function($scope, $window, $cookieStore, $http, $rootScope) {
     $scope.search_term = $cookieStore.get('sponge_search');
     $scope.selected_county = $cookieStore.get('sponge_county') || 'Anywhere';
     $scope.selected_county_id = $cookieStore.get('sponge_county_id') || 0;
@@ -71,6 +83,10 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http',
 			// TODO - logout without refresh
 			location.reload();
 	  	});
+	};
+
+    $rootScope.isActive = function(tab){
+		return location.pathname.indexOf(tab) != -1;
 	};
 
 	/*
