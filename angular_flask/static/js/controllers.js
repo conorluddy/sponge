@@ -143,3 +143,13 @@ app.controller('SignupController', ['$scope', '$http', '$window',
   		});
     }
 }]);
+
+app.controller('TabController', ['$scope', '$location', function($scope, $location) {
+	$scope.sel = function(tab){
+		$scope.selectedTab = tab;
+		// TODO - add tab value to window.location.hash without redrawing page
+	};
+	$scope.chk = function(tab){
+		return $scope.selectedTab == tab;
+	};
+}]);

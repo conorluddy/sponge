@@ -1,3 +1,31 @@
-<div>
-	Profile
+<div ng-controller="TabController">
+    <div ng-init="sel('photo')" class="tab-wrapper col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" ng-class="{active: chk('photo')}" ng-click="sel('photo')" class="active">
+                <a>Photo</a>
+            </li>
+            <li role="presentation" ng-class="{active: chk('info')}" ng-click="sel('info')">
+                <a>Information</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div ng-show="selectedTab == 'photo'">
+            <div class="panel panel-default">
+                <div class="panel-heading">Photo</div>
+                <div class="panel-body">
+                    Photo
+                </div>
+            </div>
+        </div>
+        <div ng-show="selectedTab == 'info'">
+            <div class="panel panel-default">
+                <div class="panel-heading">Information</div>
+                <div class="panel-body">
+                    Information
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
