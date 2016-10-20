@@ -64,6 +64,10 @@ class UserService(Service):
     def get(self):
         return super(UserService, self).get(id=session['user_id'])
 
+    def patch(self, input):
+        input['id'] = session['user_id']
+        return super(UserService, self).patch(input)
+
     def register(self, input):
         self._verify_email_available(input['email'])
         self._verify_email_valid(input['email'])

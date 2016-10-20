@@ -98,8 +98,8 @@
             </div>
             <div class="modal-body form-group">
                 <div ng-show="error" ng-bind="error"></div>
-                <input ng-model="email" class="form-control" placeholder="email">
-                <input ng-model="password" class="form-control" placeholder="password">
+                <input ng-model="data.email" class="form-control" placeholder="email">
+                <input ng-model="data.password" class="form-control" placeholder="password">
                 <button type="button" ng-click="login()" class="btn btn-block btn-success">Login</button>
             </div>
         </div>
@@ -116,10 +116,10 @@
             </div>
             <div class="modal-body form-group">
                 <div ng-show="error" ng-bind="error"></div>
-                <input ng-model="first" class="form-control" placeholder="first name">
-                <input ng-model="last" class="form-control" placeholder="second name">
-                <input ng-model="email" class="form-control" placeholder="email">
-                <input ng-model="password" class="form-control" placeholder="password">
+                <input ng-model="data.first" class="form-control" placeholder="first name">
+                <input ng-model="data.last" class="form-control" placeholder="second name">
+                <input ng-model="data.email" class="form-control" placeholder="email">
+                <input ng-model="data.password" class="form-control" placeholder="password">
                 <button type="button" ng-click="signup()" class="btn btn-block btn-success">Sign Up</button>
             </div>
         </div>

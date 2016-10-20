@@ -11,7 +11,7 @@ angular.module('angularFlaskServices', ['ngResource'])
 		});
 	})
 	.factory('Category', function($resource) {
-		return $resource('api/category', {}, {
+		return $resource('/api/category', {}, {
 			query: {
 				method: 'GET',
 				params: { },
@@ -30,6 +30,34 @@ angular.module('angularFlaskServices', ['ngResource'])
 	})
 	.factory('User', function($resource) {
 		return $resource('/api/user/', {}, {
+			get: {
+				method: 'GET',
+				params: { }
+			},
+			patch: {
+				method: 'PATCH',
+				params: { }
+			}
+		});
+	})
+	.factory('Register', function($resource) {
+		return $resource('/api/user/register', {}, {
+			query: {
+				method: 'POST',
+				params: { }
+			}
+		});
+	})
+	.factory('Login', function($resource) {
+		return $resource('/api/user/login', {}, {
+			query: {
+				method: 'POST',
+				params: { }
+			}
+		});
+	})
+	.factory('Logout', function($resource) {
+		return $resource('/api/user/logout', {}, {
 			query: {
 				method: 'GET',
 				params: { }

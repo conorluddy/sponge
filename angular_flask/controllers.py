@@ -16,7 +16,14 @@ def parse_args(method='post', string_args=None, int_args=None, float_args=None, 
     def actualDecorator(test_func):
         @wraps(test_func)
         def wrapper(*args, **kwargs):
-            input = request.args if method == 'get' else json.loads(request.data)
+
+            if method == 'get':
+                input = request.args
+            elif request.data:
+                input = json.loads(request.data)
+            else:
+                input = {}
+
             output = {}
             for key in string_args or []:
                 output[key] = input.get(key)
@@ -172,6 +179,14 @@ def user_login(input):
 def user_post(input):
     user_service.post(input)
     return "Added", 200
+
+@app.route('/api/user', methods=['PATCH'])
+@parse_args(
+    string_args=['first', 'last', 'email', 'photo', 'phone', 'intro'],
+)
+def user_patch(input):
+    user_service.patch(input)
+    return "Updated", 200
 
 @app.route('/api/user', methods=['GET'])
 def user_get():

@@ -53,8 +53,8 @@ function setQueryStringPage(queryString, page){
 	return queryString.split("page")[0] + "page=" + page.toString();
 }
 
-app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '$rootScope',
-    function($scope, $window, $cookieStore, $http, $rootScope) {
+app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '$rootScope', 'Logout',
+    function($scope, $window, $cookieStore, $http, $rootScope, Logout) {
     $scope.search_term = $cookieStore.get('sponge_search');
     $scope.selected_county = $cookieStore.get('sponge_county') || 'Anywhere';
     $scope.selected_county_id = $cookieStore.get('sponge_county_id') || 0;
@@ -76,13 +76,9 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '
     };
 
 	$scope.logout = function(){
-		$http({
-			method: 'GET',
-  			url: 'api/user/logout'
-		}).then(function success() {
-			// TODO - logout without refresh
-			location.reload();
-	  	});
+		Logout.query({}, function(){
+			location.href = '/';
+		});
 	};
 
     $rootScope.isActive = function(tab){
@@ -102,46 +98,26 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '
 	*/
 }]);
 
-app.controller('LoginController', ['$scope', '$http',
-    function($scope, $http) {
-    $scope.login = function(){
-		$http({
-  			method: 'POST',
-  			url: 'api/user/login',
-			data: {
-				email: $scope.email,
-				password: $scope.password
-			}
-		}).then(function success() {
-			// TODO - log in without reloading the page
-			$scope.error = null;
+app.controller('LoginController', ['$scope', 'Login',
+    function($scope, Login) {
+	$scope.login = function(){
+		Login.query($scope.data, function(){
 			location.reload();
-	  	}, function error(response) {
+		}, function(response){
 			$scope.error = response.data.message;
-  		});
-    }
+		});
+    };
 }]);
 
-app.controller('SignupController', ['$scope', '$http', '$window',
-    function($scope, $http) {
+app.controller('SignupController', ['$scope', 'Register',
+    function($scope, Register) {
     $scope.signup = function(){
-		$http({
-  			method: 'POST',
-  			url: 'api/user/register',
-			data: {
-				first: $scope.first,
-				last: $scope.last,
-				email: $scope.email,
-				password: $scope.password
-			}
-		}).then(function success() {
-			// TODO - log in without reloading the page
-			$scope.error = null;
+		Register.query($scope.data, function(){
 			location.reload();
-	  	}, function error(response) {
+		}, function(response){
 			$scope.error = response.data.message;
-  		});
-    }
+		});
+    };
 }]);
 
 app.controller('TabController', ['$scope', function($scope) {
@@ -157,4 +133,11 @@ app.controller('ProfileController', ['$scope', '$location', 'User', function($sc
 	User.get({}, function(profile) {
 		$scope.profile = profile;
 	});
+	$scope.updateProfile = function(){
+		User.patch($scope.profile, function(success){
+			console.log(success); // TODO - notifications
+		}, function(error){
+			console.log(error); // TODO - notifications
+		});
+	}
 }]);
