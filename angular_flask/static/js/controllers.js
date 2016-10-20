@@ -144,12 +144,17 @@ app.controller('SignupController', ['$scope', '$http', '$window',
     }
 }]);
 
-app.controller('TabController', ['$scope', '$location', function($scope, $location) {
+app.controller('TabController', ['$scope', function($scope) {
 	$scope.sel = function(tab){
 		$scope.selectedTab = tab;
-		// TODO - add tab value to window.location.hash without redrawing page
 	};
 	$scope.chk = function(tab){
 		return $scope.selectedTab == tab;
 	};
+}]);
+
+app.controller('ProfileController', ['$scope', '$location', 'User', function($scope, $location, User) {
+	User.get({}, function(profile) {
+		$scope.profile = profile;
+	});
 }]);

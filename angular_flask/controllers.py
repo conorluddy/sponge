@@ -66,6 +66,8 @@ def basic_pages():
 
 ### API ###
 
+# Item
+
 @app.route('/api/item', methods=['POST'])
 @parse_args(
     string_args=['title', 'description', 'address', 'image'],
@@ -111,6 +113,8 @@ def item_get(input):
         lng=float(request.cookies.get('lng', 0.0))
     ))
 
+# Category
+
 @app.route('/api/category', methods=['GET'])
 def category_get():
     return flask.jsonify(**category_service.get())
@@ -124,6 +128,8 @@ def category_post(category):
     category_service.post(category)
     return "Added", 200
 
+# County
+
 @app.route('/api/county', methods=['GET'])
 def county_get():
     return flask.jsonify(**county_service.get())
@@ -136,6 +142,8 @@ def county_post(county):
     county_service.post(county)
     return "Added", 200
 
+# User
+
 @app.route('/api/user/register', methods=['POST'])
 @parse_args(
     string_args=['first', 'last', 'email', 'password']
@@ -143,10 +151,6 @@ def county_post(county):
 def user_register(input):
     user_service.register(input)
     return "Registered", 200
-
-@app.route('/api/user/session', methods=['GET'])
-def user_session():
-    return flask.jsonify(**user_service.get_session())
 
 @app.route('/api/user/logout', methods=['GET'])
 def user_logout():
@@ -168,6 +172,10 @@ def user_login(input):
 def user_post(input):
     user_service.post(input)
     return "Added", 200
+
+@app.route('/api/user', methods=['GET'])
+def user_get():
+    return flask.jsonify(**user_service.get())
 
 ### Other ###
 

@@ -32,8 +32,7 @@ angular.module('angularFlaskServices', ['ngResource'])
 		return $resource('/api/user/', {}, {
 			query: {
 				method: 'GET',
-				params: { search: '' },
-				isArray: true
+				params: { }
 			}
 		});
 	})

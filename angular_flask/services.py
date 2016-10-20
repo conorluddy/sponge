@@ -61,6 +61,9 @@ class ItemService(SearchService):
 class UserService(Service):
     model_wrapper = UserWrapper()
 
+    def get(self):
+        return super(UserService, self).get(id=session['user_id'])
+
     def register(self, input):
         self._verify_email_available(input['email'])
         self._verify_email_valid(input['email'])
@@ -70,9 +73,8 @@ class UserService(Service):
 
     def login(self, input):
         self._verify_email_exists(input['email'])
-        user = self.model_wrapper.get_one(input['email'], field='email')
-        self._verify_password_match(user['password'], input['password'])
-        self._start_session(user)
+        self._verify_password_match(input['email'], input['password'])
+        self._start_session(input['email'])
 
     def logout(self):
         self._end_session()
@@ -80,7 +82,8 @@ class UserService(Service):
     def get_session(self):
         return session
 
-    def _start_session(self, user):
+    def _start_session(self, email):
+        user = self.model_wrapper.get_one(email, 'email')
         session['user_id'] = user['id']
         session['user_first'] = user['first']
         session['user_last'] = user['last']
@@ -94,11 +97,13 @@ class UserService(Service):
         if self.model_wrapper.get_one(email, field='email') is None:
             raise ApiException(EMAIL_NOT_FOUND, status_code=400)
 
-    def _verify_password_valid(self, password):
+    @staticmethod
+    def _verify_password_valid(password):
         if password is None or len(password) < 8:
             raise ApiException(PASSWORD_NOT_VALID, status_code=400)
 
-    def _verify_email_valid(self, email):
+    @staticmethod
+    def _verify_email_valid(email):
         parsed = parseaddr(email) if email else None
         if parsed is None or '@' not in parsed[1] or '.' not in parsed[1]:
             raise ApiException(EMAIL_NOT_VALID, status_code=400)
@@ -107,7 +112,6 @@ class UserService(Service):
         if self.model_wrapper.get_one(email, field='email') is not None:
             raise ApiException(EMAIL_ADDRESS_TAKEN, status_code=400)
 
-    def _verify_password_match(self, stored, incoming):
-        # TODO - encrypt passwords
-        if stored != incoming:
+    def _verify_password_match(self, email, password):
+        if not self.model_wrapper.validate_password(email, password):
             raise ApiException(PASSWORD_DOESNT_MATCH, status_code=400)
