@@ -182,7 +182,7 @@ def user_post(input):
 
 @app.route('/api/user', methods=['PATCH'])
 @parse_args(
-    string_args=['first', 'last', 'email', 'photo', 'phone', 'intro'],
+    string_args=['first', 'last', 'email', 'photo', 'phone', 'intro', 'dob'],
 )
 def user_patch(input):
     user_service.patch(input)

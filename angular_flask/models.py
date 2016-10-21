@@ -100,6 +100,7 @@ class User(db.Model, BaseModel):
     email = db.Column(db.String, nullable=False)
     photo = db.Column(db.String)
     phone = db.Column(db.String)
+    dob = db.Column(db.DateTime)
     email_verified = db.Column(db.Boolean, nullable=False, default=False)
     phone_verified = db.Column(db.Boolean, nullable=False, default=False)
     password = db.Column(db.String, nullable=False) # TODO - encrypt
