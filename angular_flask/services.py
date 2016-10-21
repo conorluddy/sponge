@@ -83,6 +83,12 @@ class UserService(Service):
     def logout(self):
         self._end_session()
 
+    def change_password(self, input):
+        user = self.model_wrapper.get_one(session['user_id'])
+        self._verify_password_match(user['email'], input['current'])
+        self._verify_password_valid(input['new'])
+        self.model_wrapper.set_password(session['user_id'], input['new'])
+
     def get_session(self):
         return session
 
@@ -117,5 +123,5 @@ class UserService(Service):
             raise ApiException(EMAIL_ADDRESS_TAKEN, status_code=400)
 
     def _verify_password_match(self, email, password):
-        if not self.model_wrapper.validate_password(email, password):
+        if not self.model_wrapper.get_password(email) == password:
             raise ApiException(PASSWORD_DOESNT_MATCH, status_code=400)

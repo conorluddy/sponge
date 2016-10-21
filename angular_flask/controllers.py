@@ -164,6 +164,14 @@ def user_logout():
     user_service.logout()
     return "Logged Out", 200
 
+@app.route('/api/user/password', methods=['POST'])
+@parse_args(
+    string_args=['current', 'new']
+)
+def user_change_password(input):
+    user_service.change_password(input)
+    return "Updated", 200
+
 @app.route('/api/user/login', methods=['POST'])
 @parse_args(
     string_args=['email', 'password']

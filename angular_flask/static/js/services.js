@@ -64,6 +64,14 @@ angular.module('angularFlaskServices', ['ngResource'])
 			}
 		});
 	})
+	.factory('Password', function($resource) {
+		return $resource('/api/user/password', {}, {
+			query: {
+				method: 'POST',
+				params: { }
+			}
+		});
+	})
 ;
 
 

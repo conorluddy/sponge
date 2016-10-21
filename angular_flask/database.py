@@ -114,7 +114,12 @@ class UserWrapper(DatabaseModelWrapper):
         del output['password']
         return output
 
-    def validate_password(self, email, password):
+    def get_password(self, email):
         # TODO - encrypt stored passwords
         with session_scope() as session:
-            return session.query(self.model).filter(self.model.email == email).one().password == password
+            return session.query(self.model).filter(self.model.email == email).one().password
+
+    def set_password(self, user_id, password):
+        # TODO - encrypt stored passwords
+        with session_scope() as session:
+            session.query(self.model).filter(self.model.id == user_id).one().password = password

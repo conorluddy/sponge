@@ -76,7 +76,7 @@
 
 <div id="subnav" ng-show="show_subnav" >
     <div class="container">
-        <div class="" ng-class="{active: isActive('profile')}"><a href="/profile">Profile</a></div>
+        <div class="" ng-class="{active: isActive('profile')}"><a href="/profile">Account</a></div>
         <div class="" ng-class="{active: isActive('borrowing')}"><a href="/borrowing">Borrowing</a></div>
         <div class="" ng-class="{active: isActive('lending')}"><a href="/lending">Lending</a></div>
     </div>
@@ -99,7 +99,7 @@
             <div class="modal-body form-group">
                 <div ng-show="error" ng-bind="error"></div>
                 <input ng-model="data.email" class="form-control" placeholder="email">
-                <input ng-model="data.password" class="form-control" placeholder="password">
+                <input ng-model="data.password" class="form-control" type="password" placeholder="password">
                 <button type="button" ng-click="login()" class="btn btn-block btn-success">Login</button>
             </div>
         </div>
@@ -119,7 +119,7 @@
                 <input ng-model="data.first" class="form-control" placeholder="first name">
                 <input ng-model="data.last" class="form-control" placeholder="second name">
                 <input ng-model="data.email" class="form-control" placeholder="email">
-                <input ng-model="data.password" class="form-control" placeholder="password">
+                <input ng-model="data.password" class="form-control" type="password" placeholder="password">
                 <button type="button" ng-click="signup()" class="btn btn-block btn-success">Sign Up</button>
             </div>
         </div>

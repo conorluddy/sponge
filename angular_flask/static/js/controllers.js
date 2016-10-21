@@ -129,7 +129,8 @@ app.controller('TabController', ['$scope', function($scope) {
 	};
 }]);
 
-app.controller('ProfileController', ['$scope', '$location', 'User', function($scope, $location, User) {
+app.controller('ProfileController', ['$scope', '$location', 'User', 'Password',
+	function($scope, $location, User, Password) {
 	User.get({}, function(profile) {
 		$scope.profile = profile;
 	});
@@ -139,5 +140,9 @@ app.controller('ProfileController', ['$scope', '$location', 'User', function($sc
 		}, function(error){
 			console.log(error); // TODO - notifications
 		});
+	};
+
+	$scope.updatePassword = function(){
+		Password.query($scope.password);
 	}
 }]);
