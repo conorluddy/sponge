@@ -1,7 +1,6 @@
 from angular_flask.core import db
 from angular_flask import app
 
-# TODO - use UUIDS
 # TODO - add indexes
 
 class BaseModel:
@@ -105,3 +104,8 @@ class User(db.Model, BaseModel):
     phone_verified = db.Column(db.Boolean, nullable=False, default=False)
     password = db.Column(db.String, nullable=False) # TODO - encrypt
     intro = db.Column(db.String)
+
+    def to_dict(self):
+        output = super(User, self).to_dict()
+        del output['password']
+        return output

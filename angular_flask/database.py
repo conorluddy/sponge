@@ -109,11 +109,6 @@ class CountyWrapper(DatabaseModelWrapper):
 class UserWrapper(DatabaseModelWrapper):
     model = User
 
-    def _map_to_json(self, item):
-        output = super(UserWrapper, self)._map_to_json(item)
-        del output['password']
-        return output
-
     def get_password(self, email):
         # TODO - encrypt stored passwords
         with session_scope() as session:
