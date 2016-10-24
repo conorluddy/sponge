@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularFlaskServices', ['ngResource'])
+angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 	.factory('Item', function($resource) {
 		return $resource('/api/item/', {}, {
 			query: {
