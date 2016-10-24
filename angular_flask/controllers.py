@@ -1,21 +1,67 @@
 import os
 import flask
+import json
 from flask import render_template, send_from_directory
-from flask import request, jsonify
+from flask import jsonify, session, request, redirect, url_for
 from services import CategoryService, CountyService, ItemService, UserService, ApiException
-from angular_flask.core import api_manager
 from angular_flask.models import *
-from angular_flask.utils import parse_args
+from angular_flask.constants import SESSION_EXPIRED
+from functools import wraps
 
-session = api_manager.session
+### Decorators ###
 
-### Exceptions ###
+def parse_args(method='post', string_args=None, int_args=None, float_args=None, json_args=None, bool_args=None):
+    def actualDecorator(test_func):
+        @wraps(test_func)
+        def wrapper(*args, **kwargs):
+
+            if method == 'get':
+                input = request.args
+            elif request.data:
+                input = json.loads(request.data)
+            else:
+                input = {}
+
+            output = {}
+            for key in string_args or []:
+                output[key] = input.get(key)
+
+            for key in int_args or []:
+                output[key] = int(input.get(key, 0))
+
+            for key in float_args or []:
+                output[key] = float(input.get(key, 0))
+
+            for key in json_args or []:
+                input_json = input.get(key)
+                output[key] = json.loads(input_json) if input_json else input_json
+
+            for key in bool_args or []:
+                output[key] = bool(input.get(key, False))
+
+            return test_func(output, *args, **kwargs)
+        return wrapper
+    return actualDecorator
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('root'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+### Handlers ###
 
 @app.errorhandler(ApiException)
 def handle_api_exception(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
+
+@app.before_request
+def check_session():
+    session.permanent = True
 
 ### Services ###
 
@@ -29,19 +75,27 @@ counties = county_service.get()['results']
 ### Pages ###
 
 @app.route('/')
+def root():
+    return render_template('index.html', **{'counties': counties, 'session': user_service.get_session()})
+
 @app.route('/search')
 @app.route('/item')
+def basic_pages():
+    return root()
+
 @app.route('/profile')
 @app.route('/borrowing')
 @app.route('/lending')
-def basic_pages():
-    return render_template('index.html', **{'counties': counties, 'session': user_service.get_session()})
+@login_required
+def auth_pages():
+    return root()
 
 ### API ###
 
 # Item
 
 @app.route('/api/item', methods=['POST'])
+@login_required
 @parse_args(
     string_args=['title', 'description', 'address', 'image'],
     int_args=['day_rate', 'lender', 'category', 'county_id'],
@@ -52,6 +106,7 @@ def item_post(item):
     return "Added", 200
 
 @app.route('/api/item', methods=['DELETE'])
+@login_required
 @parse_args(
     int_args=['id']
 )
@@ -60,6 +115,7 @@ def item_delete(input):
     return "Deleted", 200
 
 @app.route('/api/item', methods=['PATCH'])
+@login_required
 @parse_args(
     string_args=['title', 'description', 'address', 'image'],
     bool_args=['published'],
@@ -131,6 +187,7 @@ def user_logout():
     return "Logged Out", 200
 
 @app.route('/api/user/password', methods=['POST'])
+@login_required
 @parse_args(
     string_args=['current', 'new']
 )
@@ -155,6 +212,7 @@ def user_post(input):
     return "Added", 200
 
 @app.route('/api/user', methods=['PATCH'])
+@login_required
 @parse_args(
     string_args=['first', 'last', 'email', 'photo', 'phone', 'intro', 'dob'],
 )
@@ -163,6 +221,7 @@ def user_patch(input):
     return "Updated", 200
 
 @app.route('/api/user', methods=['GET'])
+@login_required
 def user_get():
     return flask.jsonify(**user_service.get())
 

@@ -66,7 +66,14 @@ class UserService(Service):
 
     def patch(self, input):
         input['id'] = session['user_id']
-        return super(UserService, self).patch(input)
+
+        # Validate email address if it's being changed
+        email = input['email']
+        if email != session['email']:
+            self._verify_email_valid(email)
+            self._verify_email_available(email)
+        super(UserService, self).patch(input)
+        session['email'] = email
 
     def register(self, input):
         self._verify_email_available(input['email'])
