@@ -49,10 +49,6 @@ function ItemController($scope, $routeParams, Item) {
 	});
 }
 
-function setQueryStringPage(queryString, page){
-	return queryString.split("page")[0] + "page=" + page.toString();
-}
-
 app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '$rootScope', 'Logout',
     function($scope, $window, $cookieStore, $http, $rootScope, Logout) {
     $scope.search_term = $cookieStore.get('sponge_search');
@@ -135,13 +131,8 @@ app.controller('ProfileController', ['$scope', '$location', 'User', 'Password',
 		$scope.profile = profile;
 	});
 	$scope.updateProfile = function(){
-		User.patch($scope.profile, function(success){
-			console.log(success); // TODO - notifications
-		}, function(error){
-			console.log(error); // TODO - notifications
-		});
+		User.patch($scope.profile);
 	};
-
 	$scope.updatePassword = function(){
 		Password.query($scope.password);
 	}

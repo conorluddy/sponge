@@ -36,7 +36,8 @@ angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 			},
 			patch: {
 				method: 'PATCH',
-				params: { }
+				params: { },
+				transformResponse: handleResponse
 			}
 		});
 	})
@@ -68,11 +69,11 @@ angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 		return $resource('/api/user/password', {}, {
 			query: {
 				method: 'POST',
-				params: { }
+				params: { },
+				transformResponse: handleResponse
 			}
 		});
 	})
 ;
-
 
 
