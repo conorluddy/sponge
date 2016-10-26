@@ -140,7 +140,7 @@ app.controller('ProfileController', ['$scope', '$location', 'User', 'Password',
 		notifySuccess(response);
 	};
 	$scope.handleError = function(response){
-		notifyError(response);
+		notifyError(response); // TODO - deal with exceptions thrown by upload endpoint
 	};
 	$scope.validateUpload = function(file){
 		if( ['jpg', 'gif', 'png', 'jpeg'].indexOf(file.getExtension()) == -1 ) {

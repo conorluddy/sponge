@@ -76,6 +76,9 @@ class UserService(Service):
                 session['email'] = email
 
         super(UserService, self).patch(input)
+        
+        if 'photo' in input:
+            session['photo'] = input['photo']
 
     def register(self, input):
         self._verify_email_available(input['email'])
@@ -107,6 +110,7 @@ class UserService(Service):
         session['user_first'] = user['first']
         session['user_last'] = user['last']
         session['email'] = user['email']
+        session['photo'] = user['photo']
 
     def _end_session(self):
         # TODO - expire sessions

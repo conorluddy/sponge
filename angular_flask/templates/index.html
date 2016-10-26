@@ -63,9 +63,15 @@
                     <a href="#" data-toggle="modal" data-target="#signInModal">Sign Up</a>
                 </li>
             {% else %}
+                <li>
+                    {% if session['photo'] != None %}
+                        <img class="rounded-img" src="/static/img/uploads/{{ session['photo'] }}">
+                    {% endif %}
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{ session['user_first'] }} <span class="caret"></span></a>
+                       aria-expanded="false">
+                        {{ session['user_first'] }} <span class="caret"></span></a>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="/profile">Profile</a></li>
                         <li><a href="/borrowing">Borrowing</a></li>
