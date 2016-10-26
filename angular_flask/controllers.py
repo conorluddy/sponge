@@ -5,7 +5,7 @@ from flask import render_template, send_from_directory
 from flask import jsonify, session, request, redirect, url_for
 from services import CategoryService, CountyService, ItemService, UserService, ApiException
 from angular_flask.models import *
-from angular_flask.constants import SESSION_EXPIRED
+from angular_flask.utils import store_file
 from functools import wraps
 
 ### Decorators ###
@@ -224,6 +224,13 @@ def user_patch(input):
 @login_required
 def user_get():
     return flask.jsonify(**user_service.get())
+
+@app.route('/api/user/photo', methods=['POST'])
+@login_required
+def user_photo_post():
+    filename = store_file(request.files['file'])
+    user_service.patch({"photo": filename})
+    return "Updated", 200
 
 ### Other ###
 

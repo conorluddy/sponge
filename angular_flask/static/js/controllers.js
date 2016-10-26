@@ -135,5 +135,22 @@ app.controller('ProfileController', ['$scope', '$location', 'User', 'Password',
 	};
 	$scope.updatePassword = function(){
 		Password.query($scope.password);
-	}
+	};
+	$scope.handleSuccess = function(response){
+		notifySuccess(response);
+	};
+	$scope.handleError = function(response){
+		notifyError(response);
+	};
+	$scope.validateUpload = function(file){
+		if( ['jpg', 'gif', 'png', 'jpeg'].indexOf(file.getExtension()) == -1 ) {
+			notifyError('Please upload a PNG, JPG or GIF');
+			return false;
+		}
+		if( file.file.size > 2000000) {
+			notifyError('Please upload a file smaller than 2 MB');
+			return false;
+		}
+		return true;
+	};
 }]);

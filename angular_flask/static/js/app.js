@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('AngularFlask', ['ngCookies', 'angularFlaskServices', 'ngRoute'])
+var app = angular.module('AngularFlask', ['ngCookies', 'angularFlaskServices', 'ngRoute', 'flow'])
 	.config(['$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider) {
 		$routeProvider

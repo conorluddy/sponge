@@ -1,4 +1,5 @@
-SESSION_DURATION_SECONDS = 1200
+SESSION_DURATION_SECONDS = 2400
+UPLOAD_FOLDER = "/Users/ianluddy/git/sponge/angular_flask/static/img/uploads"
 
 # Strings
 
