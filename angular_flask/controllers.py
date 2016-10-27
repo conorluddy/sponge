@@ -47,7 +47,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            return redirect(url_for('root'))
+            raise ApiException('Please login to continue', 401)
         return f(*args, **kwargs)
     return decorated_function
 
@@ -70,7 +70,7 @@ user_service = UserService()
 category_service = CategoryService()
 county_service = CountyService()
 
-counties = county_service.get()['results']
+counties = county_service.get()['results'] # TODO - hard code this into the base template
 
 ### Pages ###
 
@@ -86,8 +86,9 @@ def basic_pages():
 @app.route('/profile')
 @app.route('/borrowing')
 @app.route('/lending')
-@login_required
 def auth_pages():
+    if 'user_id' not in session:
+        return redirect(url_for('root'))
     return root()
 
 ### API ###

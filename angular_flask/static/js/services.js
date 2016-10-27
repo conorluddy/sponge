@@ -32,12 +32,13 @@ angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 		return $resource('/api/user/', {}, {
 			get: {
 				method: 'GET',
-				params: { }
+				params: { },
+				transformResponse: authResponse
 			},
 			patch: {
 				method: 'PATCH',
 				params: { },
-				transformResponse: handleResponse
+				transformResponse: notifyResponse
 			}
 		});
 	})
@@ -70,7 +71,7 @@ angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 			query: {
 				method: 'POST',
 				params: { },
-				transformResponse: handleResponse
+				transformResponse: notifyResponse
 			}
 		});
 	})
