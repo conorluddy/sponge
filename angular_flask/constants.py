@@ -1,5 +1,43 @@
-SESSION_DURATION_SECONDS = 2400
-UPLOAD_FOLDER = "/Users/ianluddy/git/sponge/angular_flask/static/img/uploads"
+SESSION_DURATION_SECONDS = 24000000  # TODO reset this to 2400
+API_AUTH_ENABLED = False # TODO re-enable this
+PROFILE_UPLOAD_FOLDER = "/Users/ianluddy/git/sponge/angular_flask/static/img/profile"
+ITEM_UPLOAD_FOLDER = "/Users/ianluddy/git/sponge/angular_flask/static/img/items"
+
+
+COUNTIES = [
+    "Antrim",
+    "Armagh",
+    "Carlow",
+    "Cavan",
+    "Clare",
+    "Cork",
+    "Derry",
+    "Donegal",
+    "Down",
+    "Dublin",
+    "Fermanagh",
+    "Galway",
+    "Kerry",
+    "Kildare",
+    "Kilkenny",
+    "Laois",
+    "Leitrim",
+    "Limerick",
+    "Longford",
+    "Louth",
+    "Mayo",
+    "Meath",
+    "Monaghan",
+    "Offaly",
+    "Roscommon",
+    "Sligo",
+    "Tipperary",
+    "Tyrone",
+    "Waterford",
+    "Westmeath",
+    "Wexford",
+    "Wicklow"
+]
 
 # Strings
 
