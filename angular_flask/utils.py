@@ -16,10 +16,10 @@ def geoDistanceString(dist):
 def generate_uuid():
     return str(uuid.uuid4())
 
-def store_profile_photo(file):
+def store_profile_image(file):
     return store_file(file, PROFILE_UPLOAD_FOLDER)
 
-def store_item_photo(file):
+def store_item_image(file):
     return store_file(file, ITEM_UPLOAD_FOLDER)
 
 def store_file(file, path):

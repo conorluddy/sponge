@@ -53,7 +53,7 @@ class County(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-class ItemPhoto(db.Model, BaseModel):
+class ItemImage(db.Model, BaseModel):
 
     item = db.Column(db.Integer, db.ForeignKey('item.id'), primary_key=True)
     image = db.Column(db.String, nullable=False)
@@ -100,7 +100,7 @@ class User(db.Model, BaseModel):
     first = db.Column(db.String, nullable=False)
     last = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
-    photo = db.Column(db.String)
+    image = db.Column(db.String)
     phone = db.Column(db.String)
     dob = db.Column(db.DateTime)
     email_verified = db.Column(db.Boolean, nullable=False, default=False)
