@@ -49,6 +49,14 @@ function ItemController($scope, $routeParams, Item) {
 	});
 }
 
+function ItemEditController($scope, $routeParams, Item) {
+	$scope.$parent.show_subnav = true;
+	var args = {id: $routeParams.id};
+	Item.get(args, function(item) {
+		$scope.item = item;
+	});
+}
+
 app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '$rootScope', 'Logout',
     function($scope, $window, $cookieStore, $http, $rootScope, Logout) {
     $scope.search_term = $cookieStore.get('sponge_search');
@@ -77,8 +85,13 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '
 		});
 	};
 
-    $rootScope.isActive = function(tab){
-		return location.pathname.indexOf(tab) != -1;
+    $rootScope.isActive = function(tabs){
+		for( var i in tabs ){
+			if( location.pathname.indexOf(tabs[i]) != -1 ){
+				return true;
+			}
+		}
+		return false;
 	};
 
 	/*
@@ -97,7 +110,7 @@ app.controller('NavController', ['$scope', '$window', '$cookieStore', '$http', '
 app.controller('LoginController', ['$scope', 'Login',
     function($scope, Login) {
 	$scope.login = function(){
-		Login.query($scope.data, function(){
+	Login.query($scope.data, function(){
 			location.reload();
 		}, function(response){
 			$scope.error = response.data.message;
@@ -153,4 +166,16 @@ app.controller('ProfileController', ['$scope', '$location', 'User', 'Password',
 		}
 		return true;
 	};
+}]);
+
+app.controller('LendingController', ['$scope', 'Listing', function($scope, Listing) {
+	$scope.loadListings = function() {
+		Listing.query({}, function (response) {
+			$scope.listings = response.results;
+		});
+	};
+}]);
+
+app.controller('ItemEditController', ['$scope', function($scope) {
+
 }]);

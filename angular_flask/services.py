@@ -60,6 +60,10 @@ class ItemService(SearchService):
             return self.model_wrapper.search(searchTerm, page, county, category, lat, lng)
         return super(ItemService, self).search(id=id, search=searchTerm, page=page)
 
+    def verify_item_owner(self, item_id):
+        if not self.model_wrapper.get_one(item_id)['lender'] == session['user_id']:
+            raise ApiException(ITEM_NOT_AUTH, status_code=401)
+
 class UserService(Service):
     model_wrapper = UserWrapper()
 

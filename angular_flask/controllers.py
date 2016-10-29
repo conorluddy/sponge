@@ -65,6 +65,10 @@ def handle_api_exception(error):
 def check_session():
     session.permanent = True
 
+def validate_session():
+    if API_AUTH_ENABLED and 'user_id' not in session:
+        return redirect(url_for('root'))
+
 ### Services ###
 
 item_service = ItemService()
@@ -87,9 +91,14 @@ def basic_pages():
 @app.route('/borrowing')
 @app.route('/lending')
 def auth_pages():
-    if API_AUTH_ENABLED and 'user_id' not in session:
-        return redirect(url_for('root'))
+    validate_session()
     return root()
+
+@app.route('/item/edit', methods=['GET'])
+@parse_args(method='get', int_args=['id'])
+def item_edit(input):
+    item_service.verify_item_owner(input['id'])
+    return auth_pages()
 
 ### API ###
 

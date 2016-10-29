@@ -159,12 +159,60 @@
 	}
 }
 
+#item_edit{
+		.listing-title{
+				margin-bottom: 15px;
+				font-size: 1.8em;
+		}
+		.gallery-box{
+				display: inline-block;
+				margin-right: 20px;
+				img {
+						height: 120px;
+				}
+		}
+}
+
 #profile{
 		.thumbnail{
 				display: inline-block;
 				cursor: pointer;
 				> img{
 						max-height: 200px;
+				}
+		}
+}
+
+#lending{
+		.listing{
+				height: 110px;
+				margin-bottom: 20px;
+				.details{
+						display: inline-block;
+				    margin-left: 15px;
+
+						.title{
+								font-size: 1.5em;
+								display: inline-block;
+						}
+						.rate, .location {
+								opacity: 0.6;
+						}
+				}
+				.buttons{
+						display: inline-block;
+						float: right;
+						.btn{
+								width: 80px;
+								margin-bottom: 10px;
+						}
+				}
+				.image{
+						min-width: 150px;
+						display: inline-block;
+						img{
+								height: 110px;
+						}
 				}
 		}
 }

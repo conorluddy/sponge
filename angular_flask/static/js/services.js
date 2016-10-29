@@ -75,6 +75,15 @@ angular.module('angularFlaskServices', ['ngResource', 'ngRoute'])
 			}
 		});
 	})
+	.factory('Listing', function($resource) {
+		return $resource('/api/user/listings', {}, {
+			query: {
+				method: 'GET',
+				params: { },
+				transformResponse: authResponse
+			}
+		});
+	})
 ;
 
 

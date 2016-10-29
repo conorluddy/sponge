@@ -211,9 +211,9 @@
 
 <div id="subnav" ng-show="show_subnav">
     <div class="container">
-        <div class="" ng-class="{active: isActive('profile')}"><a href="/profile">Profile</a></div>
-        <div class="" ng-class="{active: isActive('borrowing')}"><a href="/borrowing">Borrowing</a></div>
-        <div class="" ng-class="{active: isActive('lending')}"><a href="/lending">Lending</a></div>
+        <div class="" ng-class="{active: isActive(['profile'])}"><a href="/profile">Profile</a></div>
+        <div class="" ng-class="{active: isActive(['borrowing'])}"><a href="/borrowing">Borrowing</a></div>
+        <div class="" ng-class="{active: isActive(['lending', 'item/edit'])}"><a href="/lending">Lending</a></div>
     </div>
 </div>
 

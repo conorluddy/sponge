@@ -1,3 +1,59 @@
-<div>
-	Lending
+<div id="lending" ng-controller="TabController">
+    <div ng-controller="LendingController">
+        <div ng-init="sel('items'); loadListings();" class="tab-wrapper col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" ng-class="{active: chk('items')}" ng-click="sel('items'); loadListings();">
+                    <a>Your Items</a>
+                </li>
+                <li role="presentation" ng-class="{active: chk('reservations')}" ng-click="sel('reservations')">
+                    <a>Your Reservations</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div ng-show="selectedTab == 'items'">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Items</div>
+                    <div class="panel-body">
+                        <div class="listing" ng-repeat="listing in listings">
+                            <div class="image">
+                                <a href="/item/edit?id={{ listing.id }}" >
+                                    <img src="/static/img/items/{{ listing.image }}">
+                                </a>
+                            </div>
+                            <div class="details">
+                                <div class="title">
+                                    <a href="/item/edit?id={{ listing.id }}" >
+                                        {{ listing.title }}
+                                    </a>
+                                </div>
+                                <div class="rate">
+                                    €{{ listing.day_rate }} per day
+                                </div>
+                                <div class="location">
+                                    {{ listing.county }}
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <div>
+                                    <a class="btn btn-primary pull-right" href="/item/edit?id={{ listing.id }}">Edit</a>
+                                </div>
+                                <div>
+                                    <a class="btn btn-default pull-right" href="/item?id={{ listing.id }}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="selectedTab == 'reservations'">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Reservations</div>
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

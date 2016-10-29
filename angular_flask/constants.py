@@ -41,6 +41,7 @@ COUNTIES = [
 
 # Strings
 
+ITEM_NOT_AUTH = "You dont have permission to edit this item"
 EMAIL_NOT_FOUND = "Email address not registered"
 EMAIL_ADDRESS_TAKEN = "Email address already registered"
 PASSWORD_DOESNT_MATCH = "Password doesn't match"
