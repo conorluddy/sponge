@@ -165,7 +165,7 @@
             "lender":1,
             "day_rate":5.00,
             "address": "123 Fake St.",
-            "image":"bike1.jpg",
+            "image":"bbq.jpeg",
             "county_id": 10,
             "lat": 53.43862980000001,
             "lng": -6.287866999999999
@@ -237,7 +237,7 @@
             "lender":3,
             "day_rate":5.00,
             "address": "123 Fake St.",
-            "image":"bike1.jpg",
+            "image":"bbq.jpeg",
             "county_id": 10,
             "lat": 53.43862980000001,
             "lng": -6.287866999999999
@@ -301,7 +301,7 @@
             "lender":4,
             "day_rate":5.00,
             "address": "123 Fake St.",
-            "image":"bike1.jpg",
+            "image":"bbq.jpeg",
             "county_id": 10
         },
         {
@@ -361,7 +361,7 @@
             "lender":4,
             "day_rate":5.00,
             "address": "123 Fake St.",
-            "image":"bike1.jpg",
+            "image":"bbq.jpeg",
             "county_id": 10
         }
     ],
