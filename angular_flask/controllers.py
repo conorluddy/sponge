@@ -5,8 +5,8 @@ from flask import render_template, send_from_directory
 from flask import jsonify, session, request, redirect, url_for
 from services import CategoryService, CountyService, ItemService, UserService, ApiException
 from angular_flask.models import *
-from angular_flask.utils import store_profile_photo
-from angular_flask.constants import API_AUTH_ENABLED
+from angular_flask.utils import store_profile_image
+from angular_flask.constants import *
 
 from functools import wraps
 
@@ -104,7 +104,7 @@ def auth_pages():
 )
 def item_post(item):
     item_service.post(item)
-    return "Added", 200
+    return LISTING_ADDED, 200
 
 @app.route('/api/item', methods=['DELETE'])
 @login_required
@@ -113,7 +113,7 @@ def item_post(item):
 )
 def item_delete(input):
     item_service.delete(input['id'])
-    return "Deleted", 200
+    return LISTING_DELETED, 200
 
 @app.route('/api/item', methods=['PATCH'])
 @login_required
@@ -124,7 +124,7 @@ def item_delete(input):
 )
 def item_patch(item):
     item_service.patch(item)
-    return "Updated", 200
+    return LISTING_UPDATED, 200
 
 @app.route('/api/item', methods=['GET'])
 @parse_args(
@@ -156,7 +156,7 @@ def category_get():
 )
 def category_post(category):
     category_service.post(category)
-    return "Added", 200
+    return ADDED, 200
 
 # County
 
@@ -170,7 +170,7 @@ def county_get():
 )
 def county_post(county):
     county_service.post(county)
-    return "Added", 200
+    return ADDED, 200
 
 # User
 
@@ -180,12 +180,12 @@ def county_post(county):
 )
 def user_register(input):
     user_service.register(input)
-    return "Registered", 200
+    return ACCOUNT_CREATED, 200
 
 @app.route('/api/user/logout', methods=['GET'])
 def user_logout():
     user_service.logout()
-    return "Logged Out", 200
+    return LOGGED_OUT, 200
 
 @app.route('/api/user/password', methods=['POST'])
 @login_required
@@ -194,7 +194,7 @@ def user_logout():
 )
 def user_change_password(input):
     user_service.change_password(input)
-    return "Updated", 200
+    return PASSWORD_CHANGED, 200
 
 @app.route('/api/user/login', methods=['POST'])
 @parse_args(
@@ -202,36 +202,36 @@ def user_change_password(input):
 )
 def user_login(input):
     user_service.login(input)
-    return "Logged In", 200
+    return LOGGED_IN, 200
 
 @app.route('/api/user', methods=['POST'])
 @parse_args(
-    string_args=['first', 'last', 'email', 'password', 'photo', 'phone', 'intro'],
+    string_args=['first', 'last', 'email', 'password', 'image', 'phone', 'intro'],
 )
 def user_post(input):
     user_service.post(input)
-    return "Added", 200
+    return ADDED, 200
 
 @app.route('/api/user', methods=['PATCH'])
 @login_required
 @parse_args(
-    string_args=['first', 'last', 'email', 'photo', 'phone', 'intro', 'dob'],
+    string_args=['first', 'last', 'email', 'image', 'phone', 'intro', 'dob'],
 )
 def user_patch(input):
     user_service.patch(input)
-    return "Updated", 200
+    return PROFILE_UPDATED, 200
 
 @app.route('/api/user', methods=['GET'])
 @login_required
 def user_get():
     return flask.jsonify(**user_service.get())
 
-@app.route('/api/user/photo', methods=['POST'])
+@app.route('/api/user/image', methods=['POST'])
 @login_required
-def user_photo_post():
-    filename = store_profile_photo(request.files['file'])
-    user_service.patch({"photo": filename})
-    return "Updated", 200
+def user_image_post():
+    filename = store_profile_image(request.files['file'])
+    user_service.patch({"image": filename})
+    return PHOTO_UPDATED, 200
 
 @app.route('/api/user/listings', methods=['GET'])
 @login_required
