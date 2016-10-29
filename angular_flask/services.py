@@ -22,9 +22,11 @@ class Service(object):
 
     model_wrapper = None
 
-    def get(self, id=None):
-        if id:
-            return self.model_wrapper.get_one(id)
+    def get(self, key=None, field='id', many=False):
+        if key is not None:
+            if many:
+                return self.model_wrapper.get_many(key, field)
+            return self.model_wrapper.get_one(key, field)
         return self.model_wrapper.get_all()
 
     def post(self, model):
@@ -38,10 +40,10 @@ class Service(object):
 
 class SearchService(Service):
 
-    def get(self, id=None, search=None, page=None):
+    def search(self, id=None, search=None, page=None):
         if search:
             return self.model_wrapper.search(search, page)
-        return super(SearchService, self).get(id=id)
+        return super(SearchService, self).get(id)
 
 class CategoryService(Service):
     model_wrapper = CategoryWrapper()
@@ -53,16 +55,16 @@ class ItemService(SearchService):
 
     model_wrapper = ItemWrapper()
 
-    def get(self, id=None, search=None, page=None, category=None, county=None, lat=None, lng=None):
-        if search or category:
-            return self.model_wrapper.search(search, page, county, category, lat, lng)
-        return super(ItemService, self).get(id=id, search=search, page=page)
+    def search(self, id=None, searchTerm=None, page=None, category=None, county=None, lat=None, lng=None):
+        if searchTerm or category:
+            return self.model_wrapper.search(searchTerm, page, county, category, lat, lng)
+        return super(ItemService, self).search(id=id, search=searchTerm, page=page)
 
 class UserService(Service):
     model_wrapper = UserWrapper()
 
     def get(self):
-        return super(UserService, self).get(id=session['user_id'])
+        return super(UserService, self).get(session['user_id'])
 
     def patch(self, input):
         input['id'] = session['user_id'] # Can only patch the logged in user

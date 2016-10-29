@@ -43,11 +43,135 @@
                         <li>
                             <div ng-click="setCountyId(0); setCounty('Anywhere')"> Anywhere</div>
                         </li>
-                        {% for county in counties %}
-                            <li>
-                                <div ng-click="setCountyId('{{ county.id }}'); setCounty('{{ county.name }}')">{{ county.name }}</div>
-                            </li>
-                        {% endfor %}
+
+                        <li>
+                            <div ng-click="setCountyId('1'); setCounty('Antrim')">Antrim</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('2'); setCounty('Armagh')">Armagh</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('3'); setCounty('Carlow')">Carlow</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('4'); setCounty('Cavan')">Cavan</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('5'); setCounty('Clare')">Clare</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('6'); setCounty('Cork')">Cork</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('7'); setCounty('Derry')">Derry</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('8'); setCounty('Donegal')">Donegal</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('9'); setCounty('Down')">Down</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('10'); setCounty('Dublin')">Dublin</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('11'); setCounty('Fermanagh')">Fermanagh</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('12'); setCounty('Galway')">Galway</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('13'); setCounty('Kerry')">Kerry</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('14'); setCounty('Kildare')">Kildare</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('15'); setCounty('Kilkenny')">Kilkenny</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('16'); setCounty('Laois')">Laois</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('17'); setCounty('Leitrim')">Leitrim</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('18'); setCounty('Limerick')">Limerick</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('19'); setCounty('Longford')">Longford</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('20'); setCounty('Louth')">Louth</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('21'); setCounty('Mayo')">Mayo</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('22'); setCounty('Meath')">Meath</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('23'); setCounty('Monaghan')">Monaghan</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('24'); setCounty('Offaly')">Offaly</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('25'); setCounty('Roscommon')">Roscommon</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('26'); setCounty('Sligo')">Sligo</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('27'); setCounty('Tipperary')">Tipperary</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('28'); setCounty('Tyrone')">Tyrone</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('29'); setCounty('Waterford')">Waterford</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('30'); setCounty('Westmeath')">Westmeath</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('31'); setCounty('Wexford')">Wexford</div>
+                        </li>
+
+                        <li>
+                            <div ng-click="setCountyId('32'); setCounty('Wicklow')">Wicklow</div>
+                        </li>
+                    </ul>
                     </ul>
                 </div>
             </div>
@@ -65,7 +189,7 @@
             {% else %}
                 <li>
                     {% if session['photo'] != None %}
-                        <img class="rounded-img" src="/static/img/uploads/{{ session['photo'] }}">
+                        <img class="rounded-img" src="/static/img/profile/{{ session['photo'] }}">
                     {% endif %}
                 </li>
                 <li class="dropdown">
@@ -85,7 +209,7 @@
     </div>
 </nav>
 
-<div id="subnav" ng-show="show_subnav" >
+<div id="subnav" ng-show="show_subnav">
     <div class="container">
         <div class="" ng-class="{active: isActive('profile')}"><a href="/profile">Profile</a></div>
         <div class="" ng-class="{active: isActive('borrowing')}"><a href="/borrowing">Borrowing</a></div>
@@ -99,7 +223,8 @@
 
 <footer id="footer" class="footer"></footer>
 
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" ng-controller="LoginController">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true"
+     ng-controller="LoginController">
     <div class="form-modal modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -117,7 +242,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" ng-controller="SignupController">
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true"
+     ng-controller="SignupController">
     <div class="form-modal modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

@@ -5,7 +5,9 @@ from flask import render_template, send_from_directory
 from flask import jsonify, session, request, redirect, url_for
 from services import CategoryService, CountyService, ItemService, UserService, ApiException
 from angular_flask.models import *
-from angular_flask.utils import store_file
+from angular_flask.utils import store_profile_photo
+from angular_flask.constants import API_AUTH_ENABLED
+
 from functools import wraps
 
 ### Decorators ###
@@ -46,7 +48,7 @@ def parse_args(method='post', string_args=None, int_args=None, float_args=None, 
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
+        if API_AUTH_ENABLED and 'user_id' not in session:
             raise ApiException('Please login to continue', 401)
         return f(*args, **kwargs)
     return decorated_function
@@ -70,13 +72,11 @@ user_service = UserService()
 category_service = CategoryService()
 county_service = CountyService()
 
-counties = county_service.get()['results'] # TODO - hard code this into the base template
-
 ### Pages ###
 
 @app.route('/')
 def root():
-    return render_template('index.html', **{'counties': counties, 'session': user_service.get_session()})
+    return render_template('index.html', **{'session': user_service.get_session()})
 
 @app.route('/search')
 @app.route('/item')
@@ -87,7 +87,7 @@ def basic_pages():
 @app.route('/borrowing')
 @app.route('/lending')
 def auth_pages():
-    if 'user_id' not in session:
+    if API_AUTH_ENABLED and 'user_id' not in session:
         return redirect(url_for('root'))
     return root()
 
@@ -133,9 +133,9 @@ def item_patch(item):
     string_args=['search']
 )
 def item_get(input):
-    return flask.jsonify(**item_service.get(
+    return flask.jsonify(**item_service.search(
         id=input.get('id'),
-        search=input.get('search'),
+        searchTerm=input.get('search'),
         category=input.get('category'),
         page=input.get('page'),
         county=input.get('county'),
@@ -229,9 +229,14 @@ def user_get():
 @app.route('/api/user/photo', methods=['POST'])
 @login_required
 def user_photo_post():
-    filename = store_file(request.files['file'])
+    filename = store_profile_photo(request.files['file'])
     user_service.patch({"photo": filename})
     return "Updated", 200
+
+@app.route('/api/user/listings', methods=['GET'])
+@login_required
+def user_listings():
+    return flask.jsonify(**item_service.get(session['user_id'], field='lender', many=True))
 
 ### Other ###
 

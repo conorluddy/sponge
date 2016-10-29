@@ -30,6 +30,10 @@ class DatabaseModelWrapper(object):
             except NoResultFound:
                 return None
 
+    def get_many(self, value, field="id"):
+        with session_scope() as session:
+            return self._map_multiple_to_json(session.query(self.model).filter(getattr(self.model, field) == value).all())
+
     def get_all(self):
         with session_scope() as session:
             return self._map_multiple_to_json(session.query(self.model).all())
@@ -56,6 +60,8 @@ class DatabaseModelWrapper(object):
         return item.to_dict()
 
     def _map_multiple_to_json(self, items):
+        if not items:
+            return {"results": []}
         return {"results": [self._map_to_json(item) for item in items]}
 
 class SearchDatabaseModelWrapper(DatabaseModelWrapper):

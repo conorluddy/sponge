@@ -1,9 +1,12 @@
 from angular_flask.core import db
 from angular_flask import app
+from datetime import datetime
 
 # TODO - add indexes
 
 class BaseModel:
+
+    created = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     def __init__(self, **kwargs):
         for key, value in kwargs.iteritems():
