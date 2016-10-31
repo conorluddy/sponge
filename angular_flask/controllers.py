@@ -97,7 +97,8 @@ def auth_pages():
 @app.route('/item/edit', methods=['GET'])
 @parse_args(method='get', int_args=['id'])
 def item_edit(input):
-    item_service.verify_item_owner(input['id'])
+    if input['id']:
+        item_service.verify_item_owner(input['id'])
     return auth_pages()
 
 ### API ###
